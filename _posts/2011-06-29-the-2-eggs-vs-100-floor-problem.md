@@ -82,7 +82,7 @@ be no egg left to find out the exact answer.
 However if the first egg does not break when dropped from 50th floor, we now
 still have 2 eggs to spare, which would allow us to perform more binary searches
 through 51-100th floor until we have only 1 egg left. So in short, we can only
-performing binary search when we have both eggs intact, and linear search when
+perform binary search when we have both eggs intact, and linear search when
 we have only 1 of them left. Pretty straighforward.
 
 ## More binary search!

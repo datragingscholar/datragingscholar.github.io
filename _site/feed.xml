@@ -1,8 +1,618 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-22T15:03:02+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-22T16:32:05+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
-&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">2 Eggs versus 100 Floor</title><link href="http://localhost:4000/the-2-eggs-vs-100-floor-problem/" rel="alternate" type="text/html" title="2 Eggs versus 100 Floor" /><published>2011-06-29T00:00:00+08:00</published><updated>2011-06-29T00:00:00+08:00</updated><id>http://localhost:4000/the-2-eggs-vs-100-floor-problem</id><content type="html" xml:base="http://localhost:4000/the-2-eggs-vs-100-floor-problem/">&lt;p&gt;I saw this problem posted on Facebook today, and find it really intriguing and
+&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module</title><link href="http://localhost:4000/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/" rel="alternate" type="text/html" title="FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module" /><published>2012-06-08T00:00:00+08:00</published><updated>2012-06-08T00:00:00+08:00</updated><id>http://localhost:4000/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module</id><content type="html" xml:base="http://localhost:4000/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/">&lt;p&gt;Needless to say that the first thing you need to start FreeBSD kernel rootkit
+development is a FreeBSD box. There are plenty of installation guides on the
+Internet about FreeBSD installation, so that I’ll just skip this part for the
+sake of simplicity.&lt;/p&gt;
+
+&lt;p&gt;And FYI, basically you are free to choose any hardware to run FreeBSD as long as
+it’s supported. You can even install your FreeBSD as a virtual machine. 5GB hard
+drive, at least 256MB memory with any modern CPU will do.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-environment&quot;&gt;The Environment&lt;/h2&gt;
+
+&lt;p&gt;The version of FreeBSD I’m going to use throughout this howtos is FreeBSD 9
+Stable, it is recommended that you install at least FreeBSD 9 Release although I
+believe code examples in this howtos are able to run on most of versions after
+FreeBSD 6.2&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# uname -a
+FreeBSD myBSD 9.0-STABLE FreeBSD 9.0-STABLE #0: Thu Mar  8 14:16:25 CST 2012 bestwc@myBSD:/usr/obj/usr/src/sys/GENERIC  amd64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;package-installation&quot;&gt;Package Installation&lt;/h2&gt;
+
+&lt;p&gt;You’ll need the FreeBSD source tree to compile your kernel rootkit, be sure to
+install it because it is not included in minimal installation. You can do this
+by two ways, the first is to enable src distribution option during installation,
+and the recommended way is to perform the following command after the
+installation.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# cp /usr/share/examples/cvsup/stable-supfile /root &amp;amp;&amp;amp; cd /root
+myBSD# ee stable-supfile
+=================================
+*default host=CHANGE_THIS.FreeBSD.org ###Change this line
+*default host=cvsup.FreeBSD.org ###To this
+=================================
+myBSD# csup -g -L2 stable-supfile
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will sync the source tree on your local file system to the latest one from
+remote repository, and this will simply download the latest for you if you don’t
+already have the source tree. It is recommended to run the cusp command shown
+above to frequently update your source tree, for this will make sure your are
+developing rootkit with the newest kernel source code, and potentially make it
+more compatible with new FreeBSD releases.&lt;/p&gt;
+
+&lt;p&gt;To examine if you have the src tree on your local box, type the following
+command:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# ls /usr/src
+COPYRIGHT       ObsoleteFiles.inc       crypto          lib         share
+LOCKS           README      etc         libexec         sys
+MAINTAINERS     UPDATING    games       release         tools
+Makefile        bin         gnu         rescue          usr.bin
+Makefile.inc1   cddl        include     sbin            usr.sbin
+Makefile.mips   contrib     kerberos5   secure
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;the-dynamic-kernel-linker-kld&quot;&gt;The Dynamic Kernel Linker (KLD)&lt;/h2&gt;
+
+&lt;p&gt;The Dynamic Kernel Linker (KLD) is a facility in FreeBSD that allows users to
+interact with the system kernel by dynamically loading or unloading kernel
+modules. It may sounds strange to you, but believe it or not that you have
+utilized KLD multiple times during daily operations on your FreeBSD box. The KLD
+gets called every time you plug in or plug out a device, or by manually typing
+kldload or kldunload commands. It is especially useful to device driver
+developers as they can dynamically load their drivers as kernel module and test
+the functionalities on the fly without rebooting the system. For more
+information on the KLD, please refer to the FreeBSD Handbook.&lt;/p&gt;
+
+&lt;p&gt;The KLD provides a high way for us to put our code into the running kernel space
+without recompiling as long as we have the required privilege. So that, if we
+have our kernel rootkit compiled as loadable kernel module, then we’ll
+theoretically be able to load that module in any FreeBSD machines on the fly.&lt;/p&gt;
+
+&lt;p&gt;Although the KLD interface is not the only way for people to interact with
+kernel, but is undoubtedly the easiest and probably the fastest way to do that.
+The only question is, will there be any compatibility issues if we stick to KLD
+interface?&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In FreeBSD 3.0, substantial changes were made to the kernel module subsystem,
+and the LKM Facility was renamed the Dynamic Kernel Linker (KLD) Facility.
+Subsequently, the term KLD is commonly used to describe LKMs under FreeBSD.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;According to the quote above from Designing BSD Rootkits: An Introduction to
+Kernel Hacking by Joseph Kong, the KLD interface hasn’t been changed since
+FreeBSD 3.0, which means our yet-to-be-done rootkit should be able to run on any
+(not always true) modern FreeBSD systems without any (not always true as well)
+modification.&lt;/p&gt;
+
+&lt;p&gt;Just in case that you haven’t realized, we are going to use KLD interfaces a lot
+in this tutorial. Now let’s get to know the KLD interface more.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-module-event-handler&quot;&gt;The Module Event Handler&lt;/h2&gt;
+
+&lt;p&gt;When you load or unload any kernel modules to or from the current running
+kernel, the KLD interface will perform some pre-defined routines to prepare the
+system. This is called the Module Event Handler, it should be present in
+every(!) kernel module to handle the initialization and shutdown processes. This
+handler gets called every time when the code enters or exits kernel space.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;(!) Just keep in mind that this isn’t always true, as what the quote says below
+from Designing BSD Rootkits: An Introduction to Kernel Hacking&lt;/em&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Actually, this isn’t entirely true. You can have a KLD that just includes a
+sysctl. You can also dispense with module handlers if you wish and just use
+SYSINIT and SYSUNINIT directly to register functions to be invoked on load and
+unload, respectively. You can’t, however, indicate failure in those.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The prototype of the module event handler is defined in &lt;em&gt;sys/module.h&lt;/em&gt; and it is
+called &lt;em&gt;modeventhand_t&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;myBSD&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modeventhand_t&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;modeventhand_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* modeventtype_t */&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And &lt;em&gt;module_t&lt;/em&gt; is a pointer to the module’s struct as defined in the same file.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;em&gt;modeventtype_t&lt;/em&gt; on the other hand is an enumerated type of event types
+defined in the same file as well.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modeventtype&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MOD_LOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Set when module is loaded. */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MOD_UNLOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Set when module is unloaded. */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MOD_SHUTDOWN&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Set on shutdown. */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MOD_QUIESCE&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Set on quiesce. */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;modeventtype_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With all these information, we can now try to define a simple module event
+handler. Here is a simple event handler function called load, which displays
+Hello, world! when it’s loaded, and print Good-bye, cruel world! when it’s
+unloaded.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD_LOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, world!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD_UNLOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Good-bye, cruel world!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nl&quot;&gt;default:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EOPNOTSUPP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//EOPNOTSUPP stands for Error: Operation not supported.
+&lt;/span&gt;        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It’s perfectly safe if this code doesn’t make much sense to you, as we will get
+back later. However, what you do need to understand is the prototype of defining
+a &lt;em&gt;module event handler&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This code snippet should present in your first loadable kernel module, and
+perform pre-defined routines according to the cmd sent by the kernel
+accordingly.&lt;/p&gt;
+
+&lt;p&gt;Consider this to be a protocol between your module and the kernel, which
+basically says &lt;em&gt;“Oh the user asked you to unload me? Hold on and let me check my
+event handler, alright, I’ll print Good-bye, cruel world! and then go away.”&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-declare_module-macro&quot;&gt;The DECLARE_MODULE Macro&lt;/h2&gt;
+
+&lt;p&gt;It’s time to get back to our module declaration.&lt;/p&gt;
+
+&lt;p&gt;We now know &lt;em&gt;module_t&lt;/em&gt; is a pointer to the module structure, but what on earth is
+a module and how do we define it? The thing is, we must let KLD know the basic
+information about our module, and it should register itself with kernel when it
+loads. This process can be awfully long and complicated, lucky that we have a
+pre-defined macro in sys/module.h that just does this to help us.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#define DECLARE_MODULE_WITH_MAXVER(name, data, sub, order, maxver)
+#define DECLARE_MODULE(name, data, sub, order)
+&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;declared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DECLARE_MODULE_TIED&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;only&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;loaded&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#define DECLARE_MODULE_TIED(name, data, sub, order)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As shown above, there are actually tree macros for us to declare a module,
+&lt;em&gt;DECLARE_MODULE&lt;/em&gt;, &lt;em&gt;DECLARE_MODULE_TIED&lt;/em&gt;, and &lt;em&gt;DECLARE_MODULE_WITH_MAXVER&lt;/em&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;DECLARE_MODULE
+    &lt;ul&gt;
+      &lt;li&gt;The simplest one that requires only four parameters to be passed, for normal
+purposes&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DECLARE_MODULE_TIED
+    &lt;ul&gt;
+      &lt;li&gt;Use this macro when your kernel module can only be loaded into the kernel
+with exactly the same &lt;em&gt;FreeBSD_version&lt;/em&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DECLARE_MODULE_WITH_MAXVER
+    &lt;ul&gt;
+      &lt;li&gt;To declare kernel modules that can only run on machines with FreeBSD version
+maxver or lower&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We’ll stick with the general &lt;em&gt;DECLARE_MODULE&lt;/em&gt; macro, and now let’s discuss it’s
+four parameters: &lt;em&gt;name&lt;/em&gt;, &lt;em&gt;data&lt;/em&gt;, &lt;em&gt;sub&lt;/em&gt;, and &lt;em&gt;order&lt;/em&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;name&quot;&gt;name&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This specifies the generic module name, which is passed as a character string.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;data&quot;&gt;data&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This parameter specifies the official module name and event handler function,
+which is passed as a moduledata structure.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The &lt;em&gt;moduledata structure&lt;/em&gt; is defined in sys/module.h&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;moduledata&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;          &lt;span class=&quot;cm&quot;&gt;/* module name */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;modeventhand_t&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;evhand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;         &lt;span class=&quot;cm&quot;&gt;/* event handler */&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;priv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;          &lt;span class=&quot;cm&quot;&gt;/* extra data */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;moduledata_t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;sub&quot;&gt;sub&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This specifies the system startup interface namely sysinit_sui_id, which
+identifies the module type.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We can find a complete list of &lt;em&gt;sysinit_sub_id&lt;/em&gt; from sys/kernel.h&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kernel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sysinit_sub_id&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DUMMY&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* not executed; for linker*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DONE&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* processed*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_TUNABLES&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0700000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* establish tunable values */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_COPYRIGHT&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0800001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* first use of console*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SETTINGS&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0880000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* check and recheck settings */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MTX_POOL_STATIC&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0900000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* static mutex pool */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_LOCKMGR&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0980000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* lockmgr locks */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VM&lt;/span&gt;               &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* virtual memory system init*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KMEM&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* kernel memory*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KVM_RSRC&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1A00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* kvm operational limits*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_WITNESS&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1A80000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* witness initialization */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MTX_POOL_DYNAMIC&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1AC0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* dynamic mutex pool */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_LOCK&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1B00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* various locks */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_EVENTHANDLER&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1C00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* eventhandler init */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VNET_PRELINK&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1E00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* vnet init before modules */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KLD&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* KLD and module setup */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CPU&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* CPU resource(s)*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RACCT&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2110000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* resource accounting */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RANDOM&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2120000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* random number generator */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KDTRACE&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2140000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Kernel dtrace hooks */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MAC&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2180000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* TrustedBSD MAC subsystem */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MAC_POLICY&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x21C0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* TrustedBSD MAC policies */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MAC_LATE&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x21D0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* TrustedBSD MAC subsystem */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VNET&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x21E0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* vnet 0 */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_INTRINSIC&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2200000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* proc 0*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VM_CONF&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2300000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* config VM, set limits*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DDB_SERVICES&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2380000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* capture, scripting, etc. */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RUN_QUEUE&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2400000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* set up run queue*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTRACE&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2480000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* ktrace */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_OPENSOLARIS&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2490000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* OpenSolaris compatibility */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CYCLIC&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x24A0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Cyclic timers */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_AUDIT&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x24C0000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* audit */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CREATE_INIT&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2500000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* create init process*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SCHED_IDLE&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2600000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* required idle procs */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_MBUF&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2700000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* mbuf subsystem */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_INTR&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* interrupt threads */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SOFTINTR&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2800001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* start soft interrupt thread */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_ACL&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2900000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* start for filesystem ACLs */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DEVFS&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x2F00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* devfs ready for devices */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_INIT_IF&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* prep for net interfaces */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_NETGRAPH&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3010000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Let Netgraph initialize */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DTRACE&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3020000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* DTrace subsystem */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DTRACE_PROVIDER&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3048000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* DTrace providers */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DTRACE_ANON&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x308C000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* DTrace anon enabling */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DRIVERS&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Let Drivers initialize */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CONFIGURE&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x3800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Configure devices */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VFS&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x4000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* virtual filesystem*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CLOCKS&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x4800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* real time and stat clocks*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_CLIST&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x5800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* clists*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SYSV_SHM&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x6400000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* System V shared memory*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SYSV_SEM&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x6800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* System V semaphores*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SYSV_MSG&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x6C00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* System V message queues*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_P1003_1B&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x6E00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* P1003.1B realtime */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PSEUDO&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x7000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* pseudo devices*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_EXEC&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x7400000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* execve() handlers */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_BEGIN&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* XXX: set splimp (kludge)*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_IF&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8400000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* interfaces*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_DOMAININIT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8600000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* domain registration system */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_DOMAIN&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* domains (address families?)*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_IFATTACHDOMAIN&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8800001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* domain dependent data init*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_PROTO_END&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x8ffffff&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* XXX: set splx (kludge)*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KPROF&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x9000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* kernel profiling*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KICK_SCHEDULER&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xa000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* start the timeout events*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_INT_CONFIG_HOOKS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xa800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Interrupts enabled config */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_ROOT_CONF&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xb000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Find root devices */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_DUMP_CONF&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xb200000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Find dump devices */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RAID&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xb380000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Configure GEOM classes */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SWAP&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xc000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* swap */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_INTRINSIC_POST&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xd000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* proc 0 cleanup*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SYSCALLS&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xd800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* register system calls */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_VNET_DONE&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xdc00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* vnet registration complete */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_INIT&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xe000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* init process*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_PAGE&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xe400000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* pageout daemon*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_VM&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xe800000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* vm daemon*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_BUF&lt;/span&gt;      &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xea00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* buffer daemon*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_UPDATE&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xec00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* update daemon*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_KTHREAD_IDLE&lt;/span&gt;     &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xee00000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* idle procs*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_SMP&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xf000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* start the APs*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RACCTD&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xf100000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* start raccd*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_SUB_RUN_SCHEDULER&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xfffffff&lt;/span&gt;     &lt;span class=&quot;cm&quot;&gt;/* scheduler*/&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;sysinit_sub_id&lt;/em&gt; is a list of pre-defined enumerated constant data to declare
+kernel modules for different purposes. We’ll use &lt;em&gt;SI_SUB_DRIVERS&lt;/em&gt; in our first few
+examples, and some other useful subs are to be introduced in later chapters.&lt;/p&gt;
+
+&lt;h3 id=&quot;order&quot;&gt;order&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This specifies the KLD’s order of initialization within the subsystem, namely
+the &lt;em&gt;sysinit_elem_order&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;A complete list of &lt;em&gt;sysinit_elem_order&lt;/em&gt; can be found in sys/kernel.h&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nl&quot;&gt;FILE:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kernel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;h&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sysinit_elem_order&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_FIRST&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* first*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_SECOND&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* second*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_THIRD&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000002&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* third*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_FOURTH&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x0000003&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* fourth*/&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_MIDDLE&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0x1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* somewhere in the middle */&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;SI_ORDER_ANY&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mh&quot;&gt;0xfffffff&lt;/span&gt;     &lt;span class=&quot;cm&quot;&gt;/* last*/&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;For the sake of simplicity and to concentrate on our purpose, we’ll stick to
+&lt;em&gt;SI_ORDER_MIDDLE&lt;/em&gt; which declares our kernel module somewhere in the middle of the
+KLD subsystem. We will discuss the others if we need to.&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;p&gt;We’ve talked lots of concepts and kernel terminology, probably too much for a
+beginner. So just before we go for example code, let’s try to quickly review
+what we have discussed first.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;em&gt;KLD&lt;/em&gt; is the way how we interact our code with FreeBSD kernel&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Every KLD module (At least in our case) needs a &lt;em&gt;module event handler&lt;/em&gt; called
+&lt;em&gt;modeventhand_t&lt;/em&gt; and it is defined in sys/module.h&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;The prototype of &lt;em&gt;modeventhand_t&lt;/em&gt; requires &lt;em&gt;module_t&lt;/em&gt; and &lt;em&gt;modeventtype_t&lt;/em&gt;&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;module_t&lt;/em&gt; is a pointer to our yet-to-be-declared module. We use
+&lt;em&gt;DECLARE_MODULE&lt;/em&gt; to declare general kernel modules&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;The &lt;em&gt;DECLARE_MODULE&lt;/em&gt; is defined in sys/module.h and it requires four
+parameters: &lt;em&gt;name&lt;/em&gt;, &lt;em&gt;data&lt;/em&gt;, &lt;em&gt;sub&lt;/em&gt;, and &lt;em&gt;order&lt;/em&gt;&lt;/p&gt;
+
+        &lt;ul&gt;
+          &lt;li&gt;
+            &lt;p&gt;name is the general name for the module&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;data is passed as moduledata consists of the official name of the module
+and the event handler of the module. It is defined in sys/module.h&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;sub is the identifier of the type of the module. It is listed in
+sysinit_sub_id enum defined in sys/kernel.h&lt;/p&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;p&gt;order is the initialization position of the module. It is listed in
+sysinitelemorder enum defined in sys/kernel.h&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;Finally we need &lt;em&gt;modeventtype_t&lt;/em&gt; to complete &lt;em&gt;modeventhand_t&lt;/em&gt; prototype&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;&lt;em&gt;modeventtype_t&lt;/em&gt; is an enum types of events defined in sys/module.h to let
+the kernel module perform corresponding actions when certain event happens&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here are two figures for you to get an overall understanding of how this works.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/freebsd-rootkit-design-howtos/chart1_1.png&quot; alt=&quot;Chart 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/freebsd-rootkit-design-howtos/chart1_2.png&quot; alt=&quot;Chart 2&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;example-code&quot;&gt;Example Code&lt;/h2&gt;
+
+&lt;p&gt;So, after all these pains and hair-pulling, we are finally gonna have our first
+kernel loadable module compiled.&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * FILE: /root/rootkit/1.1/first_module.c
+ * Example 1.1
+ * The First Kernel Loadable Module
+ * FreeBSD Rootkit Design Howtos @ www.hailang.me
+*/&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;sys/param.h&amp;gt;
+#include &amp;lt;sys/module.h&amp;gt;
+#include &amp;lt;sys/kernel.h&amp;gt;
+#include &amp;lt;sys/systm.h&amp;gt;
+&lt;/span&gt;
+&lt;span class=&quot;cm&quot;&gt;/* Define a loader function */&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;module_loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cmd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD_LOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;uprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Lets Rock the Kernel!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MOD_UNLOAD&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;uprintf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Time to Leave the Party!&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;nl&quot;&gt;default:&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EOPNOTSUPP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Operation not supported
+&lt;/span&gt;            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* Define a module data structure */&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;moduledata_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;first_mlodule&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// Module name
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;module_loader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// Event Handler
+&lt;/span&gt;    &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;                &lt;span class=&quot;c1&quot;&gt;// Extra Data
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* Declare the module */&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;DECLARE_MODULE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_mlodule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;module_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SI_SUB_DRIVERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SI_ORDER_MIDDLE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now there’s just one more thing left before we can compile the code, the
+makefile. If you are not familiar with the concept of makeifle, please google it
+and get yourself familiar with its basic syntax, just a little bit by now.&lt;/p&gt;
+
+&lt;p&gt;Here’s the content of makefile&lt;/p&gt;
+
+&lt;div class=&quot;language-makefile highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KMOD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;   first_module
+&lt;span class=&quot;nv&quot;&gt;SRCS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;   first_module.c
+
+&lt;span class=&quot;err&quot;&gt;.include&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;&amp;lt;bsd.kmod.mk&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Save it as makefile in the same folder with first_module.c&lt;/p&gt;
+
+&lt;p&gt;As you can see, we use bsd.kmod.mk macro here to make our life easier, because
+otherwise we’ll have to link all kernel source files manually.&lt;/p&gt;
+
+&lt;p&gt;All we have to do here is to fill in the module name and source file name. With
+the makefile and the source file with us, we can now go ahead and compile our
+first kernel module by entering &lt;em&gt;make&lt;/em&gt; in the same folder.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# make
+Warning: Object directory not changed from original /root/rootkit/1.1
+cc -O2 -pipe -fno-strict-aliasing -Werror -D_KERNEL -DKLD_MODULE -nostdinc   -I. -I@ -I@/contrib/altq -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  -fno-omit-frame-pointer  -mno-sse -mcmodel=kernel -mno-red-zone -mno-mmx -msoft-float  -fno-asynchronous-unwind-tables -ffreestanding -fstack-protector -std=iso9899:1999 -fstack-protector -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes  -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual  -Wundef -Wno-pointer-sign -fformat-extensions  -Wmissing-include-dirs -fdiagnostics-show-option   -c first_module.c
+ld  -d -warn-common -r -d -o first_module.ko first_module.o
+:&amp;gt; export_syms
+awk -f /sys/conf/kmod_syms.awk first_module.ko  export_syms | xargs -J% objcopy % first_module.ko
+objcopy --strip-debug first_module.ko
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Looks everything is nice and clean, we now have our first module successfully
+compiled. Now go ahead and treat yourself a muffin.&lt;/p&gt;
+
+&lt;p&gt;Let’s take a look at what we have now.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# ls
+@       export_syms first_module.c  first_module.ko first_module.o  machine     makefile    x86
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We have several files and linkers added here, but hello.ko is what we really
+care about. That is the result of all our hard work — the loadable module.&lt;/p&gt;
+
+&lt;p&gt;It’s like an executable file, same as the file you get in regular application
+programing, and yes, it is distributable.&lt;/p&gt;
+
+&lt;p&gt;Just before you bite that muffin, let’s have our fun first by loading and
+unloading it.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myBSD# kldload ./first_module.ko
+Lets Rock the Kernel!
+myBSD# kldunload first_module.ko
+Time to Leave the Party!
+myBSD#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Sweet huh? All of your hard works have been paid by seeing these silly but pretty words printing on your screen.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="FreeBSD" /><category term="Rootkit" /><summary type="html">Needless to say that the first thing you need to start FreeBSD kernel rootkit development is a FreeBSD box. There are plenty of installation guides on the Internet about FreeBSD installation, so that I’ll just skip this part for the sake of simplicity.</summary></entry><entry><title type="html">FreeBSD Rootkit Design Howtos - Introduction</title><link href="http://localhost:4000/freebsd-rootkit-design-howtos-introduction/" rel="alternate" type="text/html" title="FreeBSD Rootkit Design Howtos - Introduction" /><published>2012-06-08T00:00:00+08:00</published><updated>2012-06-08T00:00:00+08:00</updated><id>http://localhost:4000/freebsd-rootkit-design-howtos-introduction</id><content type="html" xml:base="http://localhost:4000/freebsd-rootkit-design-howtos-introduction/">&lt;p&gt;As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit
+design. It was prepared as notes as I worked on my college final year project
+while reading Designing BSD Rootkits: An Introduction to Kernel Hacking, where I
+got most of the information I needed. I then posted these notes on my blog
+hoping it could serve as a quick introduction to general kernel hacking. Those
+notes were filled with unorganized brainstorming and unnecessary technical
+details that even I myself couldn’t bear reading a page without drinking way too
+much coffee. It clearly failed it’s purpose.&lt;/p&gt;
+
+&lt;p&gt;It took me a year to realize that it’s a shame to give up all that hard work. I
+rewrote the whole thing to make them more like tutorials other than academic
+class notes.&lt;/p&gt;
+
+&lt;p&gt;I actually wanted to write this howto together with my college final year
+project synchronously, but sadly things didn’t work out the way I expected.
+It took me almost a year to reach this point of rewriting most of them to make
+them more like tutorials other than academic class notes.&lt;/p&gt;
+
+&lt;p&gt;Anyway, here I am, writing this intro again, hoping that I can finally finish it
+this time.&lt;/p&gt;
+
+&lt;p&gt;FreeBSD Kernel Rootkit Design and Defense Techniques is the title of my college
+final year project, I chose this topic because my lecturer who I consulted with
+thinks this one can help me at applying master degree in malicious software
+analysis.&lt;/p&gt;
+
+&lt;p&gt;I myself have no interest in pursuing master degree in malicious software
+analysis, but it sure sounds cool to me to create my very own rootkit,
+especially on my favorite platform, FreeBSD.&lt;/p&gt;
+
+&lt;p&gt;I still remember the lecturer asked me why I wanna make it on FreeBSD instead of
+Linux, well, there are two reasons.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I’m more familiar with FreeBSD than Linux&lt;/li&gt;
+  &lt;li&gt;I don’t see any recent and public accessible rootkit for FreeBSD&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Furthermore, there is another secret weapon to make my life even easier,
+Designing BSD Rootkits: An Introduction to Kernel Hacking by Joseph Kong. I
+highly recommend you guys to grab a copy of this book. It’s good, and it’s the
+only book on FreeBSD kernel rootkit design as far as I know, so you kinda have
+no choice here.&lt;/p&gt;
+
+&lt;p&gt;There’s another nice book to start with, The Design and Implementation of the
+FreeBSD Operating System By Marshall Kirk McKusick and George V. Neville-Neil.
+As the book name suggests, it can give you a detailed understanding of FreeBSD
+kernel. Get a copy of this book, read the first few chapters to get a rough
+understanding and use it as a reference book later on when you work on specific
+modules of the kernel.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-to-expect&quot;&gt;What to Expect&lt;/h2&gt;
+
+&lt;p&gt;Designing BSD Rootkits: An Introduction to Kernel Hacking by Joseph Kong is
+somehow sufficient for lots of people to kickstart their own rootkit, but you
+have to be familiar with modern system kernels and have some experiences in
+working in C.&lt;/p&gt;
+
+&lt;p&gt;However, I find this book a little bit rushy, what the author did was to drag
+you through lots of kernel terminologies and then give you lots of code snippets
+that, I myself at least, couldn’t understand until I read them for multiple
+times.&lt;/p&gt;
+
+&lt;p&gt;The Design and Implementation of the FreeBSD Operating System By Marshall Kirk
+McKusick and George V. Neville-Neil on the other hand, discusses overall FreeBSD
+kernel implementation and as well as each major kernel modules in detail, but
+the only drawback is that it doesn’t talk much about rootkit techniques, it only
+concentrates on normal kernel development.&lt;/p&gt;
+
+&lt;p&gt;So that’s why I wrote this series on FreeBSD Kernel Rootkit Design, it combines
+what I have learned, and what I think is useful from all those books and online
+resources.
+I also improved some of the examples from Joseph Kong’s book, filled in all
+related information which were omitted by the author.&lt;/p&gt;
+
+&lt;p&gt;Consider this as a tutorial series. If you are looking for a quick and
+comprehensive from novice to advanced novice guide on writing FreeBSD Kernel
+Rookits, then congratulations, this is just right for you.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="FreeBSD" /><category term="Rootkit" /><summary type="html">As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit design. It was prepared as notes as I worked on my college final year project while reading Designing BSD Rootkits: An Introduction to Kernel Hacking, where I got most of the information I needed. I then posted these notes on my blog hoping it could serve as a quick introduction to general kernel hacking. Those notes were filled with unorganized brainstorming and unnecessary technical details that even I myself couldn’t bear reading a page without drinking way too much coffee. It clearly failed it’s purpose.</summary></entry><entry><title type="html">2 Eggs versus 100 Floor</title><link href="http://localhost:4000/the-2-eggs-vs-100-floor-problem/" rel="alternate" type="text/html" title="2 Eggs versus 100 Floor" /><published>2011-06-29T00:00:00+08:00</published><updated>2011-06-29T00:00:00+08:00</updated><id>http://localhost:4000/the-2-eggs-vs-100-floor-problem</id><content type="html" xml:base="http://localhost:4000/the-2-eggs-vs-100-floor-problem/">&lt;p&gt;I saw this problem posted on Facebook today, and find it really intriguing and
 quite enjoyable to solve.&lt;/p&gt;
 
 &lt;p&gt;The problem is described as follow:&lt;/p&gt;
@@ -88,7 +698,7 @@ be no egg left to find out the exact answer.&lt;/p&gt;
 &lt;p&gt;However if the first egg does not break when dropped from 50th floor, we now
 still have 2 eggs to spare, which would allow us to perform more binary searches
 through 51-100th floor until we have only 1 egg left. So in short, we can only
-performing binary search when we have both eggs intact, and linear search when
+perform binary search when we have both eggs intact, and linear search when
 we have only 1 of them left. Pretty straighforward.&lt;/p&gt;
 
 &lt;h2 id=&quot;more-binary-search&quot;&gt;More binary search!&lt;/h2&gt;

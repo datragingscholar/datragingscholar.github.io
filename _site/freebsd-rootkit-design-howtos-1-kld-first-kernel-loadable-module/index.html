@@ -1,0 +1,1098 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module | Raging Scholar</title>
+<meta name="description" content="Needless to say that the first thing you need to start FreeBSD kernel rootkitdevelopment is a FreeBSD box. There are plenty of installation guides on theInternet about FreeBSD installation, so that I’ll just skip this part for thesake of simplicity.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/">
+
+
+  <meta property="og:description" content="Needless to say that the first thing you need to start FreeBSD kernel rootkitdevelopment is a FreeBSD box. There are plenty of installation guides on theInternet about FreeBSD installation, so that I’ll just skip this part for thesake of simplicity.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2012-06-08T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        A hardcore software developer / architect who has way too many interests than he cares to admit.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module">
+    <meta itemprop="description" content="Needless to say that the first thing you need to start FreeBSD kernel rootkitdevelopment is a FreeBSD box. There are plenty of installation guides on theInternet about FreeBSD installation, so that I’ll just skip this part for thesake of simplicity.">
+    <meta itemprop="datePublished" content="June 08, 2012">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Needless to say that the first thing you need to start FreeBSD kernel rootkit
+development is a FreeBSD box. There are plenty of installation guides on the
+Internet about FreeBSD installation, so that I’ll just skip this part for the
+sake of simplicity.</p>
+
+<p>And FYI, basically you are free to choose any hardware to run FreeBSD as long as
+it’s supported. You can even install your FreeBSD as a virtual machine. 5GB hard
+drive, at least 256MB memory with any modern CPU will do.</p>
+
+<h2 id="the-environment">The Environment</h2>
+
+<p>The version of FreeBSD I’m going to use throughout this howtos is FreeBSD 9
+Stable, it is recommended that you install at least FreeBSD 9 Release although I
+believe code examples in this howtos are able to run on most of versions after
+FreeBSD 6.2</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# uname -a
+FreeBSD myBSD 9.0-STABLE FreeBSD 9.0-STABLE #0: Thu Mar  8 14:16:25 CST 2012 bestwc@myBSD:/usr/obj/usr/src/sys/GENERIC  amd64
+</code></pre></div></div>
+
+<h2 id="package-installation">Package Installation</h2>
+
+<p>You’ll need the FreeBSD source tree to compile your kernel rootkit, be sure to
+install it because it is not included in minimal installation. You can do this
+by two ways, the first is to enable src distribution option during installation,
+and the recommended way is to perform the following command after the
+installation.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# cp /usr/share/examples/cvsup/stable-supfile /root &amp;&amp; cd /root
+myBSD# ee stable-supfile
+=================================
+*default host=CHANGE_THIS.FreeBSD.org ###Change this line
+*default host=cvsup.FreeBSD.org ###To this
+=================================
+myBSD# csup -g -L2 stable-supfile
+</code></pre></div></div>
+
+<p>This will sync the source tree on your local file system to the latest one from
+remote repository, and this will simply download the latest for you if you don’t
+already have the source tree. It is recommended to run the cusp command shown
+above to frequently update your source tree, for this will make sure your are
+developing rootkit with the newest kernel source code, and potentially make it
+more compatible with new FreeBSD releases.</p>
+
+<p>To examine if you have the src tree on your local box, type the following
+command:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# ls /usr/src
+COPYRIGHT       ObsoleteFiles.inc       crypto          lib         share
+LOCKS           README      etc         libexec         sys
+MAINTAINERS     UPDATING    games       release         tools
+Makefile        bin         gnu         rescue          usr.bin
+Makefile.inc1   cddl        include     sbin            usr.sbin
+Makefile.mips   contrib     kerberos5   secure
+</code></pre></div></div>
+
+<h2 id="the-dynamic-kernel-linker-kld">The Dynamic Kernel Linker (KLD)</h2>
+
+<p>The Dynamic Kernel Linker (KLD) is a facility in FreeBSD that allows users to
+interact with the system kernel by dynamically loading or unloading kernel
+modules. It may sounds strange to you, but believe it or not that you have
+utilized KLD multiple times during daily operations on your FreeBSD box. The KLD
+gets called every time you plug in or plug out a device, or by manually typing
+kldload or kldunload commands. It is especially useful to device driver
+developers as they can dynamically load their drivers as kernel module and test
+the functionalities on the fly without rebooting the system. For more
+information on the KLD, please refer to the FreeBSD Handbook.</p>
+
+<p>The KLD provides a high way for us to put our code into the running kernel space
+without recompiling as long as we have the required privilege. So that, if we
+have our kernel rootkit compiled as loadable kernel module, then we’ll
+theoretically be able to load that module in any FreeBSD machines on the fly.</p>
+
+<p>Although the KLD interface is not the only way for people to interact with
+kernel, but is undoubtedly the easiest and probably the fastest way to do that.
+The only question is, will there be any compatibility issues if we stick to KLD
+interface?</p>
+
+<blockquote>
+  <p>In FreeBSD 3.0, substantial changes were made to the kernel module subsystem,
+and the LKM Facility was renamed the Dynamic Kernel Linker (KLD) Facility.
+Subsequently, the term KLD is commonly used to describe LKMs under FreeBSD.</p>
+</blockquote>
+
+<p>According to the quote above from Designing BSD Rootkits: An Introduction to
+Kernel Hacking by Joseph Kong, the KLD interface hasn’t been changed since
+FreeBSD 3.0, which means our yet-to-be-done rootkit should be able to run on any
+(not always true) modern FreeBSD systems without any (not always true as well)
+modification.</p>
+
+<p>Just in case that you haven’t realized, we are going to use KLD interfaces a lot
+in this tutorial. Now let’s get to know the KLD interface more.</p>
+
+<h2 id="the-module-event-handler">The Module Event Handler</h2>
+
+<p>When you load or unload any kernel modules to or from the current running
+kernel, the KLD interface will perform some pre-defined routines to prepare the
+system. This is called the Module Event Handler, it should be present in
+every(!) kernel module to handle the initialization and shutdown processes. This
+handler gets called every time when the code enters or exits kernel space.</p>
+
+<p><em>(!) Just keep in mind that this isn’t always true, as what the quote says below
+from Designing BSD Rootkits: An Introduction to Kernel Hacking</em></p>
+
+<blockquote>
+  <p>Actually, this isn’t entirely true. You can have a KLD that just includes a
+sysctl. You can also dispense with module handlers if you wish and just use
+SYSINIT and SYSUNINIT directly to register functions to be invoked on load and
+unload, respectively. You can’t, however, indicate failure in those.</p>
+</blockquote>
+
+<p>The prototype of the module event handler is defined in <em>sys/module.h</em> and it is
+called <em>modeventhand_t</em></p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+
+<span class="n">myBSD</span><span class="err">#</span> <span class="n">cat</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">modeventhand_t</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">modeventhand_t</span><span class="p">)(</span><span class="n">module_t</span><span class="p">,</span> <span class="kt">int</span> <span class="cm">/* modeventtype_t */</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>And <em>module_t</em> is a pointer to the module’s struct as defined in the same file.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module_t</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>The <em>modeventtype_t</em> on the other hand is an enumerated type of event types
+defined in the same file as well.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">typedef</span> <span class="k">enum</span> <span class="n">modeventtype</span> <span class="p">{</span>
+        <span class="n">MOD_LOAD</span><span class="p">,</span>    <span class="cm">/* Set when module is loaded. */</span>
+        <span class="n">MOD_UNLOAD</span><span class="p">,</span>    <span class="cm">/* Set when module is unloaded. */</span>
+        <span class="n">MOD_SHUTDOWN</span><span class="p">,</span>    <span class="cm">/* Set on shutdown. */</span>
+        <span class="n">MOD_QUIESCE</span>    <span class="cm">/* Set on quiesce. */</span>
+<span class="p">}</span> <span class="n">modeventtype_t</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>With all these information, we can now try to define a simple module event
+handler. Here is a simple event handler function called load, which displays
+Hello, world! when it’s loaded, and print Good-bye, cruel world! when it’s
+unloaded.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"Hello, world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"Good-bye, cruel world!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+
+    <span class="nl">default:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//EOPNOTSUPP stands for Error: Operation not supported.
+</span>        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>It’s perfectly safe if this code doesn’t make much sense to you, as we will get
+back later. However, what you do need to understand is the prototype of defining
+a <em>module event handler</em>.</p>
+
+<p>This code snippet should present in your first loadable kernel module, and
+perform pre-defined routines according to the cmd sent by the kernel
+accordingly.</p>
+
+<p>Consider this to be a protocol between your module and the kernel, which
+basically says <em>“Oh the user asked you to unload me? Hold on and let me check my
+event handler, alright, I’ll print Good-bye, cruel world! and then go away.”</em></p>
+
+<h2 id="the-declare_module-macro">The DECLARE_MODULE Macro</h2>
+
+<p>It’s time to get back to our module declaration.</p>
+
+<p>We now know <em>module_t</em> is a pointer to the module structure, but what on earth is
+a module and how do we define it? The thing is, we must let KLD know the basic
+information about our module, and it should register itself with kernel when it
+loads. This process can be awfully long and complicated, lucky that we have a
+pre-defined macro in sys/module.h that just does this to help us.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+<span class="cp">#define DECLARE_MODULE_WITH_MAXVER(name, data, sub, order, maxver)
+#define DECLARE_MODULE(name, data, sub, order)
+</span> <span class="o">*</span> <span class="n">The</span> <span class="n">module</span> <span class="n">declared</span> <span class="n">with</span> <span class="n">DECLARE_MODULE_TIED</span> <span class="n">can</span> <span class="n">only</span> <span class="n">be</span> <span class="n">loaded</span>
+<span class="cp">#define DECLARE_MODULE_TIED(name, data, sub, order)
+</span></code></pre></div></div>
+
+<p>As shown above, there are actually tree macros for us to declare a module,
+<em>DECLARE_MODULE</em>, <em>DECLARE_MODULE_TIED</em>, and <em>DECLARE_MODULE_WITH_MAXVER</em>.</p>
+
+<ul>
+  <li>DECLARE_MODULE
+    <ul>
+      <li>The simplest one that requires only four parameters to be passed, for normal
+purposes</li>
+    </ul>
+  </li>
+  <li>DECLARE_MODULE_TIED
+    <ul>
+      <li>Use this macro when your kernel module can only be loaded into the kernel
+with exactly the same <em>FreeBSD_version</em></li>
+    </ul>
+  </li>
+  <li>DECLARE_MODULE_WITH_MAXVER
+    <ul>
+      <li>To declare kernel modules that can only run on machines with FreeBSD version
+maxver or lower</li>
+    </ul>
+  </li>
+</ul>
+
+<p>We’ll stick with the general <em>DECLARE_MODULE</em> macro, and now let’s discuss it’s
+four parameters: <em>name</em>, <em>data</em>, <em>sub</em>, and <em>order</em>.</p>
+
+<h3 id="name">name</h3>
+
+<blockquote>
+  <p>This specifies the generic module name, which is passed as a character string.</p>
+</blockquote>
+
+<h3 id="data">data</h3>
+
+<blockquote>
+  <p>This parameter specifies the official module name and event handler function,
+which is passed as a moduledata structure.</p>
+</blockquote>
+
+<p>The <em>moduledata structure</em> is defined in sys/module.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">moduledata</span> <span class="p">{</span>
+        <span class="k">const</span> <span class="kt">char</span>      <span class="o">*</span><span class="n">name</span><span class="p">;</span>          <span class="cm">/* module name */</span>
+        <span class="n">modeventhand_t</span>  <span class="n">evhand</span><span class="p">;</span>         <span class="cm">/* event handler */</span>
+        <span class="kt">void</span>            <span class="o">*</span><span class="n">priv</span><span class="p">;</span>          <span class="cm">/* extra data */</span>
+<span class="p">}</span> <span class="n">moduledata_t</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="sub">sub</h3>
+
+<blockquote>
+  <p>This specifies the system startup interface namely sysinit_sui_id, which
+identifies the module type.</p>
+</blockquote>
+
+<p>We can find a complete list of <em>sysinit_sub_id</em> from sys/kernel.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="p">.</span><span class="n">h</span>
+<span class="k">enum</span> <span class="n">sysinit_sub_id</span> <span class="p">{</span>
+        <span class="n">SI_SUB_DUMMY</span>            <span class="o">=</span> <span class="mh">0x0000000</span><span class="p">,</span>    <span class="cm">/* not executed; for linker*/</span>
+        <span class="n">SI_SUB_DONE</span>             <span class="o">=</span> <span class="mh">0x0000001</span><span class="p">,</span>    <span class="cm">/* processed*/</span>
+        <span class="n">SI_SUB_TUNABLES</span>         <span class="o">=</span> <span class="mh">0x0700000</span><span class="p">,</span>    <span class="cm">/* establish tunable values */</span>
+        <span class="n">SI_SUB_COPYRIGHT</span>        <span class="o">=</span> <span class="mh">0x0800001</span><span class="p">,</span>    <span class="cm">/* first use of console*/</span>
+        <span class="n">SI_SUB_SETTINGS</span>         <span class="o">=</span> <span class="mh">0x0880000</span><span class="p">,</span>    <span class="cm">/* check and recheck settings */</span>
+        <span class="n">SI_SUB_MTX_POOL_STATIC</span>  <span class="o">=</span> <span class="mh">0x0900000</span><span class="p">,</span>    <span class="cm">/* static mutex pool */</span>
+        <span class="n">SI_SUB_LOCKMGR</span>          <span class="o">=</span> <span class="mh">0x0980000</span><span class="p">,</span>    <span class="cm">/* lockmgr locks */</span>
+        <span class="n">SI_SUB_VM</span>               <span class="o">=</span> <span class="mh">0x1000000</span><span class="p">,</span>    <span class="cm">/* virtual memory system init*/</span>
+        <span class="n">SI_SUB_KMEM</span>             <span class="o">=</span> <span class="mh">0x1800000</span><span class="p">,</span>    <span class="cm">/* kernel memory*/</span>
+        <span class="n">SI_SUB_KVM_RSRC</span>         <span class="o">=</span> <span class="mh">0x1A00000</span><span class="p">,</span>    <span class="cm">/* kvm operational limits*/</span>
+        <span class="n">SI_SUB_WITNESS</span>          <span class="o">=</span> <span class="mh">0x1A80000</span><span class="p">,</span>    <span class="cm">/* witness initialization */</span>
+        <span class="n">SI_SUB_MTX_POOL_DYNAMIC</span> <span class="o">=</span> <span class="mh">0x1AC0000</span><span class="p">,</span>    <span class="cm">/* dynamic mutex pool */</span>
+        <span class="n">SI_SUB_LOCK</span>             <span class="o">=</span> <span class="mh">0x1B00000</span><span class="p">,</span>    <span class="cm">/* various locks */</span>
+        <span class="n">SI_SUB_EVENTHANDLER</span>     <span class="o">=</span> <span class="mh">0x1C00000</span><span class="p">,</span>    <span class="cm">/* eventhandler init */</span>
+        <span class="n">SI_SUB_VNET_PRELINK</span>     <span class="o">=</span> <span class="mh">0x1E00000</span><span class="p">,</span>    <span class="cm">/* vnet init before modules */</span>
+        <span class="n">SI_SUB_KLD</span>              <span class="o">=</span> <span class="mh">0x2000000</span><span class="p">,</span>    <span class="cm">/* KLD and module setup */</span>
+        <span class="n">SI_SUB_CPU</span>              <span class="o">=</span> <span class="mh">0x2100000</span><span class="p">,</span>    <span class="cm">/* CPU resource(s)*/</span>
+        <span class="n">SI_SUB_RACCT</span>            <span class="o">=</span> <span class="mh">0x2110000</span><span class="p">,</span>    <span class="cm">/* resource accounting */</span>
+        <span class="n">SI_SUB_RANDOM</span>           <span class="o">=</span> <span class="mh">0x2120000</span><span class="p">,</span>    <span class="cm">/* random number generator */</span>
+        <span class="n">SI_SUB_KDTRACE</span>          <span class="o">=</span> <span class="mh">0x2140000</span><span class="p">,</span>    <span class="cm">/* Kernel dtrace hooks */</span>
+        <span class="n">SI_SUB_MAC</span>              <span class="o">=</span> <span class="mh">0x2180000</span><span class="p">,</span>    <span class="cm">/* TrustedBSD MAC subsystem */</span>
+        <span class="n">SI_SUB_MAC_POLICY</span>       <span class="o">=</span> <span class="mh">0x21C0000</span><span class="p">,</span>    <span class="cm">/* TrustedBSD MAC policies */</span>
+        <span class="n">SI_SUB_MAC_LATE</span>         <span class="o">=</span> <span class="mh">0x21D0000</span><span class="p">,</span>    <span class="cm">/* TrustedBSD MAC subsystem */</span>
+        <span class="n">SI_SUB_VNET</span>             <span class="o">=</span> <span class="mh">0x21E0000</span><span class="p">,</span>    <span class="cm">/* vnet 0 */</span>
+        <span class="n">SI_SUB_INTRINSIC</span>        <span class="o">=</span> <span class="mh">0x2200000</span><span class="p">,</span>    <span class="cm">/* proc 0*/</span>
+        <span class="n">SI_SUB_VM_CONF</span>          <span class="o">=</span> <span class="mh">0x2300000</span><span class="p">,</span>    <span class="cm">/* config VM, set limits*/</span>
+        <span class="n">SI_SUB_DDB_SERVICES</span>     <span class="o">=</span> <span class="mh">0x2380000</span><span class="p">,</span>    <span class="cm">/* capture, scripting, etc. */</span>
+        <span class="n">SI_SUB_RUN_QUEUE</span>        <span class="o">=</span> <span class="mh">0x2400000</span><span class="p">,</span>    <span class="cm">/* set up run queue*/</span>
+        <span class="n">SI_SUB_KTRACE</span>           <span class="o">=</span> <span class="mh">0x2480000</span><span class="p">,</span>    <span class="cm">/* ktrace */</span>
+        <span class="n">SI_SUB_OPENSOLARIS</span>      <span class="o">=</span> <span class="mh">0x2490000</span><span class="p">,</span>    <span class="cm">/* OpenSolaris compatibility */</span>
+        <span class="n">SI_SUB_CYCLIC</span>           <span class="o">=</span> <span class="mh">0x24A0000</span><span class="p">,</span>    <span class="cm">/* Cyclic timers */</span>
+        <span class="n">SI_SUB_AUDIT</span>            <span class="o">=</span> <span class="mh">0x24C0000</span><span class="p">,</span>    <span class="cm">/* audit */</span>
+        <span class="n">SI_SUB_CREATE_INIT</span>      <span class="o">=</span> <span class="mh">0x2500000</span><span class="p">,</span>    <span class="cm">/* create init process*/</span>
+        <span class="n">SI_SUB_SCHED_IDLE</span>       <span class="o">=</span> <span class="mh">0x2600000</span><span class="p">,</span>    <span class="cm">/* required idle procs */</span>
+        <span class="n">SI_SUB_MBUF</span>             <span class="o">=</span> <span class="mh">0x2700000</span><span class="p">,</span>    <span class="cm">/* mbuf subsystem */</span>
+        <span class="n">SI_SUB_INTR</span>             <span class="o">=</span> <span class="mh">0x2800000</span><span class="p">,</span>    <span class="cm">/* interrupt threads */</span>
+        <span class="n">SI_SUB_SOFTINTR</span>         <span class="o">=</span> <span class="mh">0x2800001</span><span class="p">,</span>    <span class="cm">/* start soft interrupt thread */</span>
+        <span class="n">SI_SUB_ACL</span>              <span class="o">=</span> <span class="mh">0x2900000</span><span class="p">,</span>    <span class="cm">/* start for filesystem ACLs */</span>
+        <span class="n">SI_SUB_DEVFS</span>            <span class="o">=</span> <span class="mh">0x2F00000</span><span class="p">,</span>    <span class="cm">/* devfs ready for devices */</span>
+        <span class="n">SI_SUB_INIT_IF</span>          <span class="o">=</span> <span class="mh">0x3000000</span><span class="p">,</span>    <span class="cm">/* prep for net interfaces */</span>
+        <span class="n">SI_SUB_NETGRAPH</span>         <span class="o">=</span> <span class="mh">0x3010000</span><span class="p">,</span>    <span class="cm">/* Let Netgraph initialize */</span>
+        <span class="n">SI_SUB_DTRACE</span>           <span class="o">=</span> <span class="mh">0x3020000</span><span class="p">,</span>    <span class="cm">/* DTrace subsystem */</span>
+        <span class="n">SI_SUB_DTRACE_PROVIDER</span>  <span class="o">=</span> <span class="mh">0x3048000</span><span class="p">,</span>    <span class="cm">/* DTrace providers */</span>
+        <span class="n">SI_SUB_DTRACE_ANON</span>      <span class="o">=</span> <span class="mh">0x308C000</span><span class="p">,</span>    <span class="cm">/* DTrace anon enabling */</span>
+        <span class="n">SI_SUB_DRIVERS</span>          <span class="o">=</span> <span class="mh">0x3100000</span><span class="p">,</span>    <span class="cm">/* Let Drivers initialize */</span>
+        <span class="n">SI_SUB_CONFIGURE</span>        <span class="o">=</span> <span class="mh">0x3800000</span><span class="p">,</span>    <span class="cm">/* Configure devices */</span>
+        <span class="n">SI_SUB_VFS</span>              <span class="o">=</span> <span class="mh">0x4000000</span><span class="p">,</span>    <span class="cm">/* virtual filesystem*/</span>
+        <span class="n">SI_SUB_CLOCKS</span>           <span class="o">=</span> <span class="mh">0x4800000</span><span class="p">,</span>    <span class="cm">/* real time and stat clocks*/</span>
+        <span class="n">SI_SUB_CLIST</span>            <span class="o">=</span> <span class="mh">0x5800000</span><span class="p">,</span>    <span class="cm">/* clists*/</span>
+        <span class="n">SI_SUB_SYSV_SHM</span>         <span class="o">=</span> <span class="mh">0x6400000</span><span class="p">,</span>    <span class="cm">/* System V shared memory*/</span>
+        <span class="n">SI_SUB_SYSV_SEM</span>         <span class="o">=</span> <span class="mh">0x6800000</span><span class="p">,</span>    <span class="cm">/* System V semaphores*/</span>
+        <span class="n">SI_SUB_SYSV_MSG</span>         <span class="o">=</span> <span class="mh">0x6C00000</span><span class="p">,</span>    <span class="cm">/* System V message queues*/</span>
+        <span class="n">SI_SUB_P1003_1B</span>         <span class="o">=</span> <span class="mh">0x6E00000</span><span class="p">,</span>    <span class="cm">/* P1003.1B realtime */</span>
+        <span class="n">SI_SUB_PSEUDO</span>           <span class="o">=</span> <span class="mh">0x7000000</span><span class="p">,</span>    <span class="cm">/* pseudo devices*/</span>
+        <span class="n">SI_SUB_EXEC</span>             <span class="o">=</span> <span class="mh">0x7400000</span><span class="p">,</span>    <span class="cm">/* execve() handlers */</span>
+        <span class="n">SI_SUB_PROTO_BEGIN</span>      <span class="o">=</span> <span class="mh">0x8000000</span><span class="p">,</span>    <span class="cm">/* XXX: set splimp (kludge)*/</span>
+        <span class="n">SI_SUB_PROTO_IF</span>         <span class="o">=</span> <span class="mh">0x8400000</span><span class="p">,</span>    <span class="cm">/* interfaces*/</span>
+        <span class="n">SI_SUB_PROTO_DOMAININIT</span> <span class="o">=</span> <span class="mh">0x8600000</span><span class="p">,</span>    <span class="cm">/* domain registration system */</span>
+        <span class="n">SI_SUB_PROTO_DOMAIN</span>     <span class="o">=</span> <span class="mh">0x8800000</span><span class="p">,</span>    <span class="cm">/* domains (address families?)*/</span>
+        <span class="n">SI_SUB_PROTO_IFATTACHDOMAIN</span>     <span class="o">=</span> <span class="mh">0x8800001</span><span class="p">,</span>    <span class="cm">/* domain dependent data init*/</span>
+        <span class="n">SI_SUB_PROTO_END</span>        <span class="o">=</span> <span class="mh">0x8ffffff</span><span class="p">,</span>    <span class="cm">/* XXX: set splx (kludge)*/</span>
+        <span class="n">SI_SUB_KPROF</span>            <span class="o">=</span> <span class="mh">0x9000000</span><span class="p">,</span>    <span class="cm">/* kernel profiling*/</span>
+        <span class="n">SI_SUB_KICK_SCHEDULER</span>   <span class="o">=</span> <span class="mh">0xa000000</span><span class="p">,</span>    <span class="cm">/* start the timeout events*/</span>
+        <span class="n">SI_SUB_INT_CONFIG_HOOKS</span> <span class="o">=</span> <span class="mh">0xa800000</span><span class="p">,</span>    <span class="cm">/* Interrupts enabled config */</span>
+        <span class="n">SI_SUB_ROOT_CONF</span>        <span class="o">=</span> <span class="mh">0xb000000</span><span class="p">,</span>    <span class="cm">/* Find root devices */</span>
+        <span class="n">SI_SUB_DUMP_CONF</span>        <span class="o">=</span> <span class="mh">0xb200000</span><span class="p">,</span>    <span class="cm">/* Find dump devices */</span>
+        <span class="n">SI_SUB_RAID</span>             <span class="o">=</span> <span class="mh">0xb380000</span><span class="p">,</span>    <span class="cm">/* Configure GEOM classes */</span>
+        <span class="n">SI_SUB_SWAP</span>             <span class="o">=</span> <span class="mh">0xc000000</span><span class="p">,</span>    <span class="cm">/* swap */</span>
+        <span class="n">SI_SUB_INTRINSIC_POST</span>   <span class="o">=</span> <span class="mh">0xd000000</span><span class="p">,</span>    <span class="cm">/* proc 0 cleanup*/</span>
+        <span class="n">SI_SUB_SYSCALLS</span>         <span class="o">=</span> <span class="mh">0xd800000</span><span class="p">,</span>    <span class="cm">/* register system calls */</span>
+        <span class="n">SI_SUB_VNET_DONE</span>        <span class="o">=</span> <span class="mh">0xdc00000</span><span class="p">,</span>    <span class="cm">/* vnet registration complete */</span>
+        <span class="n">SI_SUB_KTHREAD_INIT</span>     <span class="o">=</span> <span class="mh">0xe000000</span><span class="p">,</span>    <span class="cm">/* init process*/</span>
+        <span class="n">SI_SUB_KTHREAD_PAGE</span>     <span class="o">=</span> <span class="mh">0xe400000</span><span class="p">,</span>    <span class="cm">/* pageout daemon*/</span>
+        <span class="n">SI_SUB_KTHREAD_VM</span>       <span class="o">=</span> <span class="mh">0xe800000</span><span class="p">,</span>    <span class="cm">/* vm daemon*/</span>
+        <span class="n">SI_SUB_KTHREAD_BUF</span>      <span class="o">=</span> <span class="mh">0xea00000</span><span class="p">,</span>    <span class="cm">/* buffer daemon*/</span>
+        <span class="n">SI_SUB_KTHREAD_UPDATE</span>   <span class="o">=</span> <span class="mh">0xec00000</span><span class="p">,</span>    <span class="cm">/* update daemon*/</span>
+        <span class="n">SI_SUB_KTHREAD_IDLE</span>     <span class="o">=</span> <span class="mh">0xee00000</span><span class="p">,</span>    <span class="cm">/* idle procs*/</span>
+        <span class="n">SI_SUB_SMP</span>              <span class="o">=</span> <span class="mh">0xf000000</span><span class="p">,</span>    <span class="cm">/* start the APs*/</span>
+        <span class="n">SI_SUB_RACCTD</span>           <span class="o">=</span> <span class="mh">0xf100000</span><span class="p">,</span>    <span class="cm">/* start raccd*/</span>
+        <span class="n">SI_SUB_RUN_SCHEDULER</span>    <span class="o">=</span> <span class="mh">0xfffffff</span>     <span class="cm">/* scheduler*/</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p><em>sysinit_sub_id</em> is a list of pre-defined enumerated constant data to declare
+kernel modules for different purposes. We’ll use <em>SI_SUB_DRIVERS</em> in our first few
+examples, and some other useful subs are to be introduced in later chapters.</p>
+
+<h3 id="order">order</h3>
+
+<blockquote>
+  <p>This specifies the KLD’s order of initialization within the subsystem, namely
+the <em>sysinit_elem_order</em>.</p>
+</blockquote>
+
+<p>A complete list of <em>sysinit_elem_order</em> can be found in sys/kernel.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">kernel</span><span class="p">.</span><span class="n">h</span>
+<span class="k">enum</span> <span class="n">sysinit_elem_order</span> <span class="p">{</span>
+        <span class="n">SI_ORDER_FIRST</span>          <span class="o">=</span> <span class="mh">0x0000000</span><span class="p">,</span>    <span class="cm">/* first*/</span>
+        <span class="n">SI_ORDER_SECOND</span>         <span class="o">=</span> <span class="mh">0x0000001</span><span class="p">,</span>    <span class="cm">/* second*/</span>
+        <span class="n">SI_ORDER_THIRD</span>          <span class="o">=</span> <span class="mh">0x0000002</span><span class="p">,</span>    <span class="cm">/* third*/</span>
+        <span class="n">SI_ORDER_FOURTH</span>         <span class="o">=</span> <span class="mh">0x0000003</span><span class="p">,</span>    <span class="cm">/* fourth*/</span>
+        <span class="n">SI_ORDER_MIDDLE</span>         <span class="o">=</span> <span class="mh">0x1000000</span><span class="p">,</span>    <span class="cm">/* somewhere in the middle */</span>
+        <span class="n">SI_ORDER_ANY</span>            <span class="o">=</span> <span class="mh">0xfffffff</span>     <span class="cm">/* last*/</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>For the sake of simplicity and to concentrate on our purpose, we’ll stick to
+<em>SI_ORDER_MIDDLE</em> which declares our kernel module somewhere in the middle of the
+KLD subsystem. We will discuss the others if we need to.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We’ve talked lots of concepts and kernel terminology, probably too much for a
+beginner. So just before we go for example code, let’s try to quickly review
+what we have discussed first.</p>
+
+<ul>
+  <li>
+    <p><em>KLD</em> is the way how we interact our code with FreeBSD kernel</p>
+  </li>
+  <li>
+    <p>Every KLD module (At least in our case) needs a <em>module event handler</em> called
+<em>modeventhand_t</em> and it is defined in sys/module.h</p>
+
+    <ul>
+      <li>
+        <p>The prototype of <em>modeventhand_t</em> requires <em>module_t</em> and <em>modeventtype_t</em></p>
+      </li>
+      <li>
+        <p><em>module_t</em> is a pointer to our yet-to-be-declared module. We use
+<em>DECLARE_MODULE</em> to declare general kernel modules</p>
+      </li>
+      <li>
+        <p>The <em>DECLARE_MODULE</em> is defined in sys/module.h and it requires four
+parameters: <em>name</em>, <em>data</em>, <em>sub</em>, and <em>order</em></p>
+
+        <ul>
+          <li>
+            <p>name is the general name for the module</p>
+          </li>
+          <li>
+            <p>data is passed as moduledata consists of the official name of the module
+and the event handler of the module. It is defined in sys/module.h</p>
+          </li>
+          <li>
+            <p>sub is the identifier of the type of the module. It is listed in
+sysinit_sub_id enum defined in sys/kernel.h</p>
+          </li>
+          <li>
+            <p>order is the initialization position of the module. It is listed in
+sysinitelemorder enum defined in sys/kernel.h</p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <p>Finally we need <em>modeventtype_t</em> to complete <em>modeventhand_t</em> prototype</p>
+      </li>
+      <li>
+        <p><em>modeventtype_t</em> is an enum types of events defined in sys/module.h to let
+the kernel module perform corresponding actions when certain event happens</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>Here are two figures for you to get an overall understanding of how this works.</p>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/chart1_1.png" alt="Chart 1" /></p>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/chart1_2.png" alt="Chart 2" /></p>
+
+<h2 id="example-code">Example Code</h2>
+
+<p>So, after all these pains and hair-pulling, we are finally gonna have our first
+kernel loadable module compiled.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * FILE: /root/rootkit/1.1/first_module.c
+ * Example 1.1
+ * The First Kernel Loadable Module
+ * FreeBSD Rootkit Design Howtos @ www.hailang.me
+*/</span>
+<span class="cp">#include &lt;sys/param.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/kernel.h&gt;
+#include &lt;sys/systm.h&gt;
+</span>
+<span class="cm">/* Define a loader function */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">module_loader</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"Lets Rock the Kernel!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"Time to Leave the Party!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="nl">default:</span>
+            <span class="n">error</span><span class="o">=</span><span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//Operation not supported
+</span>            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Define a module data structure */</span>
+<span class="k">static</span> <span class="n">moduledata_t</span> <span class="n">module_data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"first_mlodule"</span><span class="p">,</span>    <span class="c1">// Module name
+</span>    <span class="n">module_loader</span><span class="p">,</span>      <span class="c1">// Event Handler
+</span>    <span class="nb">NULL</span>                <span class="c1">// Extra Data
+</span><span class="p">};</span>
+
+<span class="cm">/* Declare the module */</span>
+<span class="n">DECLARE_MODULE</span><span class="p">(</span><span class="n">first_mlodule</span><span class="p">,</span> <span class="n">module_data</span><span class="p">,</span> <span class="n">SI_SUB_DRIVERS</span><span class="p">,</span> <span class="n">SI_ORDER_MIDDLE</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now there’s just one more thing left before we can compile the code, the
+makefile. If you are not familiar with the concept of makeifle, please google it
+and get yourself familiar with its basic syntax, just a little bit by now.</p>
+
+<p>Here’s the content of makefile</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KMOD</span><span class="o">=</span>   first_module
+<span class="nv">SRCS</span><span class="o">=</span>   first_module.c
+
+<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+</code></pre></div></div>
+
+<p>Save it as makefile in the same folder with first_module.c</p>
+
+<p>As you can see, we use bsd.kmod.mk macro here to make our life easier, because
+otherwise we’ll have to link all kernel source files manually.</p>
+
+<p>All we have to do here is to fill in the module name and source file name. With
+the makefile and the source file with us, we can now go ahead and compile our
+first kernel module by entering <em>make</em> in the same folder.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# make
+Warning: Object directory not changed from original /root/rootkit/1.1
+cc -O2 -pipe -fno-strict-aliasing -Werror -D_KERNEL -DKLD_MODULE -nostdinc   -I. -I@ -I@/contrib/altq -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  -fno-omit-frame-pointer  -mno-sse -mcmodel=kernel -mno-red-zone -mno-mmx -msoft-float  -fno-asynchronous-unwind-tables -ffreestanding -fstack-protector -std=iso9899:1999 -fstack-protector -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes  -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual  -Wundef -Wno-pointer-sign -fformat-extensions  -Wmissing-include-dirs -fdiagnostics-show-option   -c first_module.c
+ld  -d -warn-common -r -d -o first_module.ko first_module.o
+:&gt; export_syms
+awk -f /sys/conf/kmod_syms.awk first_module.ko  export_syms | xargs -J% objcopy % first_module.ko
+objcopy --strip-debug first_module.ko
+</code></pre></div></div>
+
+<p>Looks everything is nice and clean, we now have our first module successfully
+compiled. Now go ahead and treat yourself a muffin.</p>
+
+<p>Let’s take a look at what we have now.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# ls
+@       export_syms first_module.c  first_module.ko first_module.o  machine     makefile    x86
+</code></pre></div></div>
+
+<p>We have several files and linkers added here, but hello.ko is what we really
+care about. That is the result of all our hard work — the loadable module.</p>
+
+<p>It’s like an executable file, same as the file you get in regular application
+programing, and yes, it is distributable.</p>
+
+<p>Just before you bite that muffin, let’s have our fun first by loading and
+unloading it.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# kldload ./first_module.ko
+Lets Rock the Kernel!
+myBSD# kldunload first_module.ko
+Time to Leave the Party!
+myBSD#
+</code></pre></div></div>
+
+<p>Sweet huh? All of your hard works have been paid by seeing these silly but pretty words printing on your screen.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-06-08T00:00:00+08:00">June 08, 2012</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+1+-+KLD+First+Kernel+Loadable+Module%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/the-2-eggs-vs-100-floor-problem/" class="pagination--pager" title="2 Eggs versus 100 Floor
+">Previous</a>
+    
+    
+      <a href="/freebsd-rootkit-design-howtos-introduction/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - Introduction
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-introduction/" rel="permalink">FreeBSD Rootkit Design Howtos - Introduction
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit
+design. It was prepared as notes as I worked on my college final year project
+while...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/the-2-eggs-vs-100-floor-problem/" rel="permalink">2 Eggs versus 100 Floor
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I saw this problem posted on Facebook today, and find it really intriguing and
+quite enjoyable to solve.
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
