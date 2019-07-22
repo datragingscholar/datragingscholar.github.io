@@ -1,0 +1,956 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions | Raging Scholar</title>
+<meta name="description" content="What’s up geeks, it’s good to see you again! This is the 4th tutorial on FreeBSDKernel Rootkit Design Howtos. Check back everyday for new tutorials andexamples.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions/">
+
+
+  <meta property="og:description" content="What’s up geeks, it’s good to see you again! This is the 4th tutorial on FreeBSDKernel Rootkit Design Howtos. Check back everyday for new tutorials andexamples.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2012-06-11T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions">
+    <meta itemprop="description" content="What’s up geeks, it’s good to see you again! This is the 4th tutorial on FreeBSDKernel Rootkit Design Howtos. Check back everyday for new tutorials andexamples.">
+    <meta itemprop="datePublished" content="June 11, 2012">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>What’s up geeks, it’s good to see you again! This is the 4th tutorial on FreeBSD
+Kernel Rootkit Design Howtos. Check back everyday for new tutorials and
+examples.</p>
+
+<h2 id="review">Review</h2>
+
+<p>Well, in the previous session, we discussed about an upgraded version of client
+application to issue system calls. We used <code class="highlighter-rouge">int modfind(const char *modname);</code> to
+get the id of a kernel module by specifying module name, and then we
+successfully retrieved the module’s offset value by calling  <code class="highlighter-rouge">int modstat(int
+modid, struct module_stat *stat);</code> function. We learned that the offset value is
+actually stored as <code class="highlighter-rouge">int intval;</code> in <code class="highlighter-rouge">typedef union modspecific</code> which is a sub-union
+of <code class="highlighter-rouge">struct module_stat</code>.</p>
+
+<p>I hope you still remember that we created our very first system call module that
+expects a string argument to be sent from user land application, and it will
+then print out the string received. You don’t have to recall the whole process
+since we’ll redo that in this session, what you do need to recall is that we
+made a <em>mistake</em>.</p>
+
+<blockquote>
+  <p>modern operating systems segregate it’s memory areas into user space and
+kernel space, code running in each section don’t directly access each other’s
+resources. The way we assign a user space structure pointer to a kernel space
+local variable  (<code class="highlighter-rouge">uap = (struct sc_example_args *)syscall_args;</code>) is unsafe and
+not recommended.</p>
+</blockquote>
+
+<p>Now it’s time to deal with this problem and fix that example code.</p>
+
+<h2 id="kernel-and-user-space-transition">Kernel and User Space Transition</h2>
+
+<p>Before we start fixing our example code, I’d like to talk a little bit more
+about <strong><em>kernel space</em></strong> and <strong><em>user space</em></strong>.</p>
+
+<p>We all know that modern operating systems segregate their virtual memory into
+user space and kernel space, and commonly user-mode applications run in user
+space, and system kernel runs in kernel space. Now, the question is why, why
+such separation exists, what is its purpose.</p>
+
+<p>Actually we can consider user space as isolated sand-boxes, it restricts user
+land applications so that they don’t mess up with each other’s resources, and
+most importantly, the kernel space.</p>
+
+<p>As we know, the kernel is the core of any operating system that is in charge of
+<em>hardware resource allocation, scheduling, I/O, process management</em>, and all sorts
+of low level stuff. We want to maintain stability and security of the system, so
+we really don’t want poorly-designed user applications crashing the whole system
+or malicious user application to modify the behavior of the kernel.</p>
+
+<p>Although it it restricted, but it’s possible for user space and kernel space to
+access each other’s virtual memory since such communications are necessary. We
+just have to make sure that we do these in a way that the impact on system
+stability and security are minimal.</p>
+
+<ul>
+  <li>User space CANNOT access kernel space, if you have to, issue a system call</li>
+  <li>Kernel space CAN access user space, because it literally owns everything of
+the system. However, it is recommended to copy memory area from user space to
+kernel space before access it, otherwise may result a fatal panic.</li>
+</ul>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/chart4_1.png" alt="Chart 4-1" /></p>
+
+<p>Look at the figure above, it simply says that user-mode applications can only
+access kernel resources via system calls, and the system call module will return
+a value or perform pre-defined actions. This is much safer than letting
+user-mode applications to freely modify kernel resources or calling kernel
+functions, either kernel resource changing or function calling are performed by
+pre-programmed and well-designed code running in kernel, which are considered
+safer and stabler.</p>
+
+<p>The figure also says that kernel modules running in kernel space normally copy
+user space resources back to it’s own virtual memory area first, and then
+perform pre-defined actions to either return a value to user space or modify the
+resource content.</p>
+
+<p>Copying user space resources back to kernel space before referring or modifying
+is safer and recommended because, if we refer to a user space resource directly
+from kernel space and it’s swapped out or not faulted in yet, we’ll trigger a
+fatal panic.</p>
+
+<p>Now let’s figure out how to copy resources around virtual memory areas.</p>
+
+<h2 id="the-copy9">The COPY(9)</h2>
+
+<p>Open your terminal and run the following command to see the manpage for all
+<strong><em>copy functions</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# man copy
+</code></pre></div></div>
+
+<p><strong><em>Copy functions</em></strong> are <strong><em>copy</em></strong>, <strong><em>copyin</em></strong>, <strong><em>copyout</em></strong>, and
+<strong><em>copyinstr</em></strong>. What they generally do is</p>
+
+<blockquote>
+  <p>The copy functions are designed to copy contiguous data from one address to
+another. All but copystr() copy data from user-space to kernel-space or vice-versa.</p>
+</blockquote>
+
+<p>I find these four function names a little bit confusing, so let me put a figure
+here to help you remember their usages.</p>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/chart4_2.png" alt="Chart 4-2" /></p>
+
+<p>The following is a list of all 4 copy functions definition and usage</p>
+
+<h3 id="copyin">copyin()</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">copyin</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">uaddr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">kaddr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>It copies <em>len</em> bytes of data from the user-space address <em>uaddr</em> to the
+kernel-space address <em>kaddr</em>.</p>
+
+<h3 id="copyout">copyout()</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">copyout</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">kaddr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">uaddr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>It copies <em>len</em> bytes of data from the kernel-space address <em>kaddr</em> to the user-space address <em>uaddr</em>.</p>
+
+<h3 id="copyinstr">copyinstr()</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">copyinstr</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">uaddr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">kaddr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">done</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>It copies a NUL-terminated string, at most <em>len</em> bytes long, from user-space
+address <em>uaddr</em> to kernel-space address <em>kaddr</em>. The number of bytes actually
+copied, including the terminating NUL, is returned in <code class="highlighter-rouge">*done</code> (if done is
+non-NULL).</p>
+
+<h3 id="copystr">copystr()</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">copystr</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">kfaddr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">kdaddr</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span><span class="n">done</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Copies a NUL-terminated string, at most <em>len</em> bytes long, from kernel-space
+address <em>kaddr</em> to kernel-space address <em>kaddr</em>. The number of bytes actually
+copied, including the terminating NUL, is returned in <code class="highlighter-rouge">*done</code> (if done is
+non-NULL).</p>
+
+<h2 id="the-copyin-functions">The Copyin Functions</h2>
+
+<p>From the perspective of a system call module, we need to copy memory from user
+space to kernel space at most of the times. So that there are two copy functions
+we can utilize to achieve this task, <code class="highlighter-rouge">copyin()</code> and <code class="highlighter-rouge">copyinstr()</code>.</p>
+
+<p>It is necessary to talk about the difference between <code class="highlighter-rouge">copyin()</code> and <code class="highlighter-rouge">copyinstr()</code>
+before we choose which one to use for our upgraded example system call module.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>copyin()</th>
+      <th>copyinstr()</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Direction</td>
+      <td>From user space to kernel space</td>
+      <td>From user space to kernel space</td>
+    </tr>
+    <tr>
+      <td>Resource Type</td>
+      <td>Any user space memory address</td>
+      <td>NUL-terminated string (ends with \0)</td>
+    </tr>
+    <tr>
+      <td>Copy Length</td>
+      <td>Exactly len bytes</td>
+      <td>At most len bytes long</td>
+    </tr>
+    <tr>
+      <td>Extra Argument</td>
+      <td>NONE</td>
+      <td>size_t *done stores the number of bytes actually copied, including the terminating NUL</td>
+    </tr>
+    <tr>
+      <td>Return Value</td>
+      <td>0 = success EFAULT = bad address</td>
+      <td>0 = success EFAULT = bad address</td>
+    </tr>
+    <tr>
+      <td>Extra Return Value</td>
+      <td>ENAMETOOLONG = the string is longer than len bytes</td>
+      <td>ENAMETOOLONG = the string is longer than len bytes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As you can see from the table above, that these two functions perform basically
+same actions, but fits under different scenarios. As we need to copy a string
+from user space to kernel space in our example system call module, we are gonna
+use <code class="highlighter-rouge">copyinstr()</code> this time.</p>
+
+<h2 id="example-code">Example Code</h2>
+
+<p>Finally here comes our example code, just remember to include the two extra lib
+files.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+* FILE: /root/rootkit/4.1/safe_sc_example.c
+* Example 4.1
+* User and Kernel Space Transitions
+* FreeBSD Rootkit Design Howtos @ hailang.im
+*/</span>
+<span class="cp">#include &lt;sys/types.h&gt;
+#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/sysent.h&gt;
+#include &lt;sys/kernel.h&gt;
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/sysproto.h&gt;
+</span>
+<span class="cm">/* The system call's arguments. */</span>
+<span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* The system call function. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="n">kernstr</span><span class="p">[</span><span class="mi">1024</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//This is the place holds a copy of the string in kernel space
+</span>    <span class="kt">int</span> <span class="n">err</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Return stat
+</span>    <span class="kt">size_t</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Size actually copied
+</span>
+    <span class="n">err</span> <span class="o">=</span> <span class="n">copyinstr</span><span class="p">(</span><span class="n">uap</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">kernstr</span><span class="p">,</span> <span class="mi">1024</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">size</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">err</span> <span class="o">==</span> <span class="n">EFAULT</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">err</span><span class="p">);</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Safer version output: %s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">kernstr</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sc_example_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>  <span class="cm">/* number of arguments */</span>
+    <span class="n">sc_example</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="cm">/* The offset in sysent[] where the system call is to be allocated. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+
+<span class="cm">/* The function called at load/unload. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"System call loaded at offset %d.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"System call unloaded from offset %d.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">sc_example</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sc_example_sysent</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Save the above code as safe_sc_example.c, and the following as makefile in the
+same directory</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KMOD</span><span class="o">=</span>   safe_sc_example
+<span class="nv">SRCS</span><span class="o">=</span>   safe_sc_example.c
+
+<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+</code></pre></div></div>
+
+<p>Now we can build our safer system call example by issuing make command</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# make
+Warning: Object directory not changed from original /root/rootkit/4.1
+@ -&gt; /usr/src/sys
+machine -&gt; /usr/src/sys/amd64/include
+x86 -&gt; /usr/src/sys/x86/include
+cc -O2 -pipe -fno-strict-aliasing -Werror -D_KERNEL -DKLD_MODULE -nostdinc   -I. -I@ -I@/contrib/altq -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  -fno-omit-frame-pointer  -mno-sse -mcmodel=kernel -mno-red-zone -mno-mmx -msoft-float  -fno-asynchronous-unwind-tables -ffreestanding -fstack-protector -std=iso9899:1999 -fstack-protector -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes  -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual  -Wundef -Wno-pointer-sign -fformat-extensions  -Wmissing-include-dirs -fdiagnostics-show-option   -c safe_sc_example.c
+ld  -d -warn-common -r -d -o safe_sc_example.ko safe_sc_example.o
+:&gt; export_syms
+awk -f /sys/conf/kmod_syms.awk safe_sc_example.ko  export_syms | xargs -J% objcopy % safe_sc_example.ko
+objcopy --strip-debug safe_sc_example.ko
+</code></pre></div></div>
+
+<p>Check if you have successfully built safe_sc_example.ko file, and load it into
+the running kernel by</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# kldload ./safe_sc_example.ko
+System call loaded at offset 210.
+</code></pre></div></div>
+
+<p>Great, now you can use the client application we built in the previous session
+to make the system call. Just in case you feel as lazy as I do, here’s the
+client application code again,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
+</span><span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,
+</span>                     <span class="c1">//print out usage help information
+</span>                     <span class="c1">//if we got wrong number of parameters.
+</span>        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//We'll get the module statues and store it here.
+</span>    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.
+</span>
+
+    <span class="cm">/* Determine sc_example's offset value. */</span>
+    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)
+</span>    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sys/sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//With prefix this time
+</span>    <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
+
+    <span class="cm">/* Call sc_example. */</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Save the source code in client.c and build it by</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# gcc -o client client.c
+client.c: In function 'main':
+client.c:12: warning: incompatible implicit declaration of built-in function 'exit'
+</code></pre></div></div>
+
+<p>Now we can call our safer system call module example by</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# ./client May\ the\ source\ be\ with\ you
+myBSD# dmesg | tail -n 1
+Safer version output: May the source be with you
+</code></pre></div></div>
+
+<p>This is great! We fine-tuned our system call module with the powerful copy
+functions, this should be enough for now. User and Kernel space transition is a
+very big topic, it involves many kernel design aspects and concepts, I cannot
+cover all of them in this short tutorial, but I’ll sure get back to this once we
+need to.</p>
+
+<p>Hope you enjoy this tutorial, leave a comment below to let me know your
+suggestions, and May the source be with you!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-06-11T00:00:00+08:00">June 11, 2012</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+4+-+Kernel+And+User+Space+Transitions%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application
+">Previous</a>
+    
+    
+      <a href="/multiples-of-3-and-5/" class="pagination--pager" title="Multiples of 3 And 5
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="permalink">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
+as 20 years ago… :) – Hunger hunger@hunger.hu
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/multiples-of-3-and-5/" rel="permalink">Multiples of 3 And 5
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">So I was extremly bored, to a degree that I started reading new threads on
+Hacker News and accidentally saw a guy Failed, Failed, and Finally Succeeded at
+Le...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/" rel="permalink">FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through all
+necessary techniques you need to program your own BSD kernel rookit. Please be
+s...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
