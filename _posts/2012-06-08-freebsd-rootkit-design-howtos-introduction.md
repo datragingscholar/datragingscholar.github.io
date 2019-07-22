@@ -1,6 +1,6 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - Introduction"
-date         : "2012-06-08"
+date         : "2012-06-08 13:15:00"
 tags         : [FreeBSD, Rootkit]
 ---
 

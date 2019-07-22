@@ -1,6 +1,6 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module"
-date         : "2012-06-08"
+date         : "2012-06-08 21:53:49"
 tags         : [FreeBSD, Rootkit]
 ---
 
