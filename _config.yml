@@ -12,13 +12,13 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 remote_theme             : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin    : "dark" # "default" "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin    : "dark"
 
 # Site Settings
 locale                   : "UTF-8"
 title                    : "Raging Scholar"
 title_separator          : "|"
-subtitle                 : "There's no place like ::1"
+subtitle                 : "uprintf(\"There is no place like ::1\");"
 name                     : "Hai Lang"
 description              : "A shitposting rehabilitation center"
 url                      : "https://hailang.im"
@@ -27,7 +27,7 @@ repository               : "datragingscholar/datragingscholar.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
-breadcrumbs            : true # true, false (default)
+breadcrumbs              : true # true, false (default)
 permalink                : /:categories/:title/
 words_per_minute         : 200
 comments:
@@ -110,7 +110,7 @@ analytics:
 author:
   name             : "Hai Lang"
   avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "A hardcore software developer / architect"
+  bio              : "An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas."
   location         : "China"
   email            : "ragingscholar@protonmail.com"
   links:

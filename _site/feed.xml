@@ -1,5 +1,475 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-21T16:17:57+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-22T15:03:02+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
-&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry></feed>
+&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">2 Eggs versus 100 Floor</title><link href="http://localhost:4000/the-2-eggs-vs-100-floor-problem/" rel="alternate" type="text/html" title="2 Eggs versus 100 Floor" /><published>2011-06-29T00:00:00+08:00</published><updated>2011-06-29T00:00:00+08:00</updated><id>http://localhost:4000/the-2-eggs-vs-100-floor-problem</id><content type="html" xml:base="http://localhost:4000/the-2-eggs-vs-100-floor-problem/">&lt;p&gt;I saw this problem posted on Facebook today, and find it really intriguing and
+quite enjoyable to solve.&lt;/p&gt;
+
+&lt;p&gt;The problem is described as follow:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;You are given 2 eggs.&lt;/li&gt;
+    &lt;li&gt;You have access to a 100-storey building.&lt;/li&gt;
+    &lt;li&gt;Eggs can be very hard or very fragile means it may break if dropped from the first floor or may not even break if dropped from 100 th floor.Both eggs are identical.&lt;/li&gt;
+    &lt;li&gt;You need to figure out the highest floor of a 100-storey building an egg can be dropped without breaking.&lt;/li&gt;
+    &lt;li&gt;Now the question is how many drops you need to make. You are allowed to break 2 eggs in the process&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;em&gt;The following methods, codes, and algorithms are all from a pure computer
+  student’s point of view, I know some people can directly solve the problem
+  without writing any code, but that’s no fun, is it?&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;understand-the-question&quot;&gt;Understand the question&lt;/h3&gt;
+&lt;p&gt;Let’s take a rough look at the question first. Given that these two eggs are identical, the hardness of these two eggs are equally the same, which means that&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hardness(egg1) = hardness(egg2)
+
+highest_breaking_floor(egg1) = highest_breaking_floor(egg2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I’m quite tempted to use binary search, drop the first egg at 50th floor, we
+will then have two possible consequences&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Egg1 breaks&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;p&gt;This means the highest floor the egg doesn’t break is less than 50, or 1-49th.&lt;/p&gt;
+
+  &lt;ol&gt;
+    &lt;li&gt;Egg1 did not break&lt;/li&gt;
+  &lt;/ol&gt;
+
+  &lt;p&gt;And this means the highest floor the egg can bear to be dropped down from is greater than 50, 51-100th.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This seems to be a very straight forward solution to find out the answer, either
+one of these two situations will require a linear search to find out the real answer. This is a general solution to solve the problem, but the performance of total tries are questionable.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-general-solution&quot;&gt;The General Solution&lt;/h2&gt;
+&lt;p&gt;In order to better understand how this approach works, let’s look at the
+following pseudocode and flowchart.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;DROP egg1 AT 50th FLOOR
+
+IF egg1.break == TRUE:
+    FOR answer=1, answer&amp;lt;=49,answer++
+        DROP egg2 AT answer FLOOR
+        IF egg2.break == TRUE:
+            PRINT 'The Answer IS:', answer-1
+            BREAK
+
+ELSE:
+    FOR answer=51, answer&amp;lt;=100,answer++
+        DROP egg1 AT answer FLOOR
+        IF egg1.break == TRUE:
+            PRINT 'The Answer IS:', answer-1
+            BREAK
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2-Eggs-versus-100-Floor/flowchart.png&quot; alt=&quot;General Solution Flowchart&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Well, let’s admit it, this is, as the name suggests, a very basic and general
+solution. But before we try to figure out better algorithms, let’s look at this
+general solution a little bit closer.&lt;/p&gt;
+
+&lt;p&gt;We all know that under most context, a binary search is almost definitely better
+than a linear search, then why don’t we keep performing it and instead utilized
+linear search after the first try?&lt;/p&gt;
+
+&lt;p&gt;Imagine if we broke the first egg at 50th floor, and wants to continue binary
+search, then the next floor to try would be 25th floor. Now if the second egg
+breaks at 25th floor, or any other subsequent binary search tries, there would
+be no egg left to find out the exact answer.&lt;/p&gt;
+
+&lt;p&gt;However if the first egg does not break when dropped from 50th floor, we now
+still have 2 eggs to spare, which would allow us to perform more binary searches
+through 51-100th floor until we have only 1 egg left. So in short, we can only
+performing binary search when we have both eggs intact, and linear search when
+we have only 1 of them left. Pretty straighforward.&lt;/p&gt;
+
+&lt;h2 id=&quot;more-binary-search&quot;&gt;More binary search!&lt;/h2&gt;
+
+&lt;p&gt;Instead of performing 49 linear search plus the initial binary search, scoring a
+horrific 50 tries at worst circumstance, let’s find out what is the optimal
+number of tries if the first egg manages to survive every binary search
+drops.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Count&lt;/th&gt;
+      &lt;th&gt;Try At&lt;/th&gt;
+      &lt;th&gt;Binary Search Start Value&lt;/th&gt;
+      &lt;th&gt;Binary Search End Value&lt;/th&gt;
+      &lt;th&gt;Number of Search Values&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;50&lt;/td&gt;
+      &lt;td&gt;51&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;50&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;75&lt;/td&gt;
+      &lt;td&gt;76&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;88&lt;/td&gt;
+      &lt;td&gt;87&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;13&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;4&lt;/td&gt;
+      &lt;td&gt;94&lt;/td&gt;
+      &lt;td&gt;93&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;5&lt;/td&gt;
+      &lt;td&gt;97&lt;/td&gt;
+      &lt;td&gt;96&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;6&lt;/td&gt;
+      &lt;td&gt;99&lt;/td&gt;
+      &lt;td&gt;98&lt;/td&gt;
+      &lt;td&gt;100&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The table above illustrates a typical binary search, we always halve the
+&lt;em&gt;Number of Search Values&lt;/em&gt; and add it to the last &lt;em&gt;Try At&lt;/em&gt; to get the next binary
+search offset.&lt;/p&gt;
+
+&lt;p&gt;It is clear that the minimal number of tries to get the answer would be 6, we
+drop the egg at 99th floor if it manages to survive all previous attempts, the
+answer is 98 if it breaks, and 100 if it doesn’t.&lt;/p&gt;
+
+&lt;p&gt;Now we know the range of tries to find the answer is 6 to 50, it is time to
+optimize our approach.&lt;/p&gt;
+
+&lt;h2 id=&quot;optimization&quot;&gt;Optimization&lt;/h2&gt;
+
+&lt;p&gt;Every optimization starts with a question, are there room for optimization?
+Fortunately, answering this question often brings us right to the optimized
+solution, if there is one.&lt;/p&gt;
+
+&lt;p&gt;Let’s assume the optimized maximum number of tries to solve this problew is &lt;em&gt;X&lt;/em&gt;.
+We already know that the worst scenario only happen when first binary
+search resulted in a broken egg, in that case, we have to linear search from &lt;em&gt;1&lt;/em&gt;
+to &lt;em&gt;X-1&lt;/em&gt;, totalling X-1-1+1 linear searches and 1 already performed binary
+search.&lt;/p&gt;
+
+&lt;p&gt;This means &lt;em&gt;X&lt;/em&gt; is not only the max number of tries, but also the first binary
+search index, or offset if you will. Let’s illustrate this with a table.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Try At (Binary Search Offset)&lt;/th&gt;
+      &lt;th&gt;Linear Start&lt;/th&gt;
+      &lt;th&gt;Linear End&lt;/th&gt;
+      &lt;th&gt;Linear Searches&lt;/th&gt;
+      &lt;th&gt;Binary Search Performed&lt;/th&gt;
+      &lt;th&gt;Total Tries&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1&lt;/td&gt;
+      &lt;td&gt;(X-1-1)+1 = X-1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1+1 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;???&lt;/td&gt;
+      &lt;td&gt;X+1&lt;/td&gt;
+      &lt;td&gt;???-1&lt;/td&gt;
+      &lt;td&gt;(???-1)-(X+1)+1 = &lt;em&gt;X-2&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;X-2+2 = X&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;It is obvious for the first try, since at this point we only care about maximum
+tries, the scenario would be we drop the first egg at Xth floor, it breaks, we
+then perform linear search from 1st floor to X-1th floor, resulting (X-1)-1+1 =
+X-1 linear searches, adding the first binary seach try we performed to it, we
+get X-1+1 = X tries.&lt;/p&gt;
+
+&lt;p&gt;Perfect, it meets our assumption that the maximum tries needed to figure out the
+answer is X. But at which floor should us perform the second binary search try
+if the egg survived?&lt;/p&gt;
+
+&lt;p&gt;Well, we can’t halve the number of remaining search values like we did
+previously, that simply breaks our assumption of getting the answer within &lt;em&gt;X&lt;/em&gt;
+tries.&lt;/p&gt;
+
+&lt;p&gt;An easier way to understand it is, let’s assume the second binary search offset
+is ???, the linear start would be X+1 since all previous values are ruled out
+given the first egg survived, the linear end would be ???-1, then total number
+of linear searches needed to perform if the egg broke at the secound try would
+be &lt;em&gt;(???-1)-(X+1)+1&lt;/em&gt;, and that value &lt;em&gt;must&lt;/em&gt; equal to &lt;em&gt;X-2&lt;/em&gt; since only then would
+total tries equal to &lt;em&gt;X&lt;/em&gt;. Thus,&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;(???-1)-(X+1)+1 = X-2&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;??? = 2X-1&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Subsequential offsets can all be calculated similarly.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Try At (Binary Search Offset)&lt;/th&gt;
+      &lt;th&gt;Linear Start&lt;/th&gt;
+      &lt;th&gt;Linear End&lt;/th&gt;
+      &lt;th&gt;Linear Searches&lt;/th&gt;
+      &lt;th&gt;Binary Search Performed&lt;/th&gt;
+      &lt;th&gt;Total Tries&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1&lt;/td&gt;
+      &lt;td&gt;(X-1-1)+1 = X-1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1+1 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;2X-1&lt;/td&gt;
+      &lt;td&gt;X+1&lt;/td&gt;
+      &lt;td&gt;(2X-1)-1&lt;/td&gt;
+      &lt;td&gt;(2X-1-1)-(X+1)+1 = &lt;em&gt;X-2&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;X-2+2 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;3X-3&lt;/td&gt;
+      &lt;td&gt;(2X-1)+1 = 2X&lt;/td&gt;
+      &lt;td&gt;(3X-3)-1&lt;/td&gt;
+      &lt;td&gt;(3X-3-1)-2X = X-3&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;X-3+3 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;It is now obvious that the second binary search offset is &lt;em&gt;X+(X-1)&lt;/em&gt; and the
+third &lt;em&gt;X+(X-1)+(X-2)&lt;/em&gt;, which allows us to deduce the last try at should be
+&lt;em&gt;X+(X-1)+(X-2)+…+[X-(X-2)]+1&lt;/em&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Try At (Binary Search Offset)&lt;/th&gt;
+      &lt;th&gt;Linear Start&lt;/th&gt;
+      &lt;th&gt;Linear End&lt;/th&gt;
+      &lt;th&gt;Linear Searches&lt;/th&gt;
+      &lt;th&gt;Binary Search Performed&lt;/th&gt;
+      &lt;th&gt;Total Tries&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1&lt;/td&gt;
+      &lt;td&gt;(X-1-1)+1 = X-1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X-1+1 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X+(X-1)&lt;/td&gt;
+      &lt;td&gt;X+1&lt;/td&gt;
+      &lt;td&gt;(2X-1)-1&lt;/td&gt;
+      &lt;td&gt;(2X-1-1)-(X+1)+1 = &lt;em&gt;X-2&lt;/em&gt;&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+      &lt;td&gt;X-2+2 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X+(X-1)+(X-2)&lt;/td&gt;
+      &lt;td&gt;(2X-1)+1 = 2X&lt;/td&gt;
+      &lt;td&gt;(3X-3)-1&lt;/td&gt;
+      &lt;td&gt;(3X-3-1)-2X = X-3&lt;/td&gt;
+      &lt;td&gt;3&lt;/td&gt;
+      &lt;td&gt;X-3+3 = X&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+      &lt;td&gt;…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;X+(X-1)+(X-2)+…+[X-(X-2)]+1&lt;/td&gt;
+      &lt;td&gt;N/A&lt;/td&gt;
+      &lt;td&gt;N/A&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;X&lt;/td&gt;
+      &lt;td&gt;X&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The last binary search we perform should not require any further linear search,
+thus resulting in &lt;em&gt;X&lt;/em&gt; total binary searches, and consequentially &lt;em&gt;X&lt;/em&gt; total
+tries.&lt;/p&gt;
+
+&lt;p&gt;In order to fulfil the assumption that the last offset should require no further
+linear search, which in other words, means we should cover all floors with the
+last binary search offset, we can conclude that&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;X+(X-1)+(X-2)+…+[X-(X-2)]+1 &amp;gt;= 100&lt;/em&gt;.&lt;/p&gt;
+
+  &lt;p&gt;Equally&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;(X+1)X/2 &amp;gt;= 100&lt;/em&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;em&gt;X = 14&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;sample-code&quot;&gt;Sample Code&lt;/h2&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;####Dummy Optimized General Solution for 2 Eggs VS 100th Floor###&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;random&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;total_floor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;total_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;max_floor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'---===2 Eggs VS 100th Floor===---'&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'+Type '&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;' to quit the program!'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;raw_input&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'+Start? [Press Enter]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'exit'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;last_try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;#Which means we can still use binary search until we break one egg.&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]&amp;lt;!!!-Stage 1-!!!&amp;gt; --&amp;gt; Performing Binary Serach...'&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]count_try = '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]try_at = '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]last_try_at = '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_try_at&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;#This is the extreme case where the binary search was performed at 99th floor, and&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;#it breaks, which means 98 is the answer in this context.&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]The asnwer is 98!'&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Total Number of Tries: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+                &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;linear_start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;linear_end&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Egg1 Broke!'&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Correct answer is in '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'to'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear_end&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]&amp;lt;!!!-Stage 2-!!!&amp;gt; --&amp;gt; Performing Linear Search...'&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linear_start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear_end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Egg broke at'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]The answer is'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Total Number of Tries: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+                    &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Egg did not break at'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Egg survived all linear searches.'&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]The answer is'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linear_end&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Total Number of Tries: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+
+            &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;#This is the extreme case where the binary search was performed at 99th floor, and&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;#it didn't break, which means 100 is the answer in this context.&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]The asnwer is 100!'&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Total Number of Tries: '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+                &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;last_try_at&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Egg1 did not break at '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;try_at&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;[Debug]Continue binary search...'&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;break&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;drop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;No egg available for testing, program failed!'&lt;/span&gt;
+        &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;max_floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#Egg is gonna break&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;Drop egg at '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'floor: [Broken!]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'egg left!'&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'-&amp;gt;Drop egg at '&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'floor: [Did not break!]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;total_egg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'egg left!'&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;count_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run this piece of code, you’ll get the number of total tries at the end of each
+run. To simulate the one of the worst scenario, simply change &lt;em&gt;max_floor&lt;/em&gt; to 13.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;EDIT: I find myself extremely lack of mathematical thinking at the time of
+writing this post. However, it is fun to observe your though process many
+years ago, plus I did manage to get an answer :-D&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">I saw this problem posted on Facebook today, and find it really intriguing and quite enjoyable to solve.</summary></entry></feed>
