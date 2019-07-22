@@ -1,7 +1,7 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - Introduction"
 date         : "2012-06-08 13:15:00"
-tags         : [FreeBSD, Rootkit]
+tags         : [FreeBSD, Rootkit, C++]
 ---
 
 As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit

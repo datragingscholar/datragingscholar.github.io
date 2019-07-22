@@ -1,7 +1,7 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module"
 date         : "2012-06-08 21:53:49"
-tags         : [FreeBSD, Rootkit]
+tags         : [FreeBSD, Rootkit, C++]
 ---
 
 Needless to say that the first thing you need to start FreeBSD kernel rootkit
@@ -411,7 +411,7 @@ kernel loadable module compiled.
  * FILE: /root/rootkit/1.1/first_module.c
  * Example 1.1
  * The First Kernel Loadable Module
- * FreeBSD Rootkit Design Howtos @ www.hailang.me
+ * FreeBSD Rootkit Design Howtos @ hailang.im
 */
 #include <sys/param.h>
 #include <sys/module.h>

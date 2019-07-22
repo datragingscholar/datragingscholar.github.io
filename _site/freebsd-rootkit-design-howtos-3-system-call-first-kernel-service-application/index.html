@@ -1,0 +1,897 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application | Raging Scholar</title>
+<meta name="description" content="Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through allnecessary techniques you need to program your own BSD kernel rookit. Please besure you’ve read the previous guides before you proceed with this one.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/">
+
+
+  <meta property="og:description" content="Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through allnecessary techniques you need to program your own BSD kernel rookit. Please besure you’ve read the previous guides before you proceed with this one.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2012-06-10T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application">
+    <meta itemprop="description" content="Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through allnecessary techniques you need to program your own BSD kernel rookit. Please besure you’ve read the previous guides before you proceed with this one.">
+    <meta itemprop="datePublished" content="June 10, 2012">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through all
+necessary techniques you need to program your own BSD kernel rookit. Please be
+sure you’ve read the previous guides before you proceed with this one.</p>
+
+<h2 id="review">Review</h2>
+
+<p>Same as usual, let’s review what we’ve discussed in the <a href="/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/">last session</a>. Basically a new kind of kernel module was introduced — The system call
+module, it registers itself as a kernel service and wait for user to call it via
+system calls.</p>
+
+<p><strong>SYSCALL_MODULE</strong> is the registration macro for system call modules to install
+themselves into the running kernel, and it requires five parameters:</p>
+
+<ul>
+  <li>
+    <p><strong>name</strong> as a generic name for the system call module</p>
+  </li>
+  <li>
+    <p><strong>offset</strong> value which determines in which location in the sysent[] table to
+save our system call module’s sysent structure</p>
+  </li>
+  <li>
+    <p><strong>new_sysent</strong> pointer to a sysent_t structure that contains basic info about
+the system call module such as number of arguments and pointer to it’s
+implementation function</p>
+  </li>
+  <li>
+    <p><strong>implementation function</strong> defines activities you want your system call
+module to perform every time when it receives system call</p>
+  </li>
+</ul>
+
+<p>In this session, we’ll make a custom client application that calls our kernel
+service module directly without knowing the module’s offset value.</p>
+
+<h2 id="the-modfind-function">The modfind Function</h2>
+
+<p>The <strong>modfind</strong> function is our key to solve the inflexibility issue, it is very
+useful but a little bit confusing.</p>
+
+<p>As the name implies, the modfind function helps us to find a specific module in
+a running kernel by giving it the module name. It is sweet ’cause keeping track
+of module names is much easier than a bunch of module offset values.</p>
+
+<p>Now the confusing part is, opposite to what you may have guessed, the return
+value of this function is <strong>NOT</strong> the system call module’s offset value, but it’s
+<strong>id</strong>.</p>
+
+<p>Let’s take a look at a sample piece of modfind function code.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/param.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="n">modfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">modname</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="the-modstat-function">The modstat Function</h2>
+
+<p>As we can only obtain the <strong>id</strong> of the system call module by calling
+modfind function, so here’s what really give us answers - the <strong>modstat
+function</strong>.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/param.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="n">modstat</span><span class="p">(</span><span class="kt">int</span> <span class="n">modid</span><span class="p">,</span> <span class="k">struct</span> <span class="n">module_stat</span> <span class="o">*</span><span class="n">stat</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">int modid</code> is where we should pass the result of modfind function, but we
+won’t get the offset value from the function’s return value.</p>
+
+<p>Instead, we have to construct a <code class="highlighter-rouge">module_stat</code> structure, and the modstat function
+will save results to it. That is why we are passing a pointer to a module_stat
+structure as the second parameter.</p>
+
+<p>The module_stat structure is defined in sys/module.h as shown below</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">struct</span> <span class="n">module_stat</span> <span class="p">{</span>
+        <span class="kt">int</span>             <span class="n">version</span><span class="p">;</span>        <span class="cm">/* set to sizeof(struct module_stat) */</span>
+        <span class="kt">char</span>            <span class="n">name</span><span class="p">[</span><span class="n">MAXMODNAME</span><span class="p">];</span>
+        <span class="kt">int</span>             <span class="n">refs</span><span class="p">;</span>
+        <span class="kt">int</span>             <span class="n">id</span><span class="p">;</span>
+        <span class="n">modspecific_t</span>   <span class="n">data</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">typedef</span> <span class="k">union</span> <span class="n">modspecific</span> <span class="p">{</span>
+        <span class="kt">int</span>     <span class="n">intval</span><span class="p">;</span>
+        <span class="n">u_int</span>   <span class="n">uintval</span><span class="p">;</span>
+        <span class="kt">long</span>    <span class="n">longval</span><span class="p">;</span>
+        <span class="n">u_long</span>  <span class="n">ulongval</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">modspecific_t</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>I know this looks messy, but luckily we don’t need to deal with all of them.</p>
+
+<p>The first part of the code is the definition of <code class="highlighter-rouge">module_stat</code> structure, and it
+contains a <code class="highlighter-rouge">modspecific_t</code> union which is defined in the second part, our offset
+value is stored in this union as <code class="highlighter-rouge">intval</code>.</p>
+
+<p>Confusing right, you don’t see any variable name here with offset value in it.
+The good news is, that’s all we have to learn today, we’ll get to the example
+code after the summary.</p>
+
+<h2 id="summary">Summary</h2>
+
+<p>We now know that having a native client to call system call modules is much
+better than the perl command we used in last session. It is better because,</p>
+
+<ul>
+  <li>
+    <p>We don’t have to remember the offset value of the system call module to call
+it. This is especially useful when we have to maintain multiple system call
+modules</p>
+  </li>
+  <li>
+    <p>The offset value of system call module changes every time we reload it. We’ll
+still have our flexibility since we rely on module name which is not likely to
+be changed over time</p>
+  </li>
+</ul>
+
+<p>The way how the client works is that we use modfind to find out the id of a
+given module name, but sadly it’s not the module’s offset value, which we can’t
+use to issue the system call.</p>
+
+<p>So we have to utilize another function which is modstat that will give us back a
+modspecific union, in which we can get the real offset value we want from the
+intval integer.</p>
+
+<p>Here’s a figure to make your life miserable, you can thank me later. : ] Oh god,
+why I’m so bad at drawing…</p>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/chart3_1.png" alt="Chart 3" /></p>
+
+<h2 id="example-code">Example Code</h2>
+
+<p>Now it’s time for us to see some examples. Let’s firstly start with the example
+from Designing BSD Rootkits: An Introduction to Kernel Hacking with some
+additional comments to help you understand the code.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
+</span><span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,
+</span>                     <span class="c1">//print out usage help information
+</span>                     <span class="c1">//if we got wrong number of parameters.
+</span>        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//This is the module_stat structure
+</span>    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.
+</span>
+
+    <span class="cm">/* Determine sc_example's offset value. */</span>
+    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)
+</span>    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span>
+    <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
+
+    <span class="cm">/* Call sc_example. */</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Unlike kernel modules which we need a makefile to automate some extreme nasty
+stuff, we don’t need one for this simple client side application. We can
+directly compile the code like this,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# gcc -o client client.c
+client.c: In function 'main':
+client.c:12: warning: incompatible implicit declaration of built-in function 'exit'
+myBSD# ls
+client      client.c
+</code></pre></div></div>
+
+<p>Looks good so far, we’ve got the client executable file. Let’s load the previous
+sc_example module and try to call it with our client application.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# kldload ./sc_example.ko
+System call loaded at offset 210.
+myBSD# ./client
+Usage:
+./client &lt;string&gt;
+myBSD# ./client Hey\ Kernel!
+Bad system call (core dumped)
+</code></pre></div></div>
+
+<p>We loaded the sc_example module at offset value of 210, we got a nice help
+message when wrong number of parameter is specified, which is nice, but we end
+up with a Bad system call error when we give it the right amount of parameters.</p>
+
+<p>This is bad, because we’ve got nearly no clue of what had happened, and what
+caused it. But just before we panic, let’s calm down and think about this error
+message which is our only lead to the problem, which says Bad system call.</p>
+
+<p>It is obvious that we were calling a bad kernel module, so bad that our little
+client crashed. If we called a bad kernel module in our syscall function, then
+that means the return value of modfind or modstat function is wrong, or maybe
+both of them are wrong, who knows.</p>
+
+<p>So I did a little bit debugging, and I soon realized that the return value of
+modfind is -1, which is obviously bad.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
+</span><span class="p">{</span>
+<span class="p">...</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"The return value of modfind is: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">modfind</span><span class="p">(</span><span class="s">"sc_example"</span><span class="p">));</span>
+<span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The result says</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# gcc -o client client.c
+myBSD# ./client
+The return value of modfind is: -1
+</code></pre></div></div>
+
+<p>Alright, <strong><em>-1</em></strong>, it probably means fail to find this module, or given module was not
+found. Given that the module name is the only parameter for the modfind
+function, it is obvious that the module name is wrong.</p>
+
+<p>This is interesting, we all know that the module name is right, so there’s
+something wrong from the very beginning. The very source of a system call module
+is of course it’s declaration macro, so let’s look at there and see if we can
+get any luck.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+<span class="cp">#define SYSCALL_MODULE(name, offset, new_sysent, evh, arg)      \
+static struct syscall_module_data name##_syscall_mod = {        \
+        evh, arg, offset, new_sysent, { 0, NULL, AUE_NULL }     \
+};                                                              \
+                                                                \
+static moduledata_t name##_mod = {                              \
+        "sys/" #name,                                           \
+        syscall_module_handler,                                 \
+        &amp;name##_syscall_mod                                     \
+};
+</span></code></pre></div></div>
+
+<p>Here we go, a <strong><em>module name prefix</em></strong>! That means every kernel module
+registered with SYSCALL_MODULE will be given a <strong><em>sys/</em></strong> prefix in front of
+their names.</p>
+
+<p>Now we know the root of the problem, let’s modify our code and try again.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;stdio.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/module.h&gt;
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
+</span><span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,
+</span>                     <span class="c1">//print out usage help information
+</span>                     <span class="c1">//if we got wrong number of parameters.
+</span>        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+        <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//We'll get the module statues and store it here.
+</span>    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.
+</span>
+
+    <span class="cm">/* Determine sc_example's offset value. */</span>
+    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)
+</span>    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sys/sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//With prefix this time
+</span>    <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
+
+    <span class="cm">/* Call sc_example. */</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call
+</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>Everything is the same except <code class="highlighter-rouge">modstat(modfind("sys/sc_example"), &amp;stat);</code>. Now
+compile and run.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# gcc -o client client.c
+client.c: In function 'main':
+client.c:12: warning: incompatible implicit declaration of built-in function 'exit'
+myBSD# ./client Hey\ Kernel!\ What\'s\ Up\?
+myBSD# dmesg | tail -n1
+Hey Kernel! What's Up?
+</code></pre></div></div>
+
+<p>Yada! Our little client is doing it’s job and we’ve achieved our objectives by
+calling a system call module without knowing it’s offset value.</p>
+
+<p>That will be all for today, thank you for reading this tutorial, like it and
+share it to support my work, and I’ll see you in the next tutorial!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-06-10T00:00:00+08:00">June 10, 2012</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+3+-+System+Call+First+Kernel+Service+Application%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module
+">Previous</a>
+    
+    
+      <a href="/what-is-wrong-with-microservice/" class="pagination--pager" title="What is wrong with microservice
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/" rel="permalink">FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">So, this is the second tutorial on FreeBSD Kernel Rootkit Design. I hope you
+have worked through the previous one before you continue, which is obviously a
+p...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/" rel="permalink">FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Needless to say that the first thing you need to start FreeBSD kernel rootkit
+development is a FreeBSD box. There are plenty of installation guides on the
+In...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-introduction/" rel="permalink">FreeBSD Rootkit Design Howtos - Introduction
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit
+design. It was prepared as notes as I worked on my college final year project
+while...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

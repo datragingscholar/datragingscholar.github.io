@@ -1,0 +1,1114 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module | Raging Scholar</title>
+<meta name="description" content="So, this is the second tutorial on FreeBSD Kernel Rootkit Design. I hope youhave worked through the previous one before you continue, which is obviously aprerequisite.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/">
+
+
+  <meta property="og:description" content="So, this is the second tutorial on FreeBSD Kernel Rootkit Design. I hope youhave worked through the previous one before you continue, which is obviously aprerequisite.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2012-06-09T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module">
+    <meta itemprop="description" content="So, this is the second tutorial on FreeBSD Kernel Rootkit Design. I hope youhave worked through the previous one before you continue, which is obviously aprerequisite.">
+    <meta itemprop="datePublished" content="June 09, 2012">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 2 - System Call First Kernel Service Module
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  12 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>So, this is the second tutorial on FreeBSD Kernel Rootkit Design. I hope you
+have worked through the previous one before you continue, which is obviously a
+prerequisite.</p>
+
+<p>What we’ve discussed are that KLD is the way we interact with kernel, and how to
+declare a module by having module name, module data (consists of official name
+and event handler function), sub, and order. And we agree on the
+not-completely-true assumption that every kernel module should have an event
+handler function which deals with event type such as MOD_LOAD, MOD_UNLOAD, and
+so on. If any of these terms sounds strange to you, I encourage you to go back
+and review <a href="/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/">FreeBSD Kernel Rootkit Design Howtos - 1 - KLD First Kernel Loadable
+Module</a></p>
+
+<h2 id="the-system-call-module">The System Call Module</h2>
+
+<p>Today we’re gonna talk about the <em>system call module</em>, which is a little bit
+different compared to the general module we’ve discussed previously.</p>
+
+<p>A general module which we’ve talked about in the last session performs
+programmed actions only when certain actions take place, such as when it loads,
+unloads, shutdown, and etc.</p>
+
+<p>A <em>system call module</em> on the other hand, is basically as same as the general KLD
+module, except that it installs itself as a <em>kernel service request</em>, and then
+<em>listen to certain signals</em> to perform programmed actions accordingly.</p>
+
+<p>Such functions can be considered as kinda of a bridge between the kernel space
+and the user space, which enables the ability for its users to send signals to
+the kernel and make it react accordingly.</p>
+
+<p>What makes this system call module different is that, instead of printing
+messages every time we load or unload the module, we’re gonna make it print
+messages every time we send command to it.</p>
+
+<p>Here in this session, we’re gonna talk about the system call module, its
+structure, its declaration routine, and finally write our first system call
+module along with a tiny client application to send command to it.</p>
+
+<h2 id="the-system-call-function">The System Call Function</h2>
+
+<p>A <em>system call function</em> is a function defined in the system call module, which
+contains a list of actions to be taken every time it receives a system call.</p>
+
+<p>It’s similar to the <em>module event handler</em> except that we have control over what
+command to receive and what actions to perform.</p>
+
+<p>The prototype of system call function is defined in sys/sysent.h and is shown
+below.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">typedef</span> <span class="kt">int</span>     <span class="n">sy_call_t</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The struct <code class="highlighter-rouge">struct thread *</code> points to the current running thread, which you don’t
+have to care about it at this stage. The <code class="highlighter-rouge">void * points</code> to the structure of
+<strong>system call’s arguments</strong>.</p>
+
+<p>Compare to the general KLD module, the system call module can receive multiple
+arguments instead of limited and pre-defined ones. So it is your responsibility
+to define the arguments that the system call module needs to deal with.</p>
+
+<p>Since the <strong>system call’s arguments</strong> are wrapped in a struct, so we can define it
+like this:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Having the <strong>system call’s arguments</strong> <code class="highlighter-rouge">struct</code> successfully defined, we can now
+declare our <strong>system call function</strong> like this:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">uap</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The first line is obvious the declaration of the system call function, note that
+we can receive all arguments via <code class="highlighter-rouge">void *syscall_args</code> inside the function.</p>
+
+<p>Let’s now take a look at what happens inside the function, we firstly
+initialized (It’s not the precise term, but it helps) a local variable <code class="highlighter-rouge">*uap</code>
+using our defined sc_example_args structure.</p>
+
+<p>And then convert the incoming arguments from <code class="highlighter-rouge">*syscall_args</code> to match our
+standard, the sc_examples_args structure, and let the <code class="highlighter-rouge">*uap</code> pointer points to
+it. The simple version of this, is we receive arguments from <code class="highlighter-rouge">*syscall_args</code> and
+save it in <code class="highlighter-rouge">*uap</code> with the <code class="highlighter-rouge">sc_example_args</code> format.</p>
+
+<p>Now we can do whatever we want with the arguments received, such as print out
+the string like this:  <code class="highlighter-rouge">printf("%s\n", uap-&gt;str);</code></p>
+
+<p>Looks we have successfully declared a system call function, but we actually just
+made a huge mistake.</p>
+
+<p>What I mean by mistake is that the code can still be compiled and executed, but
+we did it in a very bad manner. You see that modern operating systems segregate
+it’s memory areas into user space and kernel space, code running in each section
+don’t directly access each other’s resources. The way we assign a user space
+structure pointer to a kernel space local variable (<code class="highlighter-rouge">uap = (struct
+sc_example_args *)syscall_args;</code>) is unsafe and not recommended.</p>
+
+<p>Here’s a quote from Designing BSD Rootkits: An Introduction to Kernel Hacking
+that explains a little bit about kernel space and user space.</p>
+
+<blockquote>
+  <p>FreeBSD segregates its virtual memory into two parts: user space and kernel
+space. User space is where all user-mode applications run, while kernel space
+is where the kernel and kernel extensions (i.e., LKMs) run. Code running in
+user space cannot access kernel space directly (but code running in kernel
+space can access user space). To access kernel space from user space, an
+application issues a system call.</p>
+</blockquote>
+
+<p>Let’s move on for now and get back to kernel/user space transition in details
+later.</p>
+
+<h2 id="the-sysent-structure">The sysent Structure</h2>
+
+<p>Still remember the general module declaration macro in the previous session?
+Well the system call modules need to register themselves by calling a macro as
+well, but we have to define a <strong>sysent structure</strong> first and then pass it to the
+declaration macro.</p>
+
+<p>The sysent structure is similar to the moduledata that we’ve discussed in the
+last session, it contains the basic information about the system call. So that
+once we register a system call module with sysent structure, the operating
+system will know where and how to quickly fire it.</p>
+
+<p>The FreeBSD system actually maintains <strong>a table of sysent structures</strong> of all system
+call modules that are currently loaded in the running kernel, thus every system
+call module has to provide its sysent structure during initialization to
+register itself with the <strong>sysent table</strong>.</p>
+
+<p>So be sure that you understand how sysent structure differs from sysent table
+before we take a look at its definition in sys/sysent.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">struct</span> <span class="n">sysent</span> <span class="p">{</span>                 <span class="cm">/* system call table */</span>
+        <span class="kt">int</span>     <span class="n">sy_narg</span><span class="p">;</span>        <span class="cm">/* number of arguments */</span>
+        <span class="n">sy_call_t</span> <span class="o">*</span><span class="n">sy_call</span><span class="p">;</span>     <span class="cm">/* implementing function */</span>
+        <span class="n">au_event_t</span> <span class="n">sy_auevent</span><span class="p">;</span>  <span class="cm">/* audit event associated with syscall */</span>
+        <span class="n">systrace_args_func_t</span> <span class="n">sy_systrace_args_func</span><span class="p">;</span>
+                                <span class="cm">/* optional argument conversion function. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_entry</span><span class="p">;</span>     <span class="cm">/* DTrace entry ID for systrace. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_return</span><span class="p">;</span>    <span class="cm">/* DTrace return ID for systrace. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_flags</span><span class="p">;</span>     <span class="cm">/* General flags for system calls. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_thrcnt</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="err">…</span>
+<span class="k">extern</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sysent</span><span class="p">[];</span>
+</code></pre></div></div>
+
+<p>I guess the comments in above code explain exactly what you need to know. Note
+that normally we just need to specify <code class="highlighter-rouge">sy_narg</code> and <code class="highlighter-rouge">*sy_call</code> for this to work.</p>
+
+<p>Now we can extend our previous example code as following:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">uap</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sc_example_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>              <span class="cm">/* number of arguments */</span>
+    <span class="n">sc_example</span>      <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<h2 id="the-offset-value">The Offset Value</h2>
+
+<p>Same as the system call function and the sysent structure, the <strong>offset value</strong> is
+another parameter you need to set and pass to the system call module declaration
+macro. Basically, the offset value is the system call module’s number, which
+will be used by the system to refer to its sysent structure in the sysent table.</p>
+
+<p>It should be an unique integer, and should be explicitly declared in a system
+call’s declaration macro. It is considered as a good practice to not to assign
+fixed numbers to dynamic system call modules. Instead, we can ask the system to
+dynamically assign an unused offset number for our system call module by doing
+this:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">NO_SYSCALL</code> is a constant, meaning the next available slots offset in sysent
+table.</p>
+
+<p>Just in case if you are interested, the value for NO_SYSCALL is -1 as shown below:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+
+<span class="cp">#define NO_SYSCALL (-1)
+</span></code></pre></div></div>
+
+<p>Some of the pre-defined system call offsets are listed in the
+/sys/kern/syscalls.master file, here’s some allocations:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Offset Range</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0-150</td>
+      <td>Reserved/unimplemented system calls. For use in future Berkeley releases.</td>
+    </tr>
+    <tr>
+      <td>151-180</td>
+      <td>Reserved for vendor-specific system calls</td>
+    </tr>
+    <tr>
+      <td>181-199</td>
+      <td>Used by/reserved for BSD</td>
+    </tr>
+    <tr>
+      <td>210-219</td>
+      <td>Reserved for loadable syscalls</td>
+    </tr>
+    <tr>
+      <td>220-249</td>
+      <td>Were introduced with NetBSD/4.4Lite-2</td>
+    </tr>
+    <tr>
+      <td>250-299</td>
+      <td>Initially used in OpenBSD</td>
+    </tr>
+    <tr>
+      <td>300-531</td>
+      <td>Syscall numbers for FreeBSD</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="the-syscall_module-macro">The SYSCALL_MODULE Macro</h2>
+
+<p>I said at the beginning of this tutorial that we are gonna need to call a macro
+to declare a system call module, but we needed to know few other things first.
+We talked about system call function, we talked about sysent structure and we
+talked about the offset value.</p>
+
+<p>We need these declared first and only then we can call the <strong>SYSCALL_MODULE
+macro</strong>. It is defined in sys/sysent.h as following</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+
+<span class="cp">#define SYSCALL_MODULE(name, offset, new_sysent, evh, arg)
+</span></code></pre></div></div>
+
+<p>Different from the <strong>DECLARE_MODULE</strong> macro which requires four parameters:
+<strong>name</strong>, <strong>data</strong>, <strong>sub</strong>, and <strong>order</strong>, the <strong>SYSCALL_MODULE</strong> requires five
+parameter to be passed, which are:</p>
+
+<h3 id="name">name</h3>
+
+<blockquote>
+  <p>This specifies the generic module name, which is passed as a character string.</p>
+</blockquote>
+
+<h3 id="offset">offset</h3>
+
+<blockquote>
+  <p>This specifies the system call’s offset value, which is passed as an integer
+pointer.</p>
+</blockquote>
+
+<h3 id="new_sysent">new_sysent</h3>
+
+<blockquote>
+  <p>This specifies the completed sysent structure, which is passed as a struct
+sysent pointer.</p>
+</blockquote>
+
+<h3 id="evh">evh</h3>
+
+<blockquote>
+  <p>This specifies the event handler function.</p>
+</blockquote>
+
+<h3 id="arg">arg</h3>
+
+<blockquote>
+  <p>This specifies the arguments to be passed to the event handler function. For
+our purposes, we’ll always set this parameter to NULL.</p>
+</blockquote>
+
+<p>Great, we can now further extend our previous example code as following</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">uap</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+    <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sc_example_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>              <span class="cm">/* number of arguments */</span>
+    <span class="n">sc_example</span>      <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">sc_example</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sc_example_sysent</span><span class="p">,</span> <span class="n">evh</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Don’t worry about the event handler function <code class="highlighter-rouge">evh</code>, it will be exactly same as
+general module’s event handler function. You’ll see that in the complete example
+soon, for now let’s sum things up first.</p>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li>
+    <p>System Call Module is another type of kernel loadable module</p>
+  </li>
+  <li>
+    <p>It installs itself in the kernel space and perform programmed activities
+according to signals received from user space</p>
+  </li>
+  <li>
+    <p>In order to declare a system call module, five parameters are required, name,
+offset, new_sysent, evh, and arg</p>
+
+    <ul>
+      <li>
+        <p>name is the general module name</p>
+      </li>
+      <li>
+        <p>offset is the system call module’s offset number</p>
+
+        <ul>
+          <li>It determines where to store the system call module’s sysent structure
+in sysent[] table</li>
+        </ul>
+      </li>
+      <li>
+        <p>new_sysent is a pointer to the system call module’s sysent structure</p>
+
+        <ul>
+          <li>
+            <p>sysent structure is similar to moduledata</p>
+          </li>
+          <li>
+            <p>It contains basic information about the system call module including</p>
+
+            <ul>
+              <li>
+                <p>Number of arguments it expects</p>
+              </li>
+              <li>
+                <p>And implementing function</p>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <p>The implementation function, also known as the system call function</p>
+          </li>
+          <li>
+            <p>It contains a list of actions to be taken every time it receives a particular signal</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="example-code">Example Code</h2>
+
+<p>We can now write the our first system call module, take a look at the following
+code, there are some comments there to help you understand. There is absolutely
+nothing new except the event handler function, which in fact, isn’t new to us as
+well.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * FILE: /root/rootkit/2.1/sc_example.c
+ * Example 2.1
+ * The First System Call Module
+ * FreeBSD Rootkit Design Howtos @ hailang.im
+*/</span>
+<span class="cp">#include &lt;sys/types.h&gt;
+#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/sysent.h&gt;
+#include &lt;sys/kernel.h&gt;
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/sysproto.h&gt;
+</span>
+<span class="cm">/* The system call's arguments. */</span>
+<span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* The system call function. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%s</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">uap</span><span class="o">-&gt;</span><span class="n">str</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sc_example_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>          <span class="cm">/* number of arguments */</span>
+    <span class="n">sc_example</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="cm">/* The offset in sysent[] where the system call is to be allocated. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+
+<span class="cm">/* The function called at load/unload. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"System call loaded at offset %d.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"System call unloaded from offset %d.</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">offset</span><span class="p">);</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="nl">default:</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Declare the System Call Module */</span>
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">sc_example</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sc_example_sysent</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>As usual, we need to have a makefile in the same directory as the source code
+file.</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KMOD</span><span class="o">=</span>   sc_example
+<span class="nv">SRCS</span><span class="o">=</span>   sc_example.c
+
+<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+</code></pre></div></div>
+
+<p>Now build your first system call module by using the make command in the same
+directory.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# make
+Warning: Object directory not changed from original /root/rootkit/2.1
+@ -&gt; /usr/src/sys
+machine -&gt; /usr/src/sys/amd64/include
+x86 -&gt; /usr/src/sys/x86/include
+cc -O2 -pipe -fno-strict-aliasing -Werror -D_KERNEL -DKLD_MODULE -nostdinc   -I. -I@ -I@/contrib/altq -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  -fno-omit-frame-pointer  -mno-sse -mcmodel=kernel -mno-red-zone -mno-mmx -msoft-float  -fno-asynchronous-unwind-tables -ffreestanding -fstack-protector -std=iso9899:1999 -fstack-protector -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes  -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual  -Wundef -Wno-pointer-sign -fformat-extensions  -Wmissing-include-dirs -fdiagnostics-show-option   -c sc_example.c
+ld  -d -warn-common -r -d -o sc_example.ko sc_example.o
+:&gt; export_syms
+awk -f /sys/conf/kmod_syms.awk sc_example.ko  export_syms | xargs -J% objcopy % sc_example.ko
+objcopy --strip-debug sc_example.ko
+
+myBSD# ls
+@       export_syms machine     makefile    sc_example.c    sc_example.ko   sc_example.o    x86
+</code></pre></div></div>
+
+<p>We have successfully compiled our first system call module and we got the
+<em>*sc_example.ko</em> file!</p>
+
+<h2 id="loading-and-calling">Loading and Calling</h2>
+
+<p>Here’s the final step we need to take to make use of our first system call
+module, the loading, and the calling. Let’s firstly try to load the module into
+the running kernel, and then figure out how to issue the system call.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# kldload ./sc_example.ko
+System call loaded at offset 210.
+</code></pre></div></div>
+
+<p>Thanks to our event handler, it prints out the system call number which is the
+offset value of the system call module’s sysent structure in sysent[] table.
+You’ll soon realize how important it is for us to issue a system call.</p>
+
+<p>Now we have two ways to send command to our system call module, we can either
+write a user space application, or type a simple command. I will talk about the
+command first since the user space application will be covered in next session.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>myBSD# kldload ./sc_example.ko
+System call loaded at offset 210.
+myBSD# perl -e '$str = "Hello kernel!\n I am here to dance with you!";' -e 'syscall(210, $str);'
+myBSD# dmesg | tail -n 2
+Hello kernel!
+ I am here to dance with you!
+</code></pre></div></div>
+
+<p>Note that we explicitly specified the system call number in that perl command to
+send our command to our system call module.</p>
+
+<p>That’s all for today, we made an upgraded version of fun kernel printing tookit
+which can print whatever string you want it to. We’ll talk about how to call a
+system call module without knowing it’s offset value in the next tutorial. See
+you there.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2012-06-09T00:00:00+08:00">June 09, 2012</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+2+-+System+Call+First+Kernel+Service+Module%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module
+">Previous</a>
+    
+    
+      <a href="/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/" rel="permalink">FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to FreeBSD Kernel Rootkit Design Howtos, we’ll walk through all
+necessary techniques you need to program your own BSD kernel rookit. Please be
+s...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module/" rel="permalink">FreeBSD Rootkit Design Howtos - 1 - KLD First Kernel Loadable Module
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Needless to say that the first thing you need to start FreeBSD kernel rootkit
+development is a FreeBSD box. There are plenty of installation guides on the
+In...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-rootkit-design-howtos-introduction/" rel="permalink">FreeBSD Rootkit Design Howtos - Introduction
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">As the title suggests, this is a howto tutorial on FreeBSD kernel rootkit
+design. It was prepared as notes as I worked on my college final year project
+while...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
