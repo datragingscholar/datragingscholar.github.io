@@ -1,0 +1,1429 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 5 - Character Device First cdev Module | Raging Scholar</title>
+<meta name="description" content="Sup guys, welcome back to today’s FreeBSD Kernel Rootkit Design Howtos! I knowit’s been a couple of days since I posted the previous note, I was dealing withmy visa issue.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 5 - Character Device First cdev Module">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-5-character-device-first-cdev-module/">
+
+
+  <meta property="og:description" content="Sup guys, welcome back to today’s FreeBSD Kernel Rootkit Design Howtos! I knowit’s been a couple of days since I posted the previous note, I was dealing withmy visa issue.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2011-04-08T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-5-character-device-first-cdev-module/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 5 - Character Device First cdev Module</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 5 - Character Device First cdev Module">
+    <meta itemprop="description" content="Sup guys, welcome back to today’s FreeBSD Kernel Rootkit Design Howtos! I knowit’s been a couple of days since I posted the previous note, I was dealing withmy visa issue.">
+    <meta itemprop="datePublished" content="April 08, 2011">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 5 - Character Device First cdev Module
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Sup guys, welcome back to today’s FreeBSD Kernel Rootkit Design Howtos! I know
+it’s been a couple of days since I posted the previous note, I was dealing with
+my visa issue.</p>
+
+<h2 id="review">Review</h2>
+
+<p>We have discussed two types of kernel modules in the past 4 sessions: General
+Kernel Module, and System Call Kernel Module.</p>
+
+<p>Hope you still remember that it took us 3 sessions to discuss the System Call
+Kernel Module and a tiny little client application, and lastly we discussed a
+little bit on Kernel/User Space Transitions.</p>
+
+<p>So I guess that’d be enough for the System Call Kernel Module since we already
+know how to <a href="/freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module/">declare</a>
+it, how to <a href="/freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application/">call</a>
+it, and how to do it in a <a href="/freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions/">safe way</a>.</p>
+
+<p>And today we are gonna talk about a new type of kernel module – <strong><em>The Character
+Device Module</em></strong>, I hope you’ll enjoy.</p>
+
+<h2 id="the-device">The Device</h2>
+
+<p>Before we discuss what is a Character Device, let’s talk about what is a
+<strong><em>Device</em></strong> first.</p>
+
+<p>A device is simply components connected with your motherboard, such as your hard
+disk, USB Drive, Handphone, or even Keyboard and Mouse.</p>
+
+<p>You may have known that one of the most famous “characteristics” of unix-like
+systems, is  that <a href="http://ph7spot.com/musings/in-unix-everything-is-a-file">In UNIX Everything is a
+File</a> (This is a great
+article, check this out).</p>
+
+<p>That’s true, and by Everything we mean documents, directories, links, network
+connections, terminals, inter-process communication, and devices.</p>
+
+<p>All of these are represented as files in the unified local filesystem because
+they are treated as stream bytes, so you can <em>read</em>, <em>write</em>, <em>lseek</em>, and
+<em>close</em> them. So getting user input from the keyboard is simply read from the
+keyboard device file, very nice and clean right?</p>
+
+<p>The benefit of this design is of course a simplified and unified API for all
+devices, and this was very advanced design back in the day when other operating
+systems required user to use different commands to copy files from different
+types of devices.</p>
+
+<p>You get get a list of device files by entering <code class="highlighter-rouge">ls /dev</code> in a terminal. <code class="highlighter-rouge">/dev</code>
+is a specific implementation of filesystem called devfs in which all device
+files are stored and managed.</p>
+
+<h2 id="the-block-device-and-the-character-device">The Block Device and The Character Device</h2>
+
+<p>Now we know that we can interact with a device by accessing its device file, but
+what actually controls the behavior of a device?</p>
+
+<p>The answer is in the kernel. Since firstly kernel should be the one dealing with
+hardware, and secondly the segregation between kernel modules can prevent a
+single hardware error from crashing the whole system.</p>
+
+<p>That means if you are a device driver developer and you are about to work on a
+new hardware driver for most Unix-like systems, you’ll have to program a Device
+Kernel Module, and the module should follow the standard and create a file in
+devfs for users to interact with.</p>
+
+<p>So that the concept of Device Kernel Module is similar to the concept of driver,
+except that in fact there are many different kinds of device kernel modules
+designed for different purposes. Here I’m gonna talk about two main types of
+modern unix-like system device kernel modules, the <strong><em>Block Device Module</em></strong> and
+the <strong><em>Character Device Module</em></strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Character Device</th>
+      <th>Block Device</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="http://www.freebsd.org/doc/en/books/arch-handbook/driverbasics-char.html">Transfers data directly to and from a user process</a></td>
+      <td><a href="http://www.freebsd.org/doc/en/books/arch-handbook/driverbasics-block.html">Disk devices for which the kernel provides caching</a></td>
+    </tr>
+    <tr>
+      <td>Performs no buffering</td>
+      <td>Performs buffering and access randomly through a cache</td>
+    </tr>
+    <tr>
+      <td>Read/Write 0 or more bytes in a stream</td>
+      <td>Read/Write fixed size blocks</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Block devices are used to mount disk partitions in some other unix-like systems,
+and were used by FreeBSD as caching devices. The good news is, as you can see
+from <a href="http://www.freebsd.org/doc/en/books/arch-handbook/driverbasics-block.html">FreeBSD Handbook: Block
+Devices</a>,
+that the block device is deprecated by FreeBSD as a step to modernize the system design.</p>
+
+<p>The caching part was moved upward and is now known as the vnode, so we totally
+don’t have to worry about block device here, but it’s still good idea to
+understand the differences between these two types of devices.</p>
+
+<p>To conclude the above boring introduction, background, and design scenario, the
+Character Device Module, as the most common type of device driver, is simply
+just another type of kernel module that installs itself in the kernel and
+provide interface (devfs) represented as file to interact with users.</p>
+
+<p>To successfully declare a character device module, there are three unique things
+we need to deal with first, we need to have a <strong><em>cdevsw structure</em></strong>,
+<strong><em>character device functions</em></strong>, and <strong><em>device registration routine</em></strong>. And of
+course, we’ll have to have an event handler and module declaration macro just
+like any other kernel modules.</p>
+
+<h2 id="the-cdevsw-structure">The cdevsw Structure</h2>
+
+<p>Like what we have in a system call module, the cdevsw structure is a structure
+in which we store related information about the character device module, and
+this structure will be stored in a <strong><em>cdevsw structure table</em></strong> known as the
+character device switch table.</p>
+
+<p>It works similarly to what we do with system call modules, we have a <strong><em>sysent
+structure</em></strong> to store some related information, and then we put that structure
+into the <strong><em>sysent[]</em></strong> table for further reference. So there should be no
+problem to understand this concept.</p>
+
+<p>The cdevsw structure is defined in sys/conf.h as the following. I added some
+comments for quick reference.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="cm">/*
+ * Character device switch table
+ */</span>
+<span class="k">struct</span> <span class="n">cdevsw</span> <span class="p">{</span>
+        <span class="kt">int</span>                     <span class="n">d_version</span><span class="p">;</span>
+        <span class="n">u_int</span>                   <span class="n">d_flags</span><span class="p">;</span>    <span class="cm">/* D_TAPE, D_DISK, D_TTY, D_MEM */</span>
+        <span class="k">const</span> <span class="kt">char</span>              <span class="o">*</span><span class="n">d_name</span><span class="p">;</span>    <span class="cm">/* Device name in /dev */</span>
+        <span class="n">d_open_t</span>                <span class="o">*</span><span class="n">d_open</span><span class="p">;</span>    <span class="cm">/* Func. pointer to dev open function */</span>
+        <span class="n">d_fdopen_t</span>              <span class="o">*</span><span class="n">d_fdopen</span><span class="p">;</span>
+        <span class="n">d_close_t</span>               <span class="o">*</span><span class="n">d_close</span><span class="p">;</span>   <span class="cm">/* Func. pointer to dev close function */</span>
+        <span class="n">d_read_t</span>                <span class="o">*</span><span class="n">d_read</span><span class="p">;</span>    <span class="cm">/* Func. pointer to dev read function */</span>
+        <span class="n">d_write_t</span>               <span class="o">*</span><span class="n">d_write</span><span class="p">;</span>   <span class="cm">/* Func. pointer to dev write function */</span>
+        <span class="n">d_ioctl_t</span>               <span class="o">*</span><span class="n">d_ioctl</span><span class="p">;</span>   <span class="cm">/* Func. pointer to dev ioctl (an operation other than a read or a write) function */</span>
+        <span class="n">d_poll_t</span>                <span class="o">*</span><span class="n">d_poll</span><span class="p">;</span>    <span class="cm">/* Polls a device to see if there is data to be read or space available for writing */</span>
+        <span class="n">d_mmap_t</span>                <span class="o">*</span><span class="n">d_mmap</span><span class="p">;</span>
+        <span class="n">d_strategy_t</span>            <span class="o">*</span><span class="n">d_strategy</span><span class="p">;</span>
+        <span class="n">dumper_t</span>                <span class="o">*</span><span class="n">d_dump</span><span class="p">;</span>
+        <span class="n">d_kqfilter_t</span>            <span class="o">*</span><span class="n">d_kqfilter</span><span class="p">;</span>
+        <span class="n">d_purge_t</span>               <span class="o">*</span><span class="n">d_purge</span><span class="p">;</span>
+        <span class="n">d_mmap_single_t</span>         <span class="o">*</span><span class="n">d_mmap_single</span><span class="p">;</span>
+
+        <span class="kt">int32_t</span>                 <span class="n">d_spare0</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+        <span class="kt">void</span>                    <span class="o">*</span><span class="n">d_spare1</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+
+        <span class="cm">/* These fields should not be messed with by drivers */</span>
+        <span class="n">LIST_HEAD</span><span class="p">(,</span> <span class="n">cdev</span><span class="p">)</span>       <span class="n">d_devs</span><span class="p">;</span>
+        <span class="kt">int</span>                     <span class="n">d_spare2</span><span class="p">;</span>
+        <span class="k">union</span> <span class="p">{</span>
+                <span class="k">struct</span> <span class="n">cdevsw</span>           <span class="o">*</span><span class="n">gianttrick</span><span class="p">;</span>
+                <span class="n">SLIST_ENTRY</span><span class="p">(</span><span class="n">cdevsw</span><span class="p">)</span>     <span class="n">postfree_list</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">__d_giant</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>This may look very complicated, but actually there are just two parameters
+required to declare a character device, the <code class="highlighter-rouge">*d_name</code> and the <code class="highlighter-rouge">d_version</code>.</p>
+
+<p>The <code class="highlighter-rouge">*d_name</code> is obvious the name of the character device module, and will be
+used to name the filename in /dev.</p>
+
+<p>And the <code class="highlighter-rouge">d_version</code> specifies which FreeBSD version this character device module
+supports, it is defined in sys/conf.h as well.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="cm">/*
+ * Version numbers.
+ */</span>
+<span class="cp">#define D_VERSION_00    0x20011966
+#define D_VERSION_01    0x17032005      </span><span class="cm">/* Add d_uid,gid,mode &amp; kind */</span><span class="cp">
+#define D_VERSION_02    0x28042009      </span><span class="cm">/* Add d_mmap_single */</span><span class="cp">
+#define D_VERSION_03    0x17122009      </span><span class="cm">/* d_mmap takes memattr,vm_ooffset_t */</span><span class="cp">
+#define D_VERSION       D_VERSION_03
+</span></code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">D_VERSION</code> is the same as the latest <code class="highlighter-rouge">d_version</code>, so we’re gonna use this
+unless you want to have your character device module specifically run on a
+particular legacy version of FreeBSD.</p>
+
+<p>So if you decide to be a superb lazy ass, the simplest definition of cdevsw
+structure can be,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">cd_example_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example"</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Unfortunately this character device module pretty much does nothing, despite
+that we are not required to define all of the functions such as <code class="highlighter-rouge">*d_open</code> or
+<code class="highlighter-rouge">*d_close</code>, we still need to have some of them to let our module at least do
+something.</p>
+
+<h2 id="the-character-device-functions">The Character Device Functions</h2>
+
+<p>There are a lot of functions we can choose to implement in order to feature our
+module, but as I said, it does not require us to implement all of these listed
+functions in the definition of cdevsw structure.</p>
+
+<p>Oh, FYI, for those functions that are not specified in the declaration of your
+module’s cdevsw structure, the operation will be considered as <em>not supported</em>.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">cd_example_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example"</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_open</span> <span class="o">=</span> <span class="n">open</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_close</span> <span class="o">=</span> <span class="n">close</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_write</span> <span class="o">=</span> <span class="n">write</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>In the example above, we explicitly said that we are gonna define a character
+device module named <code class="highlighter-rouge">cd_example_cdevsw</code>, and its gonna have four character device
+functions with their function pointers specified.</p>
+
+<p>Take note that once we define a cdevsw structure with particular functions, the
+compiler will expect that function to be implemented, and will result in a
+compiling error if we fail to do this.</p>
+
+<p>The prototypes of these functions are defined in the same file, sys/conf.h.
+Access the file for a complete list of all prototypes, I’m just gonna list down
+the four that we are using,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="cm">/*
+ * Character Device Function Prototypes.
+ */</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">d_open_t</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">oflags</span><span class="p">,</span> <span class="kt">int</span> <span class="n">devtype</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">d_close_t</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fflag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">devtype</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">d_read_t</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="kt">int</span> <span class="n">d_write_t</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>To quickly give you an overall understanding of how this works, we are gonna
+firstly create a read-only character device module. And by read-only, it means
+that we can only read stream bytes from the module which runs in the kernel back
+to the user space.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Function prototype
+</span><span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span> <span class="c1">//d_read_t is typedef'd in sys/conf.h
+</span>
+<span class="c1">// Define a read-only device
+</span><span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">ro_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example_ro"</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space
+</span><span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">read</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="cm">/* Return the saved character string to userland. */</span>
+        <span class="n">copystr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="n">uio</span><span class="o">-&gt;</span><span class="n">uio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="mi">513</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In order to implement the read function, we firstly defined it with the <code class="highlighter-rouge">d_read_t</code>
+prototype. Then we defined a cdevsw structure called <code class="highlighter-rouge">ro_cdevsw</code> with only one
+function pointer passed, the read function.</p>
+
+<p>Now since we are gonna read a string from the kernel back to the user space, we
+at least need a string in the kernel, right? So we defined a string called
+<code class="highlighter-rouge">buf[512+1]</code>.</p>
+
+<p>Finally we reached the implementation of the read function, everything is usual
+except that we used <code class="highlighter-rouge">copystr()</code> here.</p>
+
+<p>I hope you still remember that there are four copy functions, <code class="highlighter-rouge">copyin()</code>,
+<code class="highlighter-rouge">copyinstr()</code>, <code class="highlighter-rouge">copyout()</code>, and <code class="highlighter-rouge">copystr()</code>. All these four functions copy a
+continues data from kernel space to user space or vise versa except <code class="highlighter-rouge">copystr()</code>.
+<code class="highlighter-rouge">copystr()</code> function copies data from one kernel space address to another kernel space
+address. It is defined in sys/systm.h with following function prototype.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">systm</span><span class="p">.</span><span class="n">h</span>
+<span class="kt">int</span>     <span class="n">copystr</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span> <span class="o">*</span> <span class="kr">__restrict</span> <span class="n">kfaddr</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span> <span class="kr">__restrict</span> <span class="n">kdaddr</span><span class="p">,</span>
+            <span class="kt">size_t</span> <span class="n">len</span><span class="p">,</span> <span class="kt">size_t</span> <span class="o">*</span> <span class="kr">__restrict</span> <span class="n">lencopied</span><span class="p">)</span>
+            <span class="n">__nonnull</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="n">__nonnull</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>What we did with <code class="highlighter-rouge">copystr(&amp;buf, uio-&gt;uio_iov-&gt;iov_base, 513, &amp;len);</code> was to copy
+data from <code class="highlighter-rouge">buf</code> (which is a string in kernel space) to <code class="highlighter-rouge">uio-&gt;uio_iov-&gt;iov_base</code>
+which as a matter of fact, is also a kernel address, with maximum length 513,
+and save copied length to <code class="highlighter-rouge">len</code>.</p>
+
+<p>It’s strange that we used <code class="highlighter-rouge">copystr()</code> function, ‘cause it copies data from
+kernel space address to another kernel space address, but we want to copy the
+<code class="highlighter-rouge">buf[]</code> string from kernel back to user space. This is obviously nothing like a
+read operation that we expected.</p>
+
+<p>To answer this question, we have to take a look into the destination kernel
+space address  <code class="highlighter-rouge">uio-&gt;uio_iov-&gt;iov_base</code> that came out of nowhere.</p>
+
+<p>In fact, the <code class="highlighter-rouge">*uio</code> structure does not came out of nowhere, it is actually
+defined in the <code class="highlighter-rouge">read</code> function prototype, and it was passed to our read function
+like this: <code class="highlighter-rouge">int read(struct cdev *dev, struct uio *uio, int ioflag){}</code>. That
+means every read action performed to a character device module from the user
+space needs to pass the <code class="highlighter-rouge">*uio</code> structure.</p>
+
+<p>So now the question is, what is <code class="highlighter-rouge">*uio</code>, and why <code class="highlighter-rouge">*uio</code>. Here’s the definition of
+it in sys/uio.h.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">uio</span><span class="p">.</span><span class="n">h</span>
+<span class="k">struct</span> <span class="n">uio</span> <span class="p">{</span>
+        <span class="k">struct</span>  <span class="n">iovec</span> <span class="o">*</span><span class="n">uio_iov</span><span class="p">;</span>         <span class="cm">/* scatter/gather list */</span>
+        <span class="kt">int</span>     <span class="n">uio_iovcnt</span><span class="p">;</span>             <span class="cm">/* length of scatter/gather list */</span>
+        <span class="kt">off_t</span>   <span class="n">uio_offset</span><span class="p">;</span>             <span class="cm">/* offset in target object */</span>
+        <span class="kt">ssize_t</span> <span class="n">uio_resid</span><span class="p">;</span>              <span class="cm">/* remaining bytes to process */</span>
+        <span class="k">enum</span>    <span class="n">uio_seg</span> <span class="n">uio_segflg</span><span class="p">;</span>     <span class="cm">/* address space */</span>
+        <span class="k">enum</span>    <span class="n">uio_rw</span> <span class="n">uio_rw</span><span class="p">;</span>          <span class="cm">/* operation */</span>
+        <span class="k">struct</span>  <span class="kr">thread</span> <span class="o">*</span><span class="n">uio_td</span><span class="p">;</span>         <span class="cm">/* owner */</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>I’ll leave the why question to UIO(9) manpage, it says,</p>
+
+<blockquote>
+  <p>As a result of any read(2), write(2), readv(2), or writev(2) system call that
+is being passed to a character-device driver, the appropriate driver d_read or
+d_write entry will be called with a pointer to a struct uio being passed.</p>
+
+  <p>The transfer request is encoded in this structure. The driver itself should use
+uiomove() or  uiomove_nofault() to get at the data in this structure.</p>
+</blockquote>
+
+<p>That means we’ve got to have <code class="highlighter-rouge">uio</code> passed to <code class="highlighter-rouge">read()</code> or <code class="highlighter-rouge">write()</code> function and
+then use <code class="highlighter-rouge">uiomove()</code> or <code class="highlighter-rouge">uiomove_nofault()</code> to,</p>
+
+<blockquote>
+  <p>The functions uiomove() and uiomove_nofault() are used to transfer data
+between buffers and I/O vectors that might possibly cross the user/kernel
+space boundary.</p>
+</blockquote>
+
+<p>Now let’s take a look at <code class="highlighter-rouge">iovec *uio_iov</code> array. The I/O vector is defined in
+sys/_iovec.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">_iovec</span><span class="p">.</span><span class="n">h</span>
+<span class="k">struct</span> <span class="n">iovec</span> <span class="p">{</span>
+        <span class="kt">void</span>    <span class="o">*</span><span class="n">iov_base</span><span class="p">;</span>      <span class="cm">/* Base address. */</span>
+        <span class="kt">size_t</span>   <span class="n">iov_len</span><span class="p">;</span>       <span class="cm">/* Length. */</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>Take note that the <code class="highlighter-rouge">iov_base</code> is the base address of the I/O vector, so by
+<code class="highlighter-rouge">copystr(&amp;buf, uio-&gt;uio_iov-&gt;iov_base, 513, &amp;len);</code> what we are really doing here
+is that we copied maximum 513 length of stream bytes from the starting address
+of the buffer string <code class="highlighter-rouge">&amp;buf</code> to the base address of I/O vector
+<code class="highlighter-rouge">uio-&gt;uio_iov-&gt;iov_base</code>.</p>
+
+<p>We’ll get to the <code class="highlighter-rouge">uiomove()</code> function later, as for now, let’s discuss about the
+very last new thing we have to know to declare a character device module.</p>
+
+<h2 id="the-device-registration-routine">The Device Registration Routine</h2>
+
+<p>The registration of a device module is accomplished by calling the declaration
+module called <code class="highlighter-rouge">DEV_MODULE</code>. Before that, we need to have an event handler which
+defines the actions to be performed when the device module is loaded or
+unloaded.</p>
+
+<p>This is simple, we call <code class="highlighter-rouge">make_dev()</code> function to register our character device
+module with kernel and create the device file in devfs when the module is
+loaded, and we call <code class="highlighter-rouge">destroy_dev()</code> function to unregister the module and remove
+the device file from /dev when the module is unloaded.</p>
+
+<h3 id="make_dev-function"><code class="highlighter-rouge">make_dev()</code> function</h3>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">make_dev</span><span class="p">(</span>
+    <span class="k">struct</span> <span class="n">cdevsw</span> <span class="o">*</span><span class="n">_devsw</span><span class="p">,</span> <span class="c1">//pointer to cdevsw structure of the device module which was defined previously
+</span>    <span class="kt">int</span> <span class="n">_unit</span><span class="p">,</span> <span class="c1">//Normally set to 0
+</span>    <span class="n">uid_t</span> <span class="n">_uid</span><span class="p">,</span> <span class="c1">//The owner ID of the device file
+</span>    <span class="n">gid_t</span> <span class="n">_gid</span><span class="p">,</span> <span class="c1">//The owner group ID of the device file
+</span>    <span class="kt">int</span> <span class="n">_perms</span><span class="p">,</span> <span class="c1">//The permissions of the device file, e.g. 0600
+</span>    <span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">_fmt</span><span class="p">,</span> <span class="c1">//The name of the device
+</span><span class="p">...)</span> <span class="n">__printflike</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This function is straight forward, we pass the <code class="highlighter-rouge">cdevsw</code> structure to the
+<code class="highlighter-rouge">make_dev()</code> function to finally get it registered into the character device
+switch table. What’s new is the return value of the function, which is a <code class="highlighter-rouge">cdev</code>
+structure. Well we’ve already discussed about the cdevsw structure, so what’s a
+cdev structure?</p>
+
+<h3 id="cdev-structure">cdev structure</h3>
+
+<p>Let’s take a look at the definition of the cdev structure which is defined in
+sys/conf.h as shown below,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="n">cdev</span> <span class="p">{</span>
+        <span class="kt">void</span>            <span class="o">*</span><span class="n">__si_reserved</span><span class="p">;</span>
+        <span class="n">u_int</span>           <span class="n">si_flags</span><span class="p">;</span>
+<span class="cp">#define SI_ETERNAL      0x0001  </span><span class="cm">/* never destroyed */</span><span class="cp">
+#define SI_ALIAS        0x0002  </span><span class="cm">/* carrier of alias name */</span><span class="cp">
+#define SI_NAMED        0x0004  </span><span class="cm">/* make_dev{_alias} has been called */</span><span class="cp">
+#define SI_CHEAPCLONE   0x0008  </span><span class="cm">/* can be removed_dev'ed when vnode reclaims */</span><span class="cp">
+#define SI_CHILD        0x0010  </span><span class="cm">/* child of another struct cdev **/</span><span class="cp">
+#define SI_DEVOPEN      0x0020  </span><span class="cm">/* opened by device */</span><span class="cp">
+#define SI_CONSOPEN     0x0040  </span><span class="cm">/* opened by console */</span><span class="cp">
+#define SI_DUMPDEV      0x0080  </span><span class="cm">/* is kernel dumpdev */</span><span class="cp">
+#define SI_CANDELETE    0x0100  </span><span class="cm">/* can do BIO_DELETE */</span><span class="cp">
+#define SI_CLONELIST    0x0200  </span><span class="cm">/* on a clone list */</span><span class="cp">
+</span>        <span class="k">struct</span> <span class="n">timespec</span> <span class="n">si_atime</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">timespec</span> <span class="n">si_ctime</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">timespec</span> <span class="n">si_mtime</span><span class="p">;</span>
+        <span class="n">uid_t</span>           <span class="n">si_uid</span><span class="p">;</span>
+        <span class="n">gid_t</span>           <span class="n">si_gid</span><span class="p">;</span>
+        <span class="n">mode_t</span>          <span class="n">si_mode</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">ucred</span>    <span class="o">*</span><span class="n">si_cred</span><span class="p">;</span>       <span class="cm">/* cached clone-time credential */</span>
+        <span class="kt">int</span>             <span class="n">si_drv0</span><span class="p">;</span>
+        <span class="kt">int</span>             <span class="n">si_refcount</span><span class="p">;</span>
+        <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">cdev</span><span class="p">)</span>        <span class="n">si_list</span><span class="p">;</span>
+        <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">cdev</span><span class="p">)</span>        <span class="n">si_clone</span><span class="p">;</span>
+        <span class="n">LIST_HEAD</span><span class="p">(,</span> <span class="n">cdev</span><span class="p">)</span>       <span class="n">si_children</span><span class="p">;</span>
+        <span class="n">LIST_ENTRY</span><span class="p">(</span><span class="n">cdev</span><span class="p">)</span>        <span class="n">si_siblings</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">si_parent</span><span class="p">;</span>
+        <span class="kt">char</span>            <span class="o">*</span><span class="n">si_name</span><span class="p">;</span>
+        <span class="kt">void</span>            <span class="o">*</span><span class="n">si_drv1</span><span class="p">,</span> <span class="o">*</span><span class="n">si_drv2</span><span class="p">;</span>
+        <span class="k">struct</span> <span class="n">cdevsw</span>   <span class="o">*</span><span class="n">si_devsw</span><span class="p">;</span>
+        <span class="kt">int</span>             <span class="n">si_iosize_max</span><span class="p">;</span>  <span class="cm">/* maximum I/O size (for physio &amp;al) */</span>
+        <span class="n">u_long</span>          <span class="n">si_usecount</span><span class="p">;</span>
+        <span class="n">u_long</span>          <span class="n">si_threadcount</span><span class="p">;</span>
+        <span class="k">union</span> <span class="p">{</span>
+                <span class="k">struct</span> <span class="n">snapdata</span> <span class="o">*</span><span class="n">__sid_snapdata</span><span class="p">;</span>
+        <span class="p">}</span> <span class="n">__si_u</span><span class="p">;</span>
+        <span class="kt">char</span>            <span class="n">__si_namebuf</span><span class="p">[</span><span class="n">SPECNAMELEN</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+<span class="p">};</span>
+</code></pre></div></div>
+
+<p>This look scary, but we don’t have to worry about all these parameters. Since it
+is a returen value passed to us, we’ll have all necessary information set for
+us.</p>
+
+<h3 id="destroy_dev-function">destroy_dev() function</h3>
+
+<p>Everything is just automagical, oh, except one thing – we have to explicitly
+define a <code class="highlighter-rouge">cdev</code> structure to receive the return value of the <code class="highlighter-rouge">make_dev()</code> function,
+since we’ll need to use it for our <code class="highlighter-rouge">destroy_dev()</code> function. The <code class="highlighter-rouge">destroy_dev()</code>
+function is defined in sys/conf.h as shown below,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="kt">void</span>    <span class="n">destroy_dev</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">_dev</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This is superb simple, the <code class="highlighter-rouge">destroy_dev()</code> function will unregister the module and
+remove the device file in /dev, so it needs the cdev structure we just got from
+<code class="highlighter-rouge">make_dev()</code> function to get the module’s devfs information in order to destroy
+the device successfully.</p>
+
+<p>Thus, we can update our example as the following,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Function prototype
+</span><span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span> <span class="c1">//d_read_t is typedef'd in sys/conf.h
+</span>
+<span class="c1">// Define a read-only device
+</span><span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">ro_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example_ro"</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">read</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">uprintf</span><span class="p">(</span><span class="s">"Read function called!n"</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Event Handler Code Here... */</span>
+<span class="p">...</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">sdev</span><span class="p">;</span>
+<span class="n">sdev</span> <span class="o">=</span> <span class="n">make_dev</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ro_cdevsw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">UID_ROOT</span><span class="p">,</span> <span class="n">GID_WHEEL</span><span class="p">,</span> <span class="mo">0600</span><span class="p">,</span> <span class="s">"cd_example_ro"</span><span class="p">);</span>
+<span class="n">destroy_dev</span><span class="p">(</span><span class="n">sdev</span><span class="p">);</span>
+<span class="p">...</span>
+
+<span class="cm">/* Declaration Macro Here... */</span>
+<span class="n">DEV_MODULE</span><span class="p">(...)</span>
+</code></pre></div></div>
+
+<p>In the above example, we set the owner of the device to root, owner group to
+wheel, and permissions to 0600. A complete list of USER_IDs and GROUP_IDs are
+defined in sys/conf.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="cp">#define         UID_ROOT        0
+#define         UID_BIN         3
+#define         UID_UUCP        66
+#define         UID_NOBODY      65534
+</span>
+<span class="cp">#define         GID_WHEEL       0
+#define         GID_KMEM        2
+#define         GID_TTY         4
+#define         GID_OPERATOR    5
+#define         GID_BIN         7
+#define         GID_GAMES       13
+#define         GID_DIALER      68
+#define         GID_NOBODY      65534
+</span></code></pre></div></div>
+
+<h3 id="dev_module-macro">DEV_MODULE macro</h3>
+
+<p>Here comes the last part of the device registration routine, the declaration
+macro. The definition of <code class="highlighter-rouge">DEV_MODULE</code> macro is in sys/conf.h as shown below,</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">h</span>
+<span class="cp">#define DEV_MODULE(name, evh, arg)                                      \
+static moduledata_t name##_mod = {                                      \
+    #name,                                                              \
+    evh,                                                                \
+    arg                                                                 \
+};                                                                      \
+DECLARE_MODULE(name, name##_mod, SI_SUB_DRIVERS, SI_ORDER_MIDDLE)
+</span></code></pre></div></div>
+
+<p>Notice that when we use <code class="highlighter-rouge">DEV_MODULE</code>, it will automatically call the general
+DECLARE_MODULE with default module type and SI_SUB_DRIVERS, and the module
+position will be somewhere in the middle. So all we need to do is to specify the
+general name, the event handler function pointer, that’s all.</p>
+
+<h3 id="connecting-the-dots">Connecting the dots</h3>
+
+<p>Now let’s connect all the pieces of code together to see how a character device
+register routine looks like.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Function prototype
+</span><span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span> <span class="c1">//d_read_t is typedef'd in sys/conf.h
+</span>
+<span class="c1">// Define a read-only device
+</span><span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">ro_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example_ro"</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space
+</span><span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">read</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span>
+    <span class="cm">/* Return the saved character string to userland. */</span>
+        <span class="n">copystr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="n">uio</span><span class="o">-&gt;</span><span class="n">uio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="mi">513</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Reference to the device in DEVFS */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">sdev</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+        <span class="n">sdev</span> <span class="o">=</span> <span class="n">make_dev</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ro_cdevsw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">UID_ROOT</span><span class="p">,</span> <span class="n">GID_WHEEL</span><span class="p">,</span> <span class="mo">0600</span><span class="p">,</span> <span class="s">"cd_example_ro"</span><span class="p">);</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device loaded.n"</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span> <span class="n">destroy_dev</span><span class="p">(</span><span class="n">sdev</span><span class="p">);</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device unloaded.n"</span><span class="p">);</span> <span class="k">break</span><span class="p">;</span>
+
+        <span class="nl">default:</span> <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+        <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">DEV_MODULE</span><span class="p">(</span><span class="n">cd_example_ro</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+
+
+
+
+
+
+
+
+<span class="cp">#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/kernel.h&gt;
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/conf.h&gt;
+#include &lt;sys/uio.h&gt;
+</span>
+<span class="c1">// Function prototypes
+</span><span class="n">d_open_t</span> <span class="n">open</span><span class="p">;</span>
+<span class="n">d_close_t</span> <span class="n">close</span><span class="p">;</span>
+<span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span>
+<span class="n">d_write_t</span> <span class="n">write</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">cd_example_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_open</span> <span class="o">=</span> <span class="n">open</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_close</span> <span class="o">=</span> <span class="n">close</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_write</span> <span class="o">=</span> <span class="n">write</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example"</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space
+</span><span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">otyp</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cm">/* Initialize character buffer. */</span>
+<span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="sc">'�'</span><span class="p">,</span> <span class="mi">513</span><span class="p">);</span>
+<span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">close</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">otyp</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">write</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="cm">/*
+* Take in a character string, saving it in buf.
+* Note: The proper way to transfer data between buffers and I/O
+* vectors that cross the user/kernel space boundary is with
+* uiomove(), but this way is shorter. For more on device driver I/O
+* routines, see the uio(9) manual page.
+*/</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">copyinstr</span><span class="p">(</span><span class="n">uio</span><span class="o">-&gt;</span><span class="n">uio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">uprintf</span><span class="p">(</span><span class="s">"Write to "</span><span class="n">cd_example</span><span class="s">" failed.n"</span><span class="p">);</span>
+
+<span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">read</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">lenuio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="mi">513</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+
+<span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Reference to the device in DEVFS */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">sdev</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+<span class="n">sdev</span> <span class="o">=</span> <span class="n">make_dev</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cd_example_cdevsw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">UID_ROOT</span><span class="p">,</span> <span class="n">GID_WHEEL</span><span class="p">,</span> <span class="mo">0600</span><span class="p">,</span> <span class="s">"cd_example"</span><span class="p">);</span>
+<span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device loaded.n"</span><span class="p">);</span>
+<span class="k">break</span><span class="p">;</span>
+
+<span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+<span class="n">destroy_dev</span><span class="p">(</span><span class="n">sdev</span><span class="p">);</span>
+<span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device unloaded.n"</span><span class="p">);</span>
+<span class="k">break</span><span class="p">;</span>
+
+<span class="nl">default:</span>
+<span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+<span class="k">break</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">DEV_MODULE</span><span class="p">(</span><span class="n">cd_example</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="the-implementation">The Implementation</h2>
+
+<p>Have discussed all these, we are now ready to look at the example code from the
+book.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/kernel.h&gt;
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/conf.h&gt;
+#include &lt;sys/uio.h&gt;
+</span>
+<span class="c1">// Function prototypes
+</span><span class="n">d_open_t</span> <span class="n">open</span><span class="p">;</span>
+<span class="n">d_close_t</span> <span class="n">close</span><span class="p">;</span>
+<span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span>
+<span class="n">d_write_t</span> <span class="n">write</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdevsw</span> <span class="n">cd_example_cdevsw</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">.</span><span class="n">d_version</span> <span class="o">=</span> <span class="n">D_VERSION</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_open</span> <span class="o">=</span> <span class="n">open</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_close</span> <span class="o">=</span> <span class="n">close</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_read</span> <span class="o">=</span> <span class="n">read</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_write</span> <span class="o">=</span> <span class="n">write</span><span class="p">,</span>
+    <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example"</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space
+</span><span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">otyp</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="cm">/* Initialize character buffer. */</span>
+    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="sc">'�'</span><span class="p">,</span> <span class="mi">513</span><span class="p">);</span>
+    <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">close</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">otyp</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">write</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+
+    <span class="cm">/*
+     * Take in a character string, saving it in buf.
+     * Note: The proper way to transfer data between buffers and I/O
+     * vectors that cross the user/kernel space boundary is with
+     * uiomove(), but this way is shorter. For more on device driver I/O
+     * routines, see the uio(9) manual page.
+    */</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">copyinstr</span><span class="p">(</span><span class="n">uio</span><span class="o">-&gt;</span><span class="n">uio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">error</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"Write to "</span><span class="n">cd_example</span><span class="s">" failed.n"</span><span class="p">);</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">read</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="k">struct</span> <span class="n">uio</span> <span class="o">*</span><span class="n">uio</span><span class="p">,</span> <span class="kt">int</span> <span class="n">ioflag</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="cm">/* Return the saved character string to userland. */</span>
+        <span class="n">copystr</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span> <span class="n">uio</span><span class="o">-&gt;</span><span class="n">uio_iov</span><span class="o">-&gt;</span><span class="n">iov_base</span><span class="p">,</span> <span class="mi">513</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">);</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="cm">/* Reference to the device in DEVFS */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">sdev</span><span class="p">;</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span> <span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+            <span class="n">sdev</span> <span class="o">=</span> <span class="n">make_dev</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cd_example_cdevsw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">UID_ROOT</span><span class="p">,</span> <span class="n">GID_WHEEL</span><span class="p">,</span> <span class="mo">0600</span><span class="p">,</span> <span class="s">"cd_example"</span><span class="p">);</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device loaded.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+            <span class="n">destroy_dev</span><span class="p">(</span><span class="n">sdev</span><span class="p">);</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"Character device unloaded.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="nl">default:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">DEV_MODULE</span><span class="p">(</span><span class="n">cd_example</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Now compile and try to load it into kernel.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# make
+Warning: Object directory not changed from original /zroot/development/3.Character_device
+cc -O2 -pipe -fno-strict-aliasing -Werror -D_KERNEL -DKLD_MODULE -nostdinc   -I. -I@ -I@/contrib/altq -finline-limit=8000 --param inline-unit-growth=100 --param large-function-growth=1000 -fno-common  -fno-omit-frame-pointer  -mcmodel=kernel -mno-red-zone  -mfpmath=387 -mno-sse -mno-sse2 -mno-sse3 -mno-mmx -mno-3dnow  -msoft-float -fno-asynchronous-unwind-tables -ffreestanding -fstack-protector -std=iso9899:1999 -fstack-protector -Wall -Wredundant-decls -Wnested-externs -Wstrict-prototypes  -Wmissing-prototypes -Wpointer-arith -Winline -Wcast-qual  -Wundef -Wno-pointer-sign -fformat-extensions -c cdev.c
+ld  -d -warn-common -r -d -o cd_example.ko cdev.o
+:&gt; export_syms
+awk -f /sys/conf/kmod_syms.awk cd_example.ko  export_syms | xargs -J% objcopy % cd_example.ko
+objcopy --strip-debug cd_example.ko
+ZFSTest# kldload ./cd_example.ko
+Character device loaded.
+</code></pre></div></div>
+
+<p>Now we can see that the module is successfully loaded to the kernel. And if you
+check the /dev folder now, you can find your very first own DEVFS file.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# ls -lF /dev/cd_example
+crw-------  1 root  wheel    0,  96 Apr 13 10:23 /dev/cd_example
+</code></pre></div></div>
+
+<p>All right then, this should be all for today. We’ll talk about how to call our
+character device from user space with an application in the next note, see you
+then.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2011-04-08T00:00:00+08:00">April 08, 2011</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+5+-+Character+Device+First+cdev+Module%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-5-character-device-first-cdev-module%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-5-character-device-first-cdev-module%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-5-character-device-first-cdev-module%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions
+">Previous</a>
+    
+    
+      <a href="/the-2-eggs-vs-100-floor-problem/" class="pagination--pager" title="2 Eggs versus 100 Floor
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/largest-product-in-a-series/" rel="permalink">Largest Product In A Series
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Find the greatest product of five consecutive digits in the 1000-digit number.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/10001st-prime-number/" rel="permalink">10001st Prime Number
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+that the 6th prime is 13. What is the 10001st prime number?
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="permalink">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
+as 20 years ago… :) – Hunger hunger@hunger.hu
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

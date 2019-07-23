@@ -1,6 +1,6 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - 4 - Kernel And User Space Transitions"
-date         : "2012-06-11"
+date         : "2011-04-07"
 tags         : [FreeBSD, Rootkit, C++]
 ---
 

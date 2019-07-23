@@ -1,6 +1,6 @@
 ---
 title        : "FreeBSD Rootkit Design Howtos - 3 - System Call First Kernel Service Application"
-date         : "2012-06-10"
+date         : "2011-04-06"
 tags         : [FreeBSD, Rootkit, C++]
 ---
 
