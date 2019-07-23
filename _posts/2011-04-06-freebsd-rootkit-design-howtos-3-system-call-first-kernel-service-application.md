@@ -12,7 +12,7 @@ sure you’ve read the previous guides before you proceed with this one.
 
 Same as usual, let’s review what we’ve discussed in the [last session]({%
 post_url
-2012-06-09-freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module
+2011-04-04-freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module
 %}). Basically a new kind of kernel module was introduced — The system call
 module, it registers itself as a kernel service and wait for user to call it via
 system calls.

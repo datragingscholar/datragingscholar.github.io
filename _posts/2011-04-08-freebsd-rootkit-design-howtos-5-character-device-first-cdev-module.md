@@ -19,12 +19,12 @@ little bit on Kernel/User Space Transitions.
 
 So I guess that'd be enough for the System Call Kernel Module since we already
 know how to [declare]({% post_url
-2012-06-09-freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module %})
+2011-04-06-freebsd-rootkit-design-howtos-2-system-call-first-kernel-service-module %})
 it, how to [call]({% post_url
-2012-06-10-freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application
+2011-04-07-freebsd-rootkit-design-howtos-3-system-call-first-kernel-service-application
 %})
 it, and how to do it in a [safe way]({% post_url
-2012-06-11-freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions %}).
+2011-04-08-freebsd-rootkit-design-howtos-4-kernel-and-user-space-transitions %}).
 
 And today we are gonna talk about a new type of kernel module -- ***The Character
 Device Module***, I hope you'll enjoy.

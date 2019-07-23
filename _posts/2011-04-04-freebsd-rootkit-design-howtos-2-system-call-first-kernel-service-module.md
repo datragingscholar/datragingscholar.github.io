@@ -16,7 +16,7 @@ not-completely-true assumption that every kernel module should have an event
 handler function which deals with event type such as MOD_LOAD, MOD_UNLOAD, and
 so on. If any of these terms sounds strange to you, I encourage you to go back
 and review [FreeBSD Kernel Rootkit Design Howtos - 1 - KLD First Kernel Loadable
-Module]({% post_url 2012-06-08-freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module %})
+Module]({% post_url 2011-04-02-freebsd-rootkit-design-howtos-1-kld-first-kernel-loadable-module %})
 
 ## The System Call Module
 
