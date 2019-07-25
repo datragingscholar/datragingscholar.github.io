@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 8 - System Call Hook and mkdir_hook Example | Raging Scholar</title>
+<meta name="description" content="We should all agree with the simplicity of the first chapter at this point,there are only few new APIs and concepts, all we did was following the book, themanual pages, or the examples. So if I tell you that we can write real rootkitsstarting from this chapter, you’d probably not believe me, but that is true. Allwe need is a little push to the by far most common, most famous, and mostpopular rootkit technique – the Hooking, since we already have all basicknowledge required for this.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 8 - System Call Hook and mkdir_hook Example">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-8-hook-system-call-hook-and-mkdir-hook-example/">
+
+
+  <meta property="og:description" content="We should all agree with the simplicity of the first chapter at this point,there are only few new APIs and concepts, all we did was following the book, themanual pages, or the examples. So if I tell you that we can write real rootkitsstarting from this chapter, you’d probably not believe me, but that is true. Allwe need is a little push to the by far most common, most famous, and mostpopular rootkit technique – the Hooking, since we already have all basicknowledge required for this.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2011-04-25T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-8-hook-system-call-hook-and-mkdir-hook-example/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 8 - System Call Hook and mkdir_hook Example</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 8 - System Call Hook and mkdir_hook Example">
+    <meta itemprop="description" content="We should all agree with the simplicity of the first chapter at this point,there are only few new APIs and concepts, all we did was following the book, themanual pages, or the examples. So if I tell you that we can write real rootkitsstarting from this chapter, you’d probably not believe me, but that is true. Allwe need is a little push to the by far most common, most famous, and mostpopular rootkit technique – the Hooking, since we already have all basicknowledge required for this.">
+    <meta itemprop="datePublished" content="April 25, 2011">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 8 - System Call Hook and mkdir_hook Example
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>We should all agree with the simplicity of the first chapter at this point,
+there are only few new APIs and concepts, all we did was following the book, the
+manual pages, or the examples. So if I tell you that we can write real rootkits
+starting from this chapter, you’d probably not believe me, but that is true. All
+we need is a little push to the by far most common, most famous, and most
+popular rootkit technique – the <strong><em>Hooking</em></strong>, since we already have all basic
+knowledge required for this.</p>
+
+<h2 id="hooking">Hooking</h2>
+
+<p>As I said, the Hooking technique might be one of the oldest and most widely
+spread rootkit techniques. The concept of hook is easy, we program and install a
+kernel module, and let that module pretends to be another system module to
+change the routine of an execution of a command.</p>
+
+<p>It is rather a simple but efficient technique, all we have to do is to change
+the routine of an system execution, so that we can change the execution results,
+add functionalities, and also deduct functionalities if we want. So if you
+intend to write rootkits, then Hooking is for sure the simplest and most
+efficient technique to use. For example, we can hide file contents, hide
+directory, hide network connections by hooking those function calls and change
+the way how they display the results.</p>
+
+<p><img src="/assets/images/freebsd-rootkit-design-howtos/hook.png" alt="List Dir Hook" /></p>
+
+<p>The above figure shows the process of how to hijack a <strong><em>list directory call</em></strong> and
+hide file(s) from displaying. The original process should be triggered by a ls
+command, where the testDirectory is the parameter here. The the <strong><em>list directory
+call</em></strong> will use the parameter to read the list of items under that directory and
+eventually display all of them one by one.</p>
+
+<p>To hijack the execution process the system call, register itself as the new <strong><em>list
+directory call</em></strong>, read the list of items under that directory and check Is the
+Item Hidden (by filename, or by contents, you decide the checking mechanism),
+and then display those are not hidden by calling the <strong><em>original system call</em></strong>, and
+everything will be working normally by the end except that we have hiden our
+secret files.</p>
+
+<p>So you can see that the power of Hooking is only limited by your imagination.
+You can hide files, hide network connections, temper user list results, have the
+infected host uploading all it’s logs when it initializes a HTTP request,
+or delete the entire filesystem on your birthday to have some malicous fun.</p>
+
+<p>Once we get to know how to program a Hooking, we can start writing our first
+rootkit. That is what I’m gonna do in this chapter, unlike the first chapter, we
+are not going to learn a lot of APIs, instead, we’ll see lots of examples(from
+the book, or by myself) to show the real power of Hooking.</p>
+
+<p>Okay, enough talk, lets start with a <strong><em>mkdir_hook</em></strong> example.</p>
+
+<h2 id="the-mkdir_hook-example">The mkdir_hook Example</h2>
+
+<h3 id="manipulate-sysent-table">Manipulate sysent[] Table</h3>
+
+<p>As we have discussed previously, <code class="highlighter-rouge">sysent[]</code> is a table holding every registered
+system call’s sysent structure. The hooking technique is based on tempering the
+<code class="highlighter-rouge">sysent[]</code> table, so let’s review this a little bit.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sysent</span><span class="p">.</span><span class="n">h</span>
+
+<span class="k">struct</span> <span class="n">sysent</span> <span class="p">{</span>                 <span class="cm">/* system call table */</span>
+        <span class="kt">int</span>     <span class="n">sy_narg</span><span class="p">;</span>        <span class="cm">/* number of arguments */</span>
+        <span class="n">sy_call_t</span> <span class="o">*</span><span class="n">sy_call</span><span class="p">;</span>     <span class="cm">/* implementing function */</span>
+        <span class="n">au_event_t</span> <span class="n">sy_auevent</span><span class="p">;</span>  <span class="cm">/* audit event associated with syscall */</span>
+        <span class="n">systrace_args_func_t</span> <span class="n">sy_systrace_args_func</span><span class="p">;</span>
+                                <span class="cm">/* optional argument conversion function. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_entry</span><span class="p">;</span>     <span class="cm">/* DTrace entry ID for systrace. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_return</span><span class="p">;</span>    <span class="cm">/* DTrace return ID for systrace. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_flags</span><span class="p">;</span>     <span class="cm">/* General flags for system calls. */</span>
+        <span class="n">u_int32_t</span> <span class="n">sy_thrcnt</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+
+<span class="k">extern</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sysent</span><span class="p">[];</span>
+</code></pre></div></div>
+
+<p>The process is we create sysent structure for our system calls, put basic
+information like number of arguments and implementation functions in it, and
+register our system call with <code class="highlighter-rouge">sysent[]</code> table. See example code below.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="p">...</span>
+
+<span class="cm">/* The system call's arguments. */</span>
+<span class="k">struct</span> <span class="n">sc_example_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">str</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* The system call function. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">sc_example</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">sc_example_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+<span class="p">...</span>
+<span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">sc_example_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>  <span class="cm">/* number of arguments */</span>
+    <span class="n">sc_example</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="p">...</span>
+<span class="p">...</span>
+
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">sc_example</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">sc_example_sysent</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In the example above, we created <code class="highlighter-rouge">sc_example_sysent</code> sysent structure, and
+specified the number of arguments and implementation function pointer to that
+structure, and use it as a parameter for <code class="highlighter-rouge">SYSCALL_MODULE</code> declaration macro.</p>
+
+<p>So if we want to change the execution routine of <code class="highlighter-rouge">mkdir</code>, and register our own
+module as mkdir in <code class="highlighter-rouge">sysent[]</code> table, all we have to to is to get the <strong><em>sysent
+offset</em></strong> of mkdir, and change the <code class="highlighter-rouge">sy_call</code> to our own implementation function
+pointer. Sample code should look like this:</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">...</span>
+<span class="cm">/* The system call's arguments. */</span>
+<span class="k">struct</span> <span class="n">mkdir_hook_args</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+<span class="p">};</span>
+
+<span class="cm">/* mkdir system call hook */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">mkdir_hook</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">mkdir_hook_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="p">...</span>
+    <span class="n">mkdir_hook</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="n">sysent</span><span class="p">[</span><span class="n">MKDIR_OFFSET</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">mkdir_hook</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>And to undo the changing to sysent[] table, we just need to</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sysent</span><span class="p">[</span><span class="n">MKDIR_OFFSET</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">mkdir</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>For general system calls, such as mkdir, we can get a list of constant offsets
+of them in sys/syscall.h</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">syscall</span><span class="p">.</span><span class="n">h</span>
+
+<span class="p">...</span>
+<span class="cp">#define SYS_rename      128
+</span>                                <span class="cm">/* 129 is old truncate */</span>
+                                <span class="cm">/* 130 is old ftruncate */</span>
+<span class="cp">#define SYS_flock       131
+#define SYS_mkfifo      132
+#define SYS_sendto      133
+#define SYS_shutdown    134
+#define SYS_socketpair  135
+#define SYS_mkdir       136
+#define SYS_rmdir       137
+#define SYS_utimes      138
+</span>                                <span class="cm">/* 139 is obsolete 4.2 sigreturn */</span>
+<span class="p">...</span>
+<span class="p">...</span>
+</code></pre></div></div>
+
+<p>Be sure to take a look at that list, there are so many fun system calls we can abuse. :-p</p>
+
+<h2 id="the-implementation">The Implementation</h2>
+
+<p>The example code from the book won’t complie, here’s my revised version.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/types.h&gt;
+#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/sysent.h&gt;
+#include &lt;sys/kernel.h&gt; //New
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/sysproto.h&gt;
+</span>
+<span class="cm">/* The system call's arguments. */</span>
+<span class="k">struct</span> <span class="n">mkdir_hook_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">mode</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* mkdir system call hook */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">mkdir_hook</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">mkdir_hook_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">mkdir_hook_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="n">path</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span>
+    <span class="kt">size_t</span> <span class="n">done</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+
+    <span class="n">error</span> <span class="o">=</span> <span class="n">copyinstr</span><span class="p">(</span><span class="n">uap</span><span class="o">-&gt;</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">done</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+
+    <span class="cm">/* print a debug message */</span>
+    <span class="n">uprintf</span><span class="p">(</span><span class="s">"The directory "</span><span class="o">%</span><span class="n">s</span><span class="s">" will be created with the following permissions: %on"</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">uap</span><span class="o">-&gt;</span><span class="n">mode</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">mkdir</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">syscall_args</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">mkdir_hook_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">2</span><span class="p">,</span>          <span class="cm">/* number of arguments */</span>
+    <span class="n">mkdir_hook</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="cm">/* The offset in sysent[] where the system call is to be allocated. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+
+<span class="cm">/* The function called at load/unload. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+            <span class="cm">/* Replace mkdir with mkdir_hook. */</span>
+            <span class="n">sysent</span><span class="p">[</span><span class="n">SYS_mkdir</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">mkdir_hook</span><span class="p">;</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"The mkdir_hook is loaded, you can try to mkdir now.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+            <span class="cm">/* Change everything back to normal. */</span>
+            <span class="n">sysent</span><span class="p">[</span><span class="n">SYS_mkdir</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">mkdir</span><span class="p">;</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"The mkdir_hook is unloaded, everything is back to normal now.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="nl">default:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">mkdir_hook</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">mkdir_hook_sysent</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>This is nothing just a normal system call, we have <code class="highlighter-rouge">mkdir_hook_args</code> to receive
+arguments, we have <code class="highlighter-rouge">mkdir_hook</code> as implementation function, <code class="highlighter-rouge">mkdir_hook_sysent</code>
+as sysent structure, <code class="highlighter-rouge">load</code> as event handler and finally use <code class="highlighter-rouge">SYSCALL_MODULE</code> to
+declare the system call.</p>
+
+<p>What this system call does is to change <code class="highlighter-rouge">sysent[]</code> table, set <code class="highlighter-rouge">mkdir_hook</code> as
+the implementation function of <code class="highlighter-rouge">SYS_mkdir</code> when this module loads, and set it
+back to normal when it unloads (Otherwise mkdir call will not work once our
+module is unloaded from the kernel). And we receive arguments of the <code class="highlighter-rouge">path</code> and
+<code class="highlighter-rouge">mode</code> of the directory to be created from user space, copy path to kernel space
+using <code class="highlighter-rouge">copyinstr()</code>, display a simple debug message, and then pass the <code class="highlighter-rouge">thread
+td</code> and system arguments(contains <code class="highlighter-rouge">path</code> and <code class="highlighter-rouge">mode</code>) syscall_args to a normal
+mkdir call to complete the request.</p>
+
+<h3 id="the-load-and-call">The Load and Call</h3>
+
+<p>Save this make file in the same directory as the source.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">KMOD</span><span class="o">=</span>   <span class="n">mkdir_hook</span>
+<span class="n">SRCS</span><span class="o">=</span>   <span class="n">mkdir_hook</span><span class="p">.</span><span class="n">c</span>
+
+<span class="p">.</span><span class="n">include</span> <span class="o">&lt;</span><span class="n">bsd</span><span class="p">.</span><span class="n">kmod</span><span class="p">.</span><span class="n">mk</span><span class="o">&gt;</span>
+
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# make clean
+rm <span class="nt">-f</span> export_syms mkdir_hook.ko mkdir_hook.kld mkdir_hook.o
+ZFSTest# make
+Warning: Object directory not changed from original /zroot/development/4.Hooks
+cc <span class="nt">-O2</span> <span class="nt">-pipe</span> <span class="nt">-fno-strict-aliasing</span> <span class="nt">-Werror</span> <span class="nt">-D_KERNEL</span> <span class="nt">-DKLD_MODULE</span> <span class="nt">-nostdinc</span>   <span class="nt">-I</span><span class="nb">.</span> <span class="nt">-I</span>@ <span class="nt">-I</span>@/contrib/altq <span class="nt">-finline-limit</span><span class="o">=</span>8000 <span class="nt">--param</span> inline-unit-growth<span class="o">=</span>100 <span class="nt">--param</span> large-function-growth<span class="o">=</span>1000 <span class="nt">-fno-common</span>  <span class="nt">-fno-omit-frame-pointer</span>  <span class="nt">-mcmodel</span><span class="o">=</span>kernel <span class="nt">-mno-red-zone</span>  <span class="nt">-mfpmath</span><span class="o">=</span>387 <span class="nt">-mno-sse</span> <span class="nt">-mno-sse2</span> <span class="nt">-mno-sse3</span> <span class="nt">-mno-mmx</span> <span class="nt">-mno-3dnow</span>  <span class="nt">-msoft-float</span> <span class="nt">-fno-asynchronous-unwind-tables</span> <span class="nt">-ffreestanding</span> <span class="nt">-fstack-protector</span> <span class="nt">-std</span><span class="o">=</span>iso9899:1999 <span class="nt">-fstack-protector</span> <span class="nt">-Wall</span> <span class="nt">-Wredundant-decls</span> <span class="nt">-Wnested-externs</span> <span class="nt">-Wstrict-prototypes</span>  <span class="nt">-Wmissing-prototypes</span> <span class="nt">-Wpointer-arith</span> <span class="nt">-Winline</span> <span class="nt">-Wcast-qual</span>  <span class="nt">-Wundef</span> <span class="nt">-Wno-pointer-sign</span> <span class="nt">-fformat-extensions</span> <span class="nt">-c</span> mkdir_hook.c
+ld  <span class="nt">-d</span> <span class="nt">-warn-common</span> <span class="nt">-r</span> <span class="nt">-d</span> <span class="nt">-o</span> mkdir_hook.ko mkdir_hook.o
+:&gt; export_syms
+awk <span class="nt">-f</span> /sys/conf/kmod_syms.awk mkdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % mkdir_hook.ko
+objcopy <span class="nt">--strip-debug</span> mkdir_hook.ko
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# kldload ./mkdir_hook.ko
+The mkdir_hook is loaded, you can try to mkdir now.
+
+ZFSTest# mkdir <span class="nb">test
+</span>The directory <span class="s2">"test"</span> will be created with the following permissions: 777
+
+ZFSTest# kldunload mkdir_hook.ko
+The mkdir_hook is unloaded, everything is back to normal now.
+
+ZFSTest# mkdir <span class="nb">test
+</span>ZFSTest#
+</code></pre></div></div>
+
+<p>As you can see, once we register our module with the kernel, a debug message
+displays every time the user tries to create a new directory. This may not be
+exiciting, but serves it’s purpose as a POC. You can edit the code and have it
+only create the folder when the supplied name starts with ‘awesome’ if you are
+keen for some hands-on practice.</p>
+
+<p>This is the end of today’s session, We will get to know the general process to
+writing a semi-working Rootkit on next note, stay tuned!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2011-04-25T00:00:00+08:00">April 25, 2011</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+8+-+System+Call+Hook+and+mkdir_hook+Example%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-8-hook-system-call-hook-and-mkdir-hook-example%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-8-hook-system-call-hook-and-mkdir-hook-example%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-8-hook-system-call-hook-and-mkdir-hook-example%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/freebsd-rootkit-design-howtos-7-linker-files-and-chapter-summary/" class="pagination--pager" title="FreeBSD Rootkit Design Howtos - 7 - Linker Files and Chapter Summary
+">Previous</a>
+    
+    
+      <a href="/the-2-eggs-vs-100-floor-problem/" class="pagination--pager" title="2 Eggs versus 100 Floor
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/largest-product-in-a-series/" rel="permalink">Largest Product In A Series
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Find the greatest product of five consecutive digits in the 1000-digit number.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/10001st-prime-number/" rel="permalink">10001st Prime Number
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+that the 6th prime is 13. What is the 10001st prime number?
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="permalink">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
+as 20 years ago… :) – Hunger hunger@hunger.hu
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

