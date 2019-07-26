@@ -1,0 +1,972 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Introduction &amp; Variables | Raging Scholar</title>
+<meta name="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: Introduction &amp; Variables">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">
+
+
+  <meta property="og:description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-11T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: Introduction & Variables</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:ragingscholar@protonmail.com">
+            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: Introduction &amp; Variables">
+    <meta itemprop="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+    <meta itemprop="datePublished" content="April 11, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: Introduction &amp; Variables
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  10 minute read
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>I recently organized a workshop for my team members to talk about Clean Code. It
+has been a major issue plaguing the team and has been slowing us down by
+generating tons of unreadable and unmaintainable code. So I took the oppoturnity
+of the Chinese New Year holidays and delivered these three-days talk online.</p>
+
+<p>I had great feedback from my team members and learned a few things myself by
+preaching the Clean Code concept along with part of the S.O.L.I.D Principle. The
+following weeks brought exiciting and notable results, the code quality improved
+significantly just by following these simple tips and tricks. Better still, even
+some skilled developers with many years of work experience showed signs of
+improvement in code quality.</p>
+
+<p>So I figured it might be of help to other developers if I post these notes
+online. I revised the notes I used to deliver the talks and incorporated some of
+the new ideas I’ve learned, now I’m ready to share them with you.</p>
+
+<p>This will be divided into three instalments as the original workshop lasted three
+days as well, it’d be a pain to wade through in just one session.</p>
+
+<p>Alright, enough talk, let’s jump right in.</p>
+
+<h2 id="what-is-this-all-about">What is this all about?</h2>
+
+<p>We want our code clean, and we want it now. You will read some guidelines, tips
+and tricks to write <strong><em>maintainable</em></strong>, <strong><em>testable</em></strong> and <strong><em>robust</em></strong> code.</p>
+
+<h2 id="but-why">But Why?</h2>
+
+<blockquote>
+  <p>“When it comes to writing code, an ounce of prevention is worth a pound of cure.”</p>
+</blockquote>
+
+<p>We all had this experience, whether you yourself or one of your co-workers who
+wrote code carelessly and irresponsibly, which then led to bugs, performance
+issues, and weird system behaviors nobody knows why and how. After days of
+debugging, you finally pinpointed that piece of <del>shit</del>, um I mean code, you
+found it utterly gibberish and unbearably hard to understand. Then after pulling
+all your hairs off, you finally understood the code and the cause of the issue,
+just to be confronted by the harsh reality that it is nearly impossible to
+modify or extend the orginal code without editing <em>too much</em>. At some stage
+along this path, a hard decision would be made to <em>rewrite</em> the whole thing and
+you wouldn’t even be surprised to find out the exact same issues are there all
+over again.</p>
+
+<p>It’s a vicious cycle with no way but only one way out – WRITE, CLEAN, CODE.</p>
+
+<p>Clean code means maintainablity, you can freely extend it without having to
+modify too much of the original code.</p>
+
+<p>It means testability, you can write, edit, modify, extend your way deep into the
+very core of the software without worrying about your commit breaking too many
+existing functionalities.</p>
+
+<p>It also means robustness, write code that are strong, bug-free, rich in features
+and exception handling that would still fight like a tough soldier after years
+of production.</p>
+
+<h2 id="meh-im-just-too-busy">Meh, I’m Just Too Busy</h2>
+
+<p>No you are not.</p>
+
+<p>It is more important to do the <strong><em>right stuff</em></strong> than
+doing the <strong><em>wrong thing</em></strong> but being productive and busy as a bee. You are just
+being a really naughty bee, now don’t be a bad bee when asked to improve your
+work ethics by saying, “but I’m already too busy polluting the honey with poison!”</p>
+
+<p>Writing testable, robust and maintainable code is not a waste of time, it’s what
+you should do as a professional developer.</p>
+
+<blockquote>
+  <p>“We spend most of our time staring into the abyss rather than power typing.”
+~Douglas Crockford</p>
+</blockquote>
+
+<p>Let’s face the fact here, we are not like those dope hackers in the movies who
+type like their lives depend on it in front of the computer. No, we spend most of
+our time looking at ugly code, cursing the guy who committed it and sometimes
+even later realized it was you who wrote it.</p>
+
+<p>We spend so much time staring at code that in fact the time ratio of reading and
+writing code is 10:1. For each hour of typing code, you spend 10 hours reading
+it.</p>
+
+<p>Writing beautiful, elegant, and understandable code is not altruism, it’s to
+relieve yourself from pulling all-nighters to catch up with schedule, and being
+called in the middle of the night to be lashed about a bad bug.</p>
+
+<p>Surprisingly only few people understands schedule delay and infesting bugs are
+not because your team members are typing too slow, on the contrary, it’s because
+you are writing too fast without caring about code quality and have to spend
+tons of time wading through horrific death swamp just to extend a new feature or
+fix a minor bug. It <strong><em>is</em></strong> lucrative to spend more time writing better code,
+and less time reading bad code.</p>
+
+<h2 id="its-your-responsibility">It’s Your Responsibility</h2>
+
+<p>As a professional software developer, your job is not just to implement required
+functionalities, you have to deliver them with good practices and code quality.</p>
+
+<p>It is your responsibility to write clean and quality code, not your clients’,
+not your colleagues’, not your team leader’s or your boss’s, yours. A famous
+analogy is that you don’t tell your doctor to skip washing their hands because
+it saves time.</p>
+
+<p>Every job has their own work ethics, guidelines and procedures they follow to do
+their jobs right, so do we. If we want to be treated as professional developers,
+then we should act like one.</p>
+
+<h2 id="code--document">Code = Document</h2>
+
+<p>Your code is the best document if it’s done right. No matter how ellaborate you
+document your code, it won’t be of any help if the code quality is horrible.</p>
+
+<p>And everytime you update your codebase, corresponding changes should be
+committed to the documents as well. If we don’t even write good quality code, I
+can’t imagine how awful the document would look like.</p>
+
+<p>My team maintains no document whatsoever, partly because it brings more overhead
+than it brings good for a small team, but mostly because I believe
+self-explanatory code invalidate the purpose of documentation.</p>
+
+<p>However, I’m not saying documentless is the definite way to go, many teams still
+maintain documentation or wiki about their codebase. But if you and your
+co-workers can understand eachother’s code without referring to comments or
+documentation, then why not?</p>
+
+<h2 id="coder--writer">Coder = Writer</h2>
+
+<p>At the dawn of Computer Science, programming was more of a method to talk to
+computers, to let the computers know our purpose and do our deeds. But that has
+changed since we invented high level progamming languages and introduced
+teamwork to the making of software.</p>
+
+<p>Now we must write for other humanzzz as well, not just computers. Writing code
+that is hard to read and maintain by the future you or your co-workers brings
+much more trouble than compiling errors and runtime exceptions.</p>
+
+<p>Write as a writer, write stuff you and your co-workers would enjoy reading and
+working with.</p>
+
+<h2 id="leave-it-better-than-you-found-it">Leave It Better Than You Found It</h2>
+
+<p>So what if you are working on a gigantic ball of mud codebase and it seems too
+late to adopt any of these tips?</p>
+
+<p>Actually it’s never too late to start writing clean code, and if you can
+convince yourself and you co-workers to improve the dirty code they come across,
+you’ll eventually have a clean codebase.</p>
+
+<p>Now, note that leave the code you come across better than you found it does not
+equal to rewriting or refactoring. Fix the variable names, improve the structure
+of the class, divide functions that don’t follow Single Responsibility Principle
+into smaller ones, and implement meaningful method names would be good enough to
+eventually have notable effects.</p>
+
+<h2 id="variables">Variables</h2>
+
+<h3 id="use-english-words-duh">Use English Words (Duh!?)</h3>
+
+<p>This is a huge problem my team suffered, they used to use <em>PinYin</em> as variable
+names, a method to write Chinese characters using letters to spell the pronunciation.
+Problem is there are some guesswork involved before you can understand the
+meaning of a variable due to the huge amount of homonyms in Chinese. Plus
+using roman letters only can’t effectively express intonations, which is crucial
+when determining the meaning of a phrase.</p>
+
+<p>It’s quite a common thing in China, many teams suffer from this problem. It
+takes roughly 5-10 seconds for a native Chinese speaker to figure out the
+meaning of a variable name, quite ineffective.</p>
+
+<p>It gets worse when your team has members from different countries or speak diffirent
+languages. I’ve seen lots of variable names written completely or partially in
+Malay when I was working in Malaysia, which is a huge pain for me as a foreigner.</p>
+
+<p>I personally estimated the rough amount of frequently used English words when
+programming is only 100 - 500, give or take as people work in different types of
+businesses. Comparing to high school graduates in China, they have learned at
+least 2000 English vocabulary, which is more than enough to write English
+variable names.</p>
+
+<h3 id="use-nouns-or-stataments">Use Nouns Or Stataments</h3>
+
+<p>Variables are containers that hold data or state, you shouldn’t name them with
+verbs or questions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Nouns are the most common variable names.
+</span><span class="nv">$comment</span><span class="p">;</span>
+<span class="nv">$avatar</span><span class="p">;</span>
+<span class="nv">$firstname</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// It sounds more like an action, and should be a function name.
+</span><span class="nv">$moveStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Now it looks like a question, questions are more common in method names.
+</span><span class="nv">$shouldMoveStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Nice and clear.
+</span><span class="nv">$studentShouldBeMoved</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="dont-abbreviate-dont-be-too-verbose-either">Don’t Abbreviate, Don’t Be Too Verbose Either</h3>
+
+<p>It sometimes surprises me how many people still name their variables with C or
+even ealier programming language styles decades ago, when efficiency was the
+utmost priority. They use abbreviations, single letter temporary variable names,
+even some mathmatical terms and habits like <code class="highlighter-rouge">$tot</code>, <code class="highlighter-rouge">$sqrt</code>, or <code class="highlighter-rouge">$log</code>.</p>
+
+<p>Please don’t, as I noticed some new developers who didn’t witness the C era
+picked up the habits from other programmers, but have no idea why they name
+like that, or what do they mean.</p>
+
+<p>Not everyone understands your abbreviation, not everyone’s feeling nostalgia,
+and we don’t have to shorten our code to save space anymore.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// What do they mean?
+</span><span class="nv">$i</span><span class="p">,</span> <span class="nv">$q</span><span class="p">,</span> <span class="nv">$r</span><span class="p">,</span> <span class="nv">$c</span><span class="p">;</span>
+
+<span class="c1">// What if someone don't understand these abbreviations?
+</span><span class="nv">$idx</span><span class="p">,</span> <span class="nv">$req</span><span class="p">,</span> <span class="nv">$res</span><span class="p">,</span> <span class="nv">$cnt</span><span class="p">;</span>
+
+<span class="c1">// Better but not perfect.
+</span><span class="nv">$index</span><span class="p">,</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$response</span><span class="p">,</span> <span class="nv">$count</span><span class="p">;</span>
+
+<span class="c1">// Don't make them too long either
+</span><span class="nv">$customersHusbandOrWifeAddress</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="nv">$spouseAddress</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h3 id="be-descriptive">Be Descriptive</h3>
+
+<p>Be generous when you name your variables, try to describe everything about the
+data or state your variables are holding.</p>
+
+<p>Describe your intention clearly, don’t let your readers rely on context to
+understand your variable’s purpose.</p>
+
+<p>Describe their natures fully. If you don’t express all characteristics of your
+variables, you risk confusing your readers.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Count of what?
+</span><span class="nv">$count</span><span class="p">;</span>
+
+<span class="c1">// Better, but have you described its purpose clearly?
+</span><span class="nv">$appliedCount</span><span class="p">;</span>
+
+<span class="c1">// Perfect, especially if you have a $appliedTeachersCount in the context, this avoids ambiguity
+</span><span class="nv">$appliedStudentsCount</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * It's hard to understand the full picture.
+ * You are not describing every aspect of it.
+ * Is it the average score of all subjects of a particular student?
+ * Or is it the average score of the class?
+ */</span>
+<span class="nv">$averageScore</span> <span class="o">=</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$scores</span><span class="p">)</span><span class="o">/</span><span class="nb">count</span><span class="p">(</span><span class="nv">$scores</span><span class="p">);</span>
+
+<span class="c1">// Much better
+</span><span class="nv">$studentAverageScore</span> <span class="o">=</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$subjectsScores</span><span class="p">)</span><span class="o">/</span><span class="nb">count</span><span class="p">(</span><span class="nv">$subjectsScores</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="more-examples">More Examples</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$times</span> <span class="o">=</span> <span class="nx">AlarmService</span><span class="o">::</span><span class="na">getTotalTimes</span><span class="p">(</span><span class="nv">$alarm_id</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="nv">$times</span><span class="p">;</span>
+
+<span class="c1">// The following is much more descriptive
+</span>
+<span class="nv">$alarmTriggeredTimes</span> <span class="o">=</span> <span class="nx">AlarmService</span><span class="o">::</span><span class="na">getTotalTriggeredTimesFor</span><span class="p">(</span><span class="nv">$alarm_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$revenue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span>
+    <span class="nv">$company</span><span class="o">-&gt;</span><span class="na">getAllRevenue</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">latest</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">as</span> <span class="nv">$temp</span> <span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nv">$revenue</span> <span class="o">+=</span> <span class="nv">$temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="nv">$revenue</span><span class="p">;</span>
+
+<span class="cm">/*
+ * Don't confuse your readers with names like $temp
+ * It's hard to understand this piece of code
+ * without noticing what 12 means.
+ */</span>
+
+<span class="nv">$yearly_revenue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span>
+    <span class="nv">$company</span><span class="o">-&gt;</span><span class="na">getAllRevenue</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">latest</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">as</span> <span class="nv">$monthly_revenue</span> <span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nv">$yearly_revenue</span> <span class="o">+=</span> <span class="nv">$monthly_revenue</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * Naming your variables and methods properly
+ * makes your code read like natural language.
+ * and become so much easier to read and work with.
+ */</span>
+
+<span class="nv">$userIsActive</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">isActive</span><span class="p">();</span>
+
+<span class="nv">$addressIsDefault</span> <span class="o">=</span> <span class="nv">$address</span><span class="o">-&gt;</span><span class="na">isDefault</span><span class="p">();</span>
+
+<span class="nv">$newVersionAvailable</span> <span class="o">=</span> <span class="nx">VersionService</span><span class="o">::</span><span class="na">isNewVersionAvailable</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="p">{</span>
+    <span class="nv">$allEmailsSent</span> <span class="o">=</span> <span class="nx">EmailService</span><span class="o">::</span><span class="na">processEmailQueue</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nv">$allEmailsSent</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$studentFailedAnyExam</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ReportService</span><span class="o">::</span><span class="na">generateTranscriptWithRedBackground</span><span class="p">(</span><span class="nv">$student_id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="declare-variables-close-to-where-you-use-them">Declare Variables Close To Where You Use Them</h3>
+
+<p>Unless they are constants or class properties, declaring your variables too far
+away from where you actually use them force your readers to jump around looking
+for definitions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * Declaring all variables at the beginning may be
+ * considered a good practice under certain context
+ * but it feels more like natural language to declare
+ * only when you are about to use them.
+ */</span>
+
+<span class="nv">$expiringCoupons</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">listExpiringCoupons</span><span class="p">();</span>
+
+<span class="nv">$hasIneligibleCoupon</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$expiringCoupons</span> <span class="k">as</span> <span class="nv">$expiringCoupon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">eligibleCouponValues</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">250</span><span class="p">];</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$expiringCoupon</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">,</span> <span class="nv">$eligibleCouponValues</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$hasIneligibleCoupon</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">CouponService</span><span class="o">:</span><span class="nx">extendCoupon</span><span class="p">(</span><span class="nv">$expiringCoupon</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$hasIneligibleCoupon</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+<span class="nx">EmailService</span><span class="o">::</span><span class="na">sendCouponExpiringWarning</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Thanks for reading. We talked about why we have to write clean code, the
+benefits to adopt it and some tips about variables. I’d like to add that Clean
+Code is more about readablity, it’s about how you spend a little more time
+writing descriptive and understandable code to let your readers enjoy working
+with it.</p>
+
+<p>When it comes to testablity, maintainablity and robustness, we have to turn our
+faces to design patterns and principles, which I hope to write about in the near
+future. Nonetheless, writing clean code is a powerful way to improve your
+codebase significantly even without following any patterns or principles.</p>
+
+<p>I hope you enjoyed the post, we’ll talk about functions and methods in the next
+instalment, later geeks!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-11T00:00:00+08:00">April 11, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+Introduction+%26+Variables%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction-variables%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction-variables%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction-variables%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/largest-product-in-a-series/" class="pagination--pager" title="Largest Product In A Series
+">Previous</a>
+    
+    
+      <a href="/what-is-wrong-with-microservice/" class="pagination--pager" title="What is wrong with microservice
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/largest-product-in-a-series/" rel="permalink">Largest Product In A Series
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Find the greatest product of five consecutive digits in the 1000-digit number.
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/10001st-prime-number/" rel="permalink">10001st Prime Number
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
+that the 6th prime is 13. What is the 10001st prime number?
+
+
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="permalink">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">
+  Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
+as 20 years ago… :) – Hunger hunger@hunger.hu
+
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

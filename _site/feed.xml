@@ -1,8 +1,378 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-25T12:54:45+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-26T23:56:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
-&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
+&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Introduction &amp;amp; Variables</title><link href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Introduction &amp; Variables" /><published>2014-04-11T00:00:00+08:00</published><updated>2014-04-11T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-introduction-variables</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">&lt;p&gt;I recently organized a workshop for my team members to talk about Clean Code. It
+has been a major issue plaguing the team and has been slowing us down by
+generating tons of unreadable and unmaintainable code. So I took the oppoturnity
+of the Chinese New Year holidays and delivered these three-days talk online.&lt;/p&gt;
+
+&lt;p&gt;I had great feedback from my team members and learned a few things myself by
+preaching the Clean Code concept along with part of the S.O.L.I.D Principle. The
+following weeks brought exiciting and notable results, the code quality improved
+significantly just by following these simple tips and tricks. Better still, even
+some skilled developers with many years of work experience showed signs of
+improvement in code quality.&lt;/p&gt;
+
+&lt;p&gt;So I figured it might be of help to other developers if I post these notes
+online. I revised the notes I used to deliver the talks and incorporated some of
+the new ideas I’ve learned, now I’m ready to share them with you.&lt;/p&gt;
+
+&lt;p&gt;This will be divided into three instalments as the original workshop lasted three
+days as well, it’d be a pain to wade through in just one session.&lt;/p&gt;
+
+&lt;p&gt;Alright, enough talk, let’s jump right in.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-this-all-about&quot;&gt;What is this all about?&lt;/h2&gt;
+
+&lt;p&gt;We want our code clean, and we want it now. You will read some guidelines, tips
+and tricks to write &lt;strong&gt;&lt;em&gt;maintainable&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;testable&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;robust&lt;/em&gt;&lt;/strong&gt; code.&lt;/p&gt;
+
+&lt;h2 id=&quot;but-why&quot;&gt;But Why?&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“When it comes to writing code, an ounce of prevention is worth a pound of cure.”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We all had this experience, whether you yourself or one of your co-workers who
+wrote code carelessly and irresponsibly, which then led to bugs, performance
+issues, and weird system behaviors nobody knows why and how. After days of
+debugging, you finally pinpointed that piece of &lt;del&gt;shit&lt;/del&gt;, um I mean code, you
+found it utterly gibberish and unbearably hard to understand. Then after pulling
+all your hairs off, you finally understood the code and the cause of the issue,
+just to be confronted by the harsh reality that it is nearly impossible to
+modify or extend the orginal code without editing &lt;em&gt;too much&lt;/em&gt;. At some stage
+along this path, a hard decision would be made to &lt;em&gt;rewrite&lt;/em&gt; the whole thing and
+you wouldn’t even be surprised to find out the exact same issues are there all
+over again.&lt;/p&gt;
+
+&lt;p&gt;It’s a vicious cycle with no way but only one way out – WRITE, CLEAN, CODE.&lt;/p&gt;
+
+&lt;p&gt;Clean code means maintainablity, you can freely extend it without having to
+modify too much of the original code.&lt;/p&gt;
+
+&lt;p&gt;It means testability, you can write, edit, modify, extend your way deep into the
+very core of the software without worrying about your commit breaking too many
+existing functionalities.&lt;/p&gt;
+
+&lt;p&gt;It also means robustness, write code that are strong, bug-free, rich in features
+and exception handling that would still fight like a tough soldier after years
+of production.&lt;/p&gt;
+
+&lt;h2 id=&quot;meh-im-just-too-busy&quot;&gt;Meh, I’m Just Too Busy&lt;/h2&gt;
+
+&lt;p&gt;No you are not.&lt;/p&gt;
+
+&lt;p&gt;It is more important to do the &lt;strong&gt;&lt;em&gt;right stuff&lt;/em&gt;&lt;/strong&gt; than
+doing the &lt;strong&gt;&lt;em&gt;wrong thing&lt;/em&gt;&lt;/strong&gt; but being productive and busy as a bee. You are just
+being a really naughty bee, now don’t be a bad bee when asked to improve your
+work ethics by saying, “but I’m already too busy polluting the honey with poison!”&lt;/p&gt;
+
+&lt;p&gt;Writing testable, robust and maintainable code is not a waste of time, it’s what
+you should do as a professional developer.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“We spend most of our time staring into the abyss rather than power typing.”
+~Douglas Crockford&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Let’s face the fact here, we are not like those dope hackers in the movies who
+type like their lives depend on it in front of the computer. No, we spend most of
+our time looking at ugly code, cursing the guy who committed it and sometimes
+even later realized it was you who wrote it.&lt;/p&gt;
+
+&lt;p&gt;We spend so much time staring at code that in fact the time ratio of reading and
+writing code is 10:1. For each hour of typing code, you spend 10 hours reading
+it.&lt;/p&gt;
+
+&lt;p&gt;Writing beautiful, elegant, and understandable code is not altruism, it’s to
+relieve yourself from pulling all-nighters to catch up with schedule, and being
+called in the middle of the night to be lashed about a bad bug.&lt;/p&gt;
+
+&lt;p&gt;Surprisingly only few people understands schedule delay and infesting bugs are
+not because your team members are typing too slow, on the contrary, it’s because
+you are writing too fast without caring about code quality and have to spend
+tons of time wading through horrific death swamp just to extend a new feature or
+fix a minor bug. It &lt;strong&gt;&lt;em&gt;is&lt;/em&gt;&lt;/strong&gt; lucrative to spend more time writing better code,
+and less time reading bad code.&lt;/p&gt;
+
+&lt;h2 id=&quot;its-your-responsibility&quot;&gt;It’s Your Responsibility&lt;/h2&gt;
+
+&lt;p&gt;As a professional software developer, your job is not just to implement required
+functionalities, you have to deliver them with good practices and code quality.&lt;/p&gt;
+
+&lt;p&gt;It is your responsibility to write clean and quality code, not your clients’,
+not your colleagues’, not your team leader’s or your boss’s, yours. A famous
+analogy is that you don’t tell your doctor to skip washing their hands because
+it saves time.&lt;/p&gt;
+
+&lt;p&gt;Every job has their own work ethics, guidelines and procedures they follow to do
+their jobs right, so do we. If we want to be treated as professional developers,
+then we should act like one.&lt;/p&gt;
+
+&lt;h2 id=&quot;code--document&quot;&gt;Code = Document&lt;/h2&gt;
+
+&lt;p&gt;Your code is the best document if it’s done right. No matter how ellaborate you
+document your code, it won’t be of any help if the code quality is horrible.&lt;/p&gt;
+
+&lt;p&gt;And everytime you update your codebase, corresponding changes should be
+committed to the documents as well. If we don’t even write good quality code, I
+can’t imagine how awful the document would look like.&lt;/p&gt;
+
+&lt;p&gt;My team maintains no document whatsoever, partly because it brings more overhead
+than it brings good for a small team, but mostly because I believe
+self-explanatory code invalidate the purpose of documentation.&lt;/p&gt;
+
+&lt;p&gt;However, I’m not saying documentless is the definite way to go, many teams still
+maintain documentation or wiki about their codebase. But if you and your
+co-workers can understand eachother’s code without referring to comments or
+documentation, then why not?&lt;/p&gt;
+
+&lt;h2 id=&quot;coder--writer&quot;&gt;Coder = Writer&lt;/h2&gt;
+
+&lt;p&gt;At the dawn of Computer Science, programming was more of a method to talk to
+computers, to let the computers know our purpose and do our deeds. But that has
+changed since we invented high level progamming languages and introduced
+teamwork to the making of software.&lt;/p&gt;
+
+&lt;p&gt;Now we must write for other humanzzz as well, not just computers. Writing code
+that is hard to read and maintain by the future you or your co-workers brings
+much more trouble than compiling errors and runtime exceptions.&lt;/p&gt;
+
+&lt;p&gt;Write as a writer, write stuff you and your co-workers would enjoy reading and
+working with.&lt;/p&gt;
+
+&lt;h2 id=&quot;leave-it-better-than-you-found-it&quot;&gt;Leave It Better Than You Found It&lt;/h2&gt;
+
+&lt;p&gt;So what if you are working on a gigantic ball of mud codebase and it seems too
+late to adopt any of these tips?&lt;/p&gt;
+
+&lt;p&gt;Actually it’s never too late to start writing clean code, and if you can
+convince yourself and you co-workers to improve the dirty code they come across,
+you’ll eventually have a clean codebase.&lt;/p&gt;
+
+&lt;p&gt;Now, note that leave the code you come across better than you found it does not
+equal to rewriting or refactoring. Fix the variable names, improve the structure
+of the class, divide functions that don’t follow Single Responsibility Principle
+into smaller ones, and implement meaningful method names would be good enough to
+eventually have notable effects.&lt;/p&gt;
+
+&lt;h2 id=&quot;variables&quot;&gt;Variables&lt;/h2&gt;
+
+&lt;h3 id=&quot;use-english-words-duh&quot;&gt;Use English Words (Duh!?)&lt;/h3&gt;
+
+&lt;p&gt;This is a huge problem my team suffered, they used to use &lt;em&gt;PinYin&lt;/em&gt; as variable
+names, a method to write Chinese characters using letters to spell the pronunciation.
+Problem is there are some guesswork involved before you can understand the
+meaning of a variable due to the huge amount of homonyms in Chinese. Plus
+using roman letters only can’t effectively express intonations, which is crucial
+when determining the meaning of a phrase.&lt;/p&gt;
+
+&lt;p&gt;It’s quite a common thing in China, many teams suffer from this problem. It
+takes roughly 5-10 seconds for a native Chinese speaker to figure out the
+meaning of a variable name, quite ineffective.&lt;/p&gt;
+
+&lt;p&gt;It gets worse when your team has members from different countries or speak diffirent
+languages. I’ve seen lots of variable names written completely or partially in
+Malay when I was working in Malaysia, which is a huge pain for me as a foreigner.&lt;/p&gt;
+
+&lt;p&gt;I personally estimated the rough amount of frequently used English words when
+programming is only 100 - 500, give or take as people work in different types of
+businesses. Comparing to high school graduates in China, they have learned at
+least 2000 English vocabulary, which is more than enough to write English
+variable names.&lt;/p&gt;
+
+&lt;h3 id=&quot;use-nouns-or-stataments&quot;&gt;Use Nouns Or Stataments&lt;/h3&gt;
+
+&lt;p&gt;Variables are containers that hold data or state, you shouldn’t name them with
+verbs or questions.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Nouns are the most common variable names.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$avatar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$firstname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// It sounds more like an action, and should be a function name.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$moveStudent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Now it looks like a question, questions are more common in method names.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$shouldMoveStudent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Nice and clear.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$studentShouldBeMoved&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;dont-abbreviate-dont-be-too-verbose-either&quot;&gt;Don’t Abbreviate, Don’t Be Too Verbose Either&lt;/h3&gt;
+
+&lt;p&gt;It sometimes surprises me how many people still name their variables with C or
+even ealier programming language styles decades ago, when efficiency was the
+utmost priority. They use abbreviations, single letter temporary variable names,
+even some mathmatical terms and habits like &lt;code class=&quot;highlighter-rouge&quot;&gt;$tot&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;$sqrt&lt;/code&gt;, or &lt;code class=&quot;highlighter-rouge&quot;&gt;$log&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Please don’t, as I noticed some new developers who didn’t witness the C era
+picked up the habits from other programmers, but have no idea why they name
+like that, or what do they mean.&lt;/p&gt;
+
+&lt;p&gt;Not everyone understands your abbreviation, not everyone’s feeling nostalgia,
+and we don’t have to shorten our code to save space anymore.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// What do they mean?
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$q&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// What if someone don't understand these abbreviations?
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$cnt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Better but not perfect.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Don't make them too long either
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$customersHusbandOrWifeAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$spouseAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;be-descriptive&quot;&gt;Be Descriptive&lt;/h3&gt;
+
+&lt;p&gt;Be generous when you name your variables, try to describe everything about the
+data or state your variables are holding.&lt;/p&gt;
+
+&lt;p&gt;Describe your intention clearly, don’t let your readers rely on context to
+understand your variable’s purpose.&lt;/p&gt;
+
+&lt;p&gt;Describe their natures fully. If you don’t express all characteristics of your
+variables, you risk confusing your readers.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Count of what?
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Better, but have you described its purpose clearly?
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$appliedCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Perfect, especially if you have a $appliedTeachersCount in the context, this avoids ambiguity
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$appliedStudentsCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * It's hard to understand the full picture.
+ * You are not describing every aspect of it.
+ * Is it the average score of all subjects of a particular student?
+ * Or is it the average score of the class?
+ */&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$averageScore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;array_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Much better
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$studentAverageScore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;array_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$subjectsScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$subjectsScores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;more-examples&quot;&gt;More Examples&lt;/h3&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$times&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AlarmService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getTotalTimes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$alarm_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$times&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// The following is much more descriptive
+&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$alarmTriggeredTimes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;AlarmService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getTotalTriggeredTimesFor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$alarm_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$revenue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$company&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAllRevenue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;latest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$revenue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$revenue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/*
+ * Don't confuse your readers with names like $temp
+ * It's hard to understand this piece of code
+ * without noticing what 12 means.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$yearly_revenue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$company&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAllRevenue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;latest&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$monthly_revenue&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$yearly_revenue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$monthly_revenue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * Naming your variables and methods properly
+ * makes your code read like natural language.
+ * and become so much easier to read and work with.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$userIsActive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isActive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$addressIsDefault&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isDefault&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$newVersionAvailable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;VersionService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isNewVersionAvailable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$allEmailsSent&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;processEmailQueue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$allEmailsSent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$studentFailedAnyExam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;ReportService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;generateTranscriptWithRedBackground&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;declare-variables-close-to-where-you-use-them&quot;&gt;Declare Variables Close To Where You Use Them&lt;/h3&gt;
+
+&lt;p&gt;Unless they are constants or class properties, declaring your variables too far
+away from where you actually use them force your readers to jump around looking
+for definitions.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * Declaring all variables at the beginning may be
+ * considered a good practice under certain context
+ * but it feels more like natural language to declare
+ * only when you are about to use them.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$expiringCoupons&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;listExpiringCoupons&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$hasIneligibleCoupon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$expiringCoupons&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$expiringCoupon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;eligibleCouponValues&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;in_array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$expiringCoupon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$eligibleCouponValues&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$hasIneligibleCoupon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;CouponService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;extendCoupon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$expiringCoupon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$hasIneligibleCoupon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendCouponExpiringWarning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Thanks for reading. We talked about why we have to write clean code, the
+benefits to adopt it and some tips about variables. I’d like to add that Clean
+Code is more about readablity, it’s about how you spend a little more time
+writing descriptive and understandable code to let your readers enjoy working
+with it.&lt;/p&gt;
+
+&lt;p&gt;When it comes to testablity, maintainablity and robustness, we have to turn our
+faces to design patterns and principles, which I hope to write about in the near
+future. Nonetheless, writing clean code is a powerful way to improve your
+codebase significantly even without following any patterns or principles.&lt;/p&gt;
+
+&lt;p&gt;I hope you enjoyed the post, we’ll talk about functions and methods in the next
+instalment, later geeks!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><summary type="html">I recently organized a workshop for my team members to talk about Clean Code. It has been a major issue plaguing the team and has been slowing us down by generating tons of unreadable and unmaintainable code. So I took the oppoturnity of the Chinese New Year holidays and delivered these three-days talk online.</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
   &lt;p&gt;Find the greatest product of five consecutive digits in the 1000-digit number.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -785,52 +1155,4 @@ modification.&lt;/p&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The answer is: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Anyway, the answer is 4613732.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, … By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</summary></entry><entry><title type="html">Multiples of 3 And 5</title><link href="http://localhost:4000/multiples-of-3-and-5/" rel="alternate" type="text/html" title="Multiples of 3 And 5" /><published>2013-01-31T00:00:00+08:00</published><updated>2013-01-31T00:00:00+08:00</updated><id>http://localhost:4000/multiples-of-3-and-5</id><content type="html" xml:base="http://localhost:4000/multiples-of-3-and-5/">&lt;p&gt;So I was extremly bored, to a degree that I started reading new threads on
-Hacker News and accidentally saw a guy &lt;a href=&quot;http://www.theatlantic.com/technology/print/2011/06/how-i-failed-failed-and-finally-succeeded-at-learning-how-to-code/239855/&quot;&gt;Failed, Failed, and Finally Succeeded at
-Learning How to Code&lt;/a&gt;,
-the &lt;a href=&quot;http://projecteuler.net/problem=1&quot;&gt;Project
-Euler&lt;/a&gt;
-he mentioned saved my day.&lt;/p&gt;
-
-&lt;p&gt;Interesting stuff, there are like 400-something computational problems on that
-site, which according to that guy&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Has trained tens of thousands of new programmers.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;I started right away to the first problem, suppose to be a pretty easy one.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;If we list all the natural numbers below 10 that are multiples of 3 or 5, we
-get 3, 5, 6, and 9. The sum of these multiples is 23. Find the sum of all the
-multiples of 3 or 5 below 10000.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Turns out it is indeed easy. A loop to find all multiples of 3 or 5 that are
-below 10000, and add them together, woala!&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;python2&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Python&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dec&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2012&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GCC&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4.7&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linux2&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;Type&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;help&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;copyright&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;credits&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;license&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;more&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;information&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The answer is: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;answer&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;is&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;233168&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Say x is the multiple of either 3 or 5, at least 1 of the remainder of x % 3 or
-x % 5 should be 0. Then all we have to do is to find x in the range of 1 to
-1000, put them in a list and sum these numbers.&lt;/p&gt;
-
-&lt;p&gt;Here’s an elaborated way to do this&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;That’s all for problem 1, easy, but fun. Hopefully I’ll keep getting bored and
-go through all questions from Project Euler.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">So I was extremly bored, to a degree that I started reading new threads on Hacker News and accidentally saw a guy Failed, Failed, and Finally Succeeded at Learning How to Code, the Project Euler he mentioned saved my day.</summary></entry></feed>
+&lt;p&gt;Anyway, the answer is 4613732.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, … By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</summary></entry></feed>
