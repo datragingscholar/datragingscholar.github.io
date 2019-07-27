@@ -27,8 +27,42 @@ Alright, enough talk, let's jump right in.
 
 ## What is this all about?
 
-We want our code clean, and we want it now. You will read some guidelines, tips
-and tricks to write ***maintainable***, ***testable*** and ***robust*** code.
+We want our code clean, and we want it now. It means readable, maintainable,
+testable, and robust code.
+
+I would say that understandability is the most important among all other
+properties. People would enjoy working with your code if they are easy to
+understand.
+
+Maintainablity is the ability to freely extend a piece of existing code  without
+having to modify too much. Having great maintainability is definitely
+profitable for the long haul, you wouldn't be afraid of requirement changes so
+much anymore.
+
+Testability makes it easier to write tests for your code. Properly test-covered
+codebase allows you to write, edit, modify, extend your way deep into the very
+core of the software without worrying about your commit breaking too many
+existing functionalities.
+
+It also means robustness, write code that are strong, bug-free, rich in features
+and exception handling that would still fight like a tough soldier after years
+of production.
+
+These characteristics are interconnected, you'd often times find that in order
+to adopt one of them properly, you have to implement the other one, it's also
+true that when you work for one aspect, others would improve as well.
+
+And that is exactly what we want to achieve here. Since when it comes to
+testability, maintainability and robustness, we have to turn our faces to
+certain design patterns and principles to have a profound qualitative change to
+your codebase. Though this workshop is mainly focused on readablity, you
+will find a powerful impact on your codebase, not only do they become easier to
+understand, but also more enjoyable to maintain and write tests for.
+
+We do have a brief discussion about S.O.L.I.D principle on day 3, I think it's
+great and should be adopted by every developer. I'm planning on writing about
+other patterns and principles I've personally had experience with in the near
+future, stay tuned if you are interested.
 
 ## But Why?
 
@@ -47,17 +81,6 @@ you wouldn't even be surprised to find out the exact same issues are there all
 over again.
 
 It's a vicious cycle with no way but only one way out -- WRITE, CLEAN, CODE.
-
-Clean code means maintainablity, you can freely extend it without having to
-modify too much of the original code.
-
-It means testability, you can write, edit, modify, extend your way deep into the
-very core of the software without worrying about your commit breaking too many
-existing functionalities.
-
-It also means robustness, write code that are strong, bug-free, rich in features
-and exception handling that would still fight like a tough soldier after years
-of production.
 
 ## Meh, I'm Just Too Busy
 
@@ -367,16 +390,7 @@ if (!$hasIneligibleCoupon) return;
 EmailService::sendCouponExpiringWarning($user->id);
 ```
 
-Thanks for reading. We talked about why we have to write clean code, the
-benefits to adopt it and some tips about variables. I'd like to add that Clean
-Code is more about readablity, it's about how you spend a little more time
-writing descriptive and understandable code to let your readers enjoy working
-with it.
-
-When it comes to testablity, maintainablity and robustness, we have to turn our
-faces to design patterns and principles, which I hope to write about in the near
-future. Nonetheless, writing clean code is a powerful way to improve your
-codebase significantly even without following any patterns or principles.
-
-I hope you enjoyed the post, we'll talk about functions and methods in the next
-instalment, later geeks!
+Alight! Thanks for reading. We talked about why we have to write clean code, the
+benefits of adopting it and some tips about variables. I hope you enjoyed the
+post, we'll talk about functions and methods in the next instalment, later
+geeks!

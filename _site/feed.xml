@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-26T23:56:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-27T11:18:34+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
@@ -25,8 +25,42 @@ days as well, it’d be a pain to wade through in just one session.&lt;/p&gt;
 
 &lt;h2 id=&quot;what-is-this-all-about&quot;&gt;What is this all about?&lt;/h2&gt;
 
-&lt;p&gt;We want our code clean, and we want it now. You will read some guidelines, tips
-and tricks to write &lt;strong&gt;&lt;em&gt;maintainable&lt;/em&gt;&lt;/strong&gt;, &lt;strong&gt;&lt;em&gt;testable&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;robust&lt;/em&gt;&lt;/strong&gt; code.&lt;/p&gt;
+&lt;p&gt;We want our code clean, and we want it now. It means readable, maintainable,
+testable, and robust code.&lt;/p&gt;
+
+&lt;p&gt;I would say that understandability is the most important among all other
+properties. People would enjoy working with your code if they are easy to
+understand.&lt;/p&gt;
+
+&lt;p&gt;Maintainablity is the ability to freely extend a piece of existing code  without
+having to modify too much. Having great maintainability is definitely
+profitable for the long haul, you wouldn’t be afraid of requirement changes so
+much anymore.&lt;/p&gt;
+
+&lt;p&gt;Testability makes it easier to write tests for your code. Properly test-covered
+codebase allows you to write, edit, modify, extend your way deep into the very
+core of the software without worrying about your commit breaking too many
+existing functionalities.&lt;/p&gt;
+
+&lt;p&gt;It also means robustness, write code that are strong, bug-free, rich in features
+and exception handling that would still fight like a tough soldier after years
+of production.&lt;/p&gt;
+
+&lt;p&gt;These characteristics are interconnected, you’d often times find that in order
+to adopt one of them properly, you have to implement the other one, it’s also
+true that when you work for one aspect, others would improve as well.&lt;/p&gt;
+
+&lt;p&gt;And that is exactly what we want to achieve here. Since when it comes to
+testability, maintainability and robustness, we have to turn our faces to
+certain design patterns and principles to have a profound qualitative change to
+your codebase. Though this workshop is mainly focused on readablity, you
+will find a powerful impact on your codebase, not only do they become easier to
+understand, but also more enjoyable to maintain and write tests for.&lt;/p&gt;
+
+&lt;p&gt;We do have a brief discussion about S.O.L.I.D principle on day 3, I think it’s
+great and should be adopted by every developer. I’m planning on writing about
+other patterns and principles I’ve personally had experience with in the near
+future, stay tuned if you are interested.&lt;/p&gt;
 
 &lt;h2 id=&quot;but-why&quot;&gt;But Why?&lt;/h2&gt;
 
@@ -47,17 +81,6 @@ you wouldn’t even be surprised to find out the exact same issues are there all
 over again.&lt;/p&gt;
 
 &lt;p&gt;It’s a vicious cycle with no way but only one way out – WRITE, CLEAN, CODE.&lt;/p&gt;
-
-&lt;p&gt;Clean code means maintainablity, you can freely extend it without having to
-modify too much of the original code.&lt;/p&gt;
-
-&lt;p&gt;It means testability, you can write, edit, modify, extend your way deep into the
-very core of the software without worrying about your commit breaking too many
-existing functionalities.&lt;/p&gt;
-
-&lt;p&gt;It also means robustness, write code that are strong, bug-free, rich in features
-and exception handling that would still fight like a tough soldier after years
-of production.&lt;/p&gt;
 
 &lt;h2 id=&quot;meh-im-just-too-busy&quot;&gt;Meh, I’m Just Too Busy&lt;/h2&gt;
 
@@ -360,19 +383,10 @@ for definitions.&lt;/p&gt;
 &lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendCouponExpiringWarning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Thanks for reading. We talked about why we have to write clean code, the
-benefits to adopt it and some tips about variables. I’d like to add that Clean
-Code is more about readablity, it’s about how you spend a little more time
-writing descriptive and understandable code to let your readers enjoy working
-with it.&lt;/p&gt;
-
-&lt;p&gt;When it comes to testablity, maintainablity and robustness, we have to turn our
-faces to design patterns and principles, which I hope to write about in the near
-future. Nonetheless, writing clean code is a powerful way to improve your
-codebase significantly even without following any patterns or principles.&lt;/p&gt;
-
-&lt;p&gt;I hope you enjoyed the post, we’ll talk about functions and methods in the next
-instalment, later geeks!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><summary type="html">I recently organized a workshop for my team members to talk about Clean Code. It has been a major issue plaguing the team and has been slowing us down by generating tons of unreadable and unmaintainable code. So I took the oppoturnity of the Chinese New Year holidays and delivered these three-days talk online.</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
+&lt;p&gt;Alight! Thanks for reading. We talked about why we have to write clean code, the
+benefits of adopting it and some tips about variables. I hope you enjoyed the
+post, we’ll talk about functions and methods in the next instalment, later
+geeks!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><summary type="html">I recently organized a workshop for my team members to talk about Clean Code. It has been a major issue plaguing the team and has been slowing us down by generating tons of unreadable and unmaintainable code. So I took the oppoturnity of the Chinese New Year holidays and delivered these three-days talk online.</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
   &lt;p&gt;Find the greatest product of five consecutive digits in the 1000-digit number.&lt;/p&gt;
 &lt;/blockquote&gt;
 
