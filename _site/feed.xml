@@ -1,8 +1,362 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-27T11:18:34+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-28T01:28:47+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
-&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Introduction &amp;amp; Variables</title><link href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Introduction &amp; Variables" /><published>2014-04-11T00:00:00+08:00</published><updated>2014-04-11T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-introduction-variables</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">&lt;p&gt;I recently organized a workshop for my team members to talk about Clean Code. It
+&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle</title><link href="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Method Names and Single Responsibility Principle" /><published>2014-04-12T00:00:00+08:00</published><updated>2014-04-12T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/">&lt;p&gt;Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+Tricks. As said at the end of the &lt;a href=&quot;/clean-code-tips-and-tricks-introduction-variables/&quot;&gt;first one&lt;/a&gt;, we are going to
+talk about method names today.&lt;/p&gt;
+
+&lt;h2 id=&quot;method-names&quot;&gt;Method Names&lt;/h2&gt;
+
+&lt;h3 id=&quot;use-verbs&quot;&gt;Use verbs&lt;/h3&gt;
+&lt;p&gt;The same rules apply here as for varibale names, but instead of using nouns and
+statements to describe variables, we use verbs and questions to name methods.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;performSomeAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;saveSomeData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;filterSomeInput&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;validateSomeForm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Methods answering a question should be, well, questions.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;isUserActive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;isCustomerAdult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;shouldSendEmailAgain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;hasFailedAnyExam&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;be-descriptive&quot;&gt;Be Descriptive&lt;/h3&gt;
+
+&lt;p&gt;Similar to variable names, be sure to describe your intention well and
+wholly.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// More descriptive
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getHistoricalBandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// And fully describe the nature
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getHistoricalBandwidthWithAverage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Method names do look longer this way, but it helps your readers to figure out
+the usage of these methods without even looking at their definitions.&lt;/p&gt;
+
+&lt;p&gt;However, if a method name becomes too long, you may have failed to follow the
+single responsibility rule, which means you need to break your method into
+smaller ones.&lt;/p&gt;
+
+&lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
+
+&lt;p&gt;These are quiz designed for my team to practice naming methods, I’ll list some
+of them here as examples.&lt;/p&gt;
+
+&lt;p&gt;Note other examples are filtered ‘cause they were only designed to examine my
+team’s ability to properly name function names in English.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//Get a particular user's email address.
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUserEmailAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//or to make it read more like natural language
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getEmailAddressOfUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Get number of users in a group
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getGroupUserCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$group_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;getUserCountInGroup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$group_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Update customer's defalut shipping address
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updateDefaultAdress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;setDefaultAdress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// If the customer entity has another property
+// with similar name, e.g. defaultPostalAddress
+// then it's better to avoid ambiguity by
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updateDefaultShippingAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_shipping_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;setDefaultPostalAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_postal_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// If they are customer entity's methods,
+// You can choose whether to include 'customer'
+// in the function names.
+// I would personally not include it
+// since they will always be called with a $customer
+// instance.
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateDefaultShippingAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_shipping_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setCustomerDefaultPostalAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_shipping_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Update a given user's active status
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;activateUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;disableUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Or with one function
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toggleActiveStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;toggleUserActiveStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;toggleActiveStatusForUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Is there any order placed by a user in the last month
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasPlacedAnyOrderLastMonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;didUserPlaceAnyOrderLastMonth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Check if the email has been sent successfully
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasSuccessfullySent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;didEmailSendSuccessfully&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$email_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Is it necessary to send the notification again
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$notification&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;shouldSendAgain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;shouldSendNotificationAgain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$notification_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// Check if admin has the permission to perform an action
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;canPerform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$action_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;adminHasPermissionTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$admin_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$action_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;$admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isAuthorizedTo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$action_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;single-responsibility-principle&quot;&gt;Single Responsibility Principle&lt;/h2&gt;
+
+&lt;p&gt;Now let’s talk about Single Responsibility Princeple, the first rule from
+S.O.L.I.D.&lt;/p&gt;
+
+&lt;h3 id=&quot;concept&quot;&gt;Concept&lt;/h3&gt;
+
+&lt;p&gt;A class or a module in a program should focus on one task. Or as how it’s
+famously put on the Internet, “A class or module should do only one job, and do
+it well.”&lt;/p&gt;
+
+&lt;p&gt;One analogy is that of a keyboard. An input device we use everyday, it accepts
+your keystrokes and transmits corresponding signals to the computer it’s
+connected to. It has only one functionality or interface if you will, but you
+can use it to play games, write articles, or even play an instrument if you have
+the right software installed on your computer. A game, a word processor, or an
+instrument simulator. Now these are all interchangable parts on the other side
+of the interface, but provides great potential of possible applications when
+working together as a system, all the while having the keyboard only focus on
+&lt;strong&gt;&lt;em&gt;one task&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, it absolutely makes no sense to integrate CPU in the keyboard. Despite
+that it sounds a little bit cool to have a keyboard with computational power,
+but you are introducing a completely different set of technology into the
+keyboard, it’d be bloated, and it’d introduce a single point of failure problem
+which makes your computer unusable when the keyboard decides to act up.&lt;/p&gt;
+
+&lt;p&gt;Think about toy blocks, they are simple in shapes and when stack properly
+together, you can build tons of different types of buildings with them. But if
+their shapes become too complex and serve more purposes, they become
+&lt;strong&gt;&lt;em&gt;specific&lt;/em&gt;&lt;/strong&gt;, only usable under certain situations, thus limiting your ability
+to be versatile.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-it-means-for-classes&quot;&gt;What It Means For Classes&lt;/h3&gt;
+
+&lt;p&gt;A class should focus on a single set of &lt;strong&gt;&lt;em&gt;cohesive&lt;/em&gt;&lt;/strong&gt; tasks.&lt;/p&gt;
+
+&lt;p&gt;By cohesive, it means the member functions are highly interdependent and
+interconnected, they work together to define the characteristic of the class.&lt;/p&gt;
+
+&lt;p&gt;Cohesion also means collaboration. Think about development teams in an IT
+company, you don’t often come across a front-end developer in a database team,
+or a marketing person in a backend team who attends every sprint meeting. You
+are a unit who does something well, and you team works together to do
+something bigger well, and your whole development department collaborates
+together to deliver a really complex system, then all the departments in your
+company strive to make the business profitable.&lt;/p&gt;
+
+&lt;p&gt;It’s exactly the same thing in writing source code, every line of code in a
+method works together to define the method, every method in a class servers
+their purposes and create sense for the class, every class in a module fit
+together to form a module, and every module work together as a system.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * A simple trick to tell if a class follows
+ * SRP is to try to describe it as descriptive as you can.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;EmailService&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;__construct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Invoice&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;invoice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculateTax&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$invoice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subtotal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.025&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;emailInvoiceForUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;cm&quot;&gt;/* Code to generate email message */&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$emailHasSentSuccessfully&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above code shows a very poorly designed class, if you try your best to
+verbosely describe the class, it’s one that “Calculates the tax and generates
+invoice email and sends email to the user”. You may as well name the class as
+&lt;strong&gt;&lt;em&gt;TaxAndInvoiceAndEmailService&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is how this simple trick works, if you ever see a class that should be
+named with &lt;strong&gt;&lt;em&gt;and&lt;/em&gt;&lt;/strong&gt; in it’s name, then it’s most probably not following the
+SPR.&lt;/p&gt;
+
+&lt;p&gt;You may argue that your business logic is such that an email would only be
+generated and sent to the user in the case of sending invoices, it makes sense
+to congregate these methods into one class.&lt;/p&gt;
+
+&lt;p&gt;That maybe true to some extend, but having separate &lt;strong&gt;&lt;em&gt;EmailService&lt;/em&gt;&lt;/strong&gt;,
+&lt;strong&gt;&lt;em&gt;InvoiceService&lt;/em&gt;&lt;/strong&gt; and &lt;strong&gt;&lt;em&gt;TaxService&lt;/em&gt;&lt;/strong&gt; makes it much more clearer and easier
+to extend, what if a wild &lt;em&gt;sending coupon expiring warning emails&lt;/em&gt; or a
+&lt;em&gt;applying discounts to invoices exceeds certain amount in subtotal&lt;/em&gt; requirement
+appears in the future? What if such requirements keep comming and eventually
+make this class too complex and coupled to work with?&lt;/p&gt;
+
+&lt;h2 id=&quot;what-it-means-for-methods&quot;&gt;What It Means For Methods&lt;/h2&gt;
+
+&lt;p&gt;A method should do &lt;strong&gt;&lt;em&gt;one&lt;/em&gt;&lt;/strong&gt; thing, it should do it &lt;strong&gt;&lt;em&gt;well&lt;/em&gt;&lt;/strong&gt;, and it should do
+it &lt;strong&gt;&lt;em&gt;only&lt;/em&gt;&lt;/strong&gt;. Any method serves more than one purpose is not following SRP.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// If your method name suggests it does one thing,
+// Don't make it do something else.
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculateAverageGPAFor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;array_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You are returning the total scores, not the average score in the example above.
+It happens more often than you think it would, some developers simply name their
+method one thing and change their mind about it’s purpose as they implement it.
+Some are casued by co-workers modifying an existing method but misunderstood
+it’s intention. It is extremely confusing expecially when the method is long and
+complicated. What if someone new joins the team and uses the method to generate
+the report card?&lt;/p&gt;
+
+&lt;p&gt;Your average score is 692 points? I always knew my son would one day become a
+scientist!&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// If your method name suggests it does one thing,
+// Don't make it do more than that.
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculateSubtotal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$productList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$subtotal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$productList&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$subtotal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;price&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$product&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;quantity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendInvoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subtotal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$subtotal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;No sir, no no no no no. You are emailing invoice in a method that is supposed to
+only calculate the subtotal. Such code pollutes the codebase and is very hard to
+maintain. Imaigine your co-worker’s face when she sees calculateSubtotal
+function throwing an &lt;em&gt;EmailDeliveryFailed&lt;/em&gt; exception. Or what if you are
+required to do your boss’s dirty deeds by helping his buddy to fake a product’s
+sales, and now random users are getting invoices for products they never
+purchased? (FYI, a true story)&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enrolStudentToSemester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Semester&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasOutstandingInvoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;disableStudent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$dean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;emailAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;Warning: Student with outstanding fee&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;EmailService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sendEmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;emailAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;s2&quot;&gt;&quot;Welcome to Semester&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentSemester&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The above code does more than just enrolling students to a new semester, let’s
+revise it.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enrolStudentToSemester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Semester&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasOutstandingInvoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;disableStudent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;nx&quot;&gt;sendOutstandingFeeWarningToDean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nx&quot;&gt;sendWelcomeMessageToStudent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;currentSemester&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Leaving specific email sending logics to other functions makes it much clearer.&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * Sometimes you may have this kind of business logic
+ * that sending notification is an inseparable part of
+ * new user registration routine.
+ */&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$userData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;addUserToDatabse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$userData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;sendNewUserNotificationToAdmin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/*
+ * But again, it works to some extend, but now these two
+ * business logics are tightly coupled together.
+ * You may want to refactor it into the following.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$userData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* Do User Creation Stuff */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sendNewUserNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* Send notification to admin */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;registerUserAndSendNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$userData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;registerUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$userData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;nx&quot;&gt;sendNewUserNotification&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you can freely extend the above three functions as long as they do what
+their name says and keeps their interface integrity, this also allows others to
+freely choose which behavior fits their requirements best.&lt;/p&gt;
+
+&lt;p&gt;That’s all for today’s session folks, we talked about method naming tips, the
+Single Responsibility Principle from S.O.L.I.D, and covered what SRP means to both
+functions and classes. I hope you enjoyed it, we’ll talk about some general tips
+in the next instalment and a little bit on other S.O.L.I.D principles, see you
+then.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><summary type="html">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and Tricks. As said at the end of the first one, we are going to talk about method names today.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Introduction &amp;amp; Variables</title><link href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Introduction &amp; Variables" /><published>2014-04-11T00:00:00+08:00</published><updated>2014-04-11T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-introduction-variables</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">&lt;p&gt;I recently organized a workshop for my team members to talk about Clean Code. It
 has been a major issue plaguing the team and has been slowing us down by
 generating tons of unreadable and unmaintainable code. So I took the oppoturnity
 of the Chinese New Year holidays and delivered these three-days talk online.&lt;/p&gt;
@@ -1121,52 +1475,4 @@ prime number factors.&lt;/p&gt;
 &lt;p&gt;And so on. The fact that the program starts with smallest prime numbers (2, 3,
 5, 7…) prevents non-prime factors.&lt;/p&gt;
 
-&lt;p&gt;Lastly, note that it’s x &amp;lt;= n&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Third question from Project Euler, finding the largest factor of a prime number.</summary></entry><entry><title type="html">Even Fibonacci Numbers</title><link href="http://localhost:4000/even-fibonacci-numbers/" rel="alternate" type="text/html" title="Even Fibonacci Numbers" /><published>2013-02-01T00:00:00+08:00</published><updated>2013-02-01T00:00:00+08:00</updated><id>http://localhost:4000/even-fibonacci-numbers</id><content type="html" xml:base="http://localhost:4000/even-fibonacci-numbers/">&lt;blockquote&gt;
-  &lt;p&gt;Each new term in the Fibonacci sequence is generated by adding the previous
-two terms. By starting with 1 and 2, the first 10 terms will be: 1, 2, 3, 5,
-8, 13, 21, 34, 55, 89, … By considering the terms in the Fibonacci sequence
-whose values do not exceed four million, find the sum of the even-valued
-terms.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Alright, jump right into the second question from &lt;a href=&quot;http://projecteuler.net/problem=2&quot;&gt;Project
-Euler&lt;/a&gt;. This one shouldn’t be hard too, just
-find even numbers in Fibonacci sequence whose values are less than 4e6, then sum
-to get the answer.&lt;/p&gt;
-
-&lt;p&gt;It doesn’t really matter if I generate the Fibnacci sequence beforehand or pick
-only the even ones and add them on the fly, there’ll only be 34 numbers in the
-list anyways.&lt;/p&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&quot;http://docs.python.org/2/tutorial/controlflow.html#defining-functions&quot;&gt;Python
-Docs&lt;/a&gt; for
-the Fibonacci sequence generation code, I got this with a little bit
-modification.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;genFib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And then I can do this&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The answer is: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;genFib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4e6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Or this&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;4e6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;The answer is: &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Anyway, the answer is 4613732.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Each new term in the Fibonacci sequence is generated by adding the previous two terms. By starting with 1 and 2, the first 10 terms will be: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, … By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.</summary></entry></feed>
+&lt;p&gt;Lastly, note that it’s x &amp;lt;= n&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Third question from Project Euler, finding the largest factor of a prime number.</summary></entry></feed>
