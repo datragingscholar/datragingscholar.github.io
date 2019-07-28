@@ -70,15 +70,15 @@ future, stay tuned if you are interested.
 
 We all had this experience, whether you yourself or one of your co-workers who
 wrote code carelessly and irresponsibly, which then led to bugs, performance
-issues, and weird system behaviors nobody knows why and how. After days of
+issues, and weird system behaviors nobody knew why and how. After days of
 debugging, you finally pinpointed that piece of ~~shit~~, um I mean code, you
 found it utterly gibberish and unbearably hard to understand. Then after pulling
 all your hairs off, you finally understood the code and the cause of the issue,
 just to be confronted by the harsh reality that it is nearly impossible to
-modify or extend the orginal code without editing *too much*. At some stage
-along this path, a hard decision would be made to *rewrite* the whole thing and
-you wouldn't even be surprised to find out the exact same issues are there all
-over again.
+modify or extend the orginal code without editing *too much* or breaking *too
+many* existing functionalities. At some stage along this path, a hard decision
+would be made to *rewrite* the whole thing and you wouldn't even be surprised to
+find out the exact same issues are there all over again.
 
 It's a vicious cycle with no way but only one way out -- WRITE, CLEAN, CODE.
 
@@ -173,10 +173,10 @@ convince yourself and you co-workers to improve the dirty code they come across,
 you'll eventually have a clean codebase.
 
 Now, note that leave the code you come across better than you found it does not
-equal to rewriting or refactoring. Fix the variable names, improve the structure
-of the class, divide functions that don't follow Single Responsibility Principle
-into smaller ones, and implement meaningful method names would be good enough to
-eventually have notable effects.
+necessarily mean rewriting or refactoring. Fix the variable names, improve the
+structure of the class, divide functions that don't follow Single Responsibility
+Principle into smaller ones, and implement meaningful method names would be good
+enough to eventually have notable effects.
 
 ## Variables
 
