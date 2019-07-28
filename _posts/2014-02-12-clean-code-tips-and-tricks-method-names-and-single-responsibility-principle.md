@@ -11,7 +11,7 @@ talk about method names today.
 
 ## Method Names
 
-### Use verbs
+### Use verbs and questions
 The same rules apply here as for varibale names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.
 
@@ -27,7 +27,7 @@ filterSomeInput();
 validateSomeForm();
 ```
 
-Methods answering a question should be, well, questions.
+Methods answering questions should be, well, questions.
 
 ``` php
 isUserActive();
@@ -48,17 +48,17 @@ wholly.
 getData();
 
 // More descriptive
-getHistoricalBandwidth();
+getDailyVisitors();
 
 // And fully describe the nature
-getHistoricalBandwidthWithAverage();
+getAverageDailyVisitors();
 ```
 
 Method names do look longer this way, but it helps your readers to figure out
 the usage of these methods without even looking at their definitions.
 
 However, if a method name becomes too long, you may have failed to follow the
-single responsibility rule, which means you need to break your method into
+single responsibility rule, which means you need to break that method into
 smaller ones.
 
 ### Examples
@@ -66,8 +66,8 @@ smaller ones.
 These are quiz designed for my team to practice naming methods, I'll list some
 of them here as examples.
 
-Note other examples are filtered 'cause they were only designed to examine my
-team's ability to properly name function names in English.
+Note other examples are filtered 'cause they were only there to examine my
+team's ability to properly name methods in English.
 
 ``` php
 //Get a particular user's email address.
@@ -86,12 +86,12 @@ getUserCountInGroup($group_id);
 
 ``` php
 // Update customer's defalut shipping address
-updateDefaultAdress($new_address);
+updateDefaultAddress($new_address);
 
-setDefaultAdress($new_address);
+setDefaultAddress($new_address);
 
 // If the customer entity has another property
-// with similar name, e.g. defaultPostalAddress
+// with a similar name, e.g. defaultPostalAddress
 // then it's better to avoid ambiguity by
 updateDefaultShippingAddress($new_shipping_address);
 
@@ -101,7 +101,7 @@ setDefaultPostalAddress($new_postal_address);
 // You can choose whether to include 'customer'
 // in the function names.
 // I would personally not include it
-// since they will always be called with a $customer
+// since they will always be called with a Customer
 // instance.
 $customer->updateDefaultShippingAddress($new_shipping_address);
 
@@ -169,7 +169,7 @@ but you are introducing a completely different set of technology into the
 keyboard, it'd be bloated, and it'd introduce a single point of failure problem
 which makes your computer unusable when the keyboard decides to act up.
 
-Think about toy blocks, they are simple in shapes and when stack properly
+Think about toy blocks, they are simple in shapes and when stacked properly
 together, you can build tons of different types of buildings with them. But if
 their shapes become too complex and serve more purposes, they become
 ***specific***, only usable under certain situations, thus limiting your ability
@@ -223,12 +223,12 @@ class EmailService {
 
 The above code shows a very poorly designed class, if you try your best to
 verbosely describe the class, it's one that "Calculates the tax and generates
-invoice email and sends email to the user". You may as well name the class as
+invoice email and sends email to a user". You may as well name the class as
 ***TaxAndInvoiceAndEmailService***.
 
 This is how this simple trick works, if you ever see a class that should be
 named with ***and*** in it's name, then it's most probably not following the
-SPR.
+SRP.
 
 You may argue that your business logic is such that an email would only be
 generated and sent to the user in the case of sending invoices, it makes sense
@@ -250,7 +250,7 @@ it ***only***. Any method serves more than one purpose is not following SRP.
 // If your method name suggests it does one thing,
 // Don't make it do something else.
 
-public function calculateAverageGPAFor(Student $student) {
+public function calculateStudentAverageScore(Student $student) {
     return array_sum($student->subjects->scores);
 }
 ```
@@ -285,9 +285,9 @@ No sir, no no no no no. You are emailing invoice in a method that is supposed to
 only calculate the subtotal. Such code pollutes the codebase and is very hard to
 maintain. Imaigine your co-worker's face when she sees calculateSubtotal
 function throwing an *EmailDeliveryFailed* exception. Or what if you are
-required to do your boss's dirty deeds by helping his buddy to fake a product's
-sales, and now random users are getting invoices for products they never
-purchased? (FYI, a true story)
+required to do your boss's dirty deeds by helping his buddy to fake a seller's
+sales record in your multi-tenant ecommerce system, and now random users are getting
+invoices for products they never purchased? (FYI, a true story)
 
 ``` php
 public function enrolStudentToSemester(Student $student, Semester $semester) {

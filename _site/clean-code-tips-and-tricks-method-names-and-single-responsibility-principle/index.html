@@ -336,7 +336,7 @@ talk about method names today.</p>
 
 <h2 id="method-names">Method Names</h2>
 
-<h3 id="use-verbs">Use verbs</h3>
+<h3 id="use-verbs-and-questions">Use verbs and questions</h3>
 <p>The same rules apply here as for varibale names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.</p>
 
@@ -351,7 +351,7 @@ statements to describe variables, we use verbs and questions to name methods.</p
 <span class="nx">validateSomeForm</span><span class="p">();</span>
 </code></pre></div></div>
 
-<p>Methods answering a question should be, well, questions.</p>
+<p>Methods answering questions should be, well, questions.</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">isUserActive</span><span class="p">();</span>
 
@@ -370,17 +370,17 @@ wholly.</p>
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getData</span><span class="p">();</span>
 
 <span class="c1">// More descriptive
-</span><span class="nx">getHistoricalBandwidth</span><span class="p">();</span>
+</span><span class="nx">getDailyVisitors</span><span class="p">();</span>
 
 <span class="c1">// And fully describe the nature
-</span><span class="nx">getHistoricalBandwidthWithAverage</span><span class="p">();</span>
+</span><span class="nx">getAverageDailyVisitors</span><span class="p">();</span>
 </code></pre></div></div>
 
 <p>Method names do look longer this way, but it helps your readers to figure out
 the usage of these methods without even looking at their definitions.</p>
 
 <p>However, if a method name becomes too long, you may have failed to follow the
-single responsibility rule, which means you need to break your method into
+single responsibility rule, which means you need to break that method into
 smaller ones.</p>
 
 <h3 id="examples">Examples</h3>
@@ -388,8 +388,8 @@ smaller ones.</p>
 <p>These are quiz designed for my team to practice naming methods, I’ll list some
 of them here as examples.</p>
 
-<p>Note other examples are filtered ‘cause they were only designed to examine my
-team’s ability to properly name function names in English.</p>
+<p>Note other examples are filtered ‘cause they were only there to examine my
+team’s ability to properly name methods in English.</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Get a particular user's email address.
 </span><span class="nx">getUserEmailAddress</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
@@ -405,12 +405,12 @@ team’s ability to properly name function names in English.</p>
 </code></pre></div></div>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Update customer's defalut shipping address
-</span><span class="nx">updateDefaultAdress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
+</span><span class="nx">updateDefaultAddress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
 
-<span class="nx">setDefaultAdress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
+<span class="nx">setDefaultAddress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
 
 <span class="c1">// If the customer entity has another property
-// with similar name, e.g. defaultPostalAddress
+// with a similar name, e.g. defaultPostalAddress
 // then it's better to avoid ambiguity by
 </span><span class="nx">updateDefaultShippingAddress</span><span class="p">(</span><span class="nv">$new_shipping_address</span><span class="p">);</span>
 
@@ -420,7 +420,7 @@ team’s ability to properly name function names in English.</p>
 // You can choose whether to include 'customer'
 // in the function names.
 // I would personally not include it
-// since they will always be called with a $customer
+// since they will always be called with a Customer
 // instance.
 </span><span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">updateDefaultShippingAddress</span><span class="p">(</span><span class="nv">$new_shipping_address</span><span class="p">);</span>
 
@@ -486,7 +486,7 @@ but you are introducing a completely different set of technology into the
 keyboard, it’d be bloated, and it’d introduce a single point of failure problem
 which makes your computer unusable when the keyboard decides to act up.</p>
 
-<p>Think about toy blocks, they are simple in shapes and when stack properly
+<p>Think about toy blocks, they are simple in shapes and when stacked properly
 together, you can build tons of different types of buildings with them. But if
 their shapes become too complex and serve more purposes, they become
 <strong><em>specific</em></strong>, only usable under certain situations, thus limiting your ability
@@ -539,12 +539,12 @@ together to form a module, and every module work together as a system.</p>
 
 <p>The above code shows a very poorly designed class, if you try your best to
 verbosely describe the class, it’s one that “Calculates the tax and generates
-invoice email and sends email to the user”. You may as well name the class as
+invoice email and sends email to a user”. You may as well name the class as
 <strong><em>TaxAndInvoiceAndEmailService</em></strong>.</p>
 
 <p>This is how this simple trick works, if you ever see a class that should be
 named with <strong><em>and</em></strong> in it’s name, then it’s most probably not following the
-SPR.</p>
+SRP.</p>
 
 <p>You may argue that your business logic is such that an email would only be
 generated and sent to the user in the case of sending invoices, it makes sense
@@ -565,7 +565,7 @@ it <strong><em>only</em></strong>. Any method serves more than one purpose is no
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// If your method name suggests it does one thing,
 // Don't make it do something else.
 </span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">calculateAverageGPAFor</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">calculateStudentAverageScore</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">subjects</span><span class="o">-&gt;</span><span class="na">scores</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div></div>
@@ -599,9 +599,9 @@ scientist!</p>
 only calculate the subtotal. Such code pollutes the codebase and is very hard to
 maintain. Imaigine your co-worker’s face when she sees calculateSubtotal
 function throwing an <em>EmailDeliveryFailed</em> exception. Or what if you are
-required to do your boss’s dirty deeds by helping his buddy to fake a product’s
-sales, and now random users are getting invoices for products they never
-purchased? (FYI, a true story)</p>
+required to do your boss’s dirty deeds by helping his buddy to fake a seller’s
+sales record in your multi-tenant ecommerce system, and now random users are getting
+invoices for products they never purchased? (FYI, a true story)</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">enrolStudentToSemester</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">,</span> <span class="nx">Semester</span> <span class="nv">$semester</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">hasOutstandingInvoice</span><span class="p">)</span> <span class="p">{</span>

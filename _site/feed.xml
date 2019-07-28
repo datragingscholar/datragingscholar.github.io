@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-28T01:28:47+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-28T12:21:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
@@ -8,7 +8,7 @@ talk about method names today.&lt;/p&gt;
 
 &lt;h2 id=&quot;method-names&quot;&gt;Method Names&lt;/h2&gt;
 
-&lt;h3 id=&quot;use-verbs&quot;&gt;Use verbs&lt;/h3&gt;
+&lt;h3 id=&quot;use-verbs-and-questions&quot;&gt;Use verbs and questions&lt;/h3&gt;
 &lt;p&gt;The same rules apply here as for varibale names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.&lt;/p&gt;
 
@@ -23,7 +23,7 @@ statements to describe variables, we use verbs and questions to name methods.&lt
 &lt;span class=&quot;nx&quot;&gt;validateSomeForm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Methods answering a question should be, well, questions.&lt;/p&gt;
+&lt;p&gt;Methods answering questions should be, well, questions.&lt;/p&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;isUserActive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
@@ -42,17 +42,17 @@ wholly.&lt;/p&gt;
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;getData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// More descriptive
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getHistoricalBandwidth&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getDailyVisitors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// And fully describe the nature
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getHistoricalBandwidthWithAverage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getAverageDailyVisitors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Method names do look longer this way, but it helps your readers to figure out
 the usage of these methods without even looking at their definitions.&lt;/p&gt;
 
 &lt;p&gt;However, if a method name becomes too long, you may have failed to follow the
-single responsibility rule, which means you need to break your method into
+single responsibility rule, which means you need to break that method into
 smaller ones.&lt;/p&gt;
 
 &lt;h3 id=&quot;examples&quot;&gt;Examples&lt;/h3&gt;
@@ -60,8 +60,8 @@ smaller ones.&lt;/p&gt;
 &lt;p&gt;These are quiz designed for my team to practice naming methods, I’ll list some
 of them here as examples.&lt;/p&gt;
 
-&lt;p&gt;Note other examples are filtered ‘cause they were only designed to examine my
-team’s ability to properly name function names in English.&lt;/p&gt;
+&lt;p&gt;Note other examples are filtered ‘cause they were only there to examine my
+team’s ability to properly name methods in English.&lt;/p&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//Get a particular user's email address.
 &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUserEmailAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -77,12 +77,12 @@ team’s ability to properly name function names in English.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Update customer's defalut shipping address
-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updateDefaultAdress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updateDefaultAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
-&lt;span class=&quot;nx&quot;&gt;setDefaultAdress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;setDefaultAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// If the customer entity has another property
-// with similar name, e.g. defaultPostalAddress
+// with a similar name, e.g. defaultPostalAddress
 // then it's better to avoid ambiguity by
 &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;updateDefaultShippingAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_shipping_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
@@ -92,7 +92,7 @@ team’s ability to properly name function names in English.&lt;/p&gt;
 // You can choose whether to include 'customer'
 // in the function names.
 // I would personally not include it
-// since they will always be called with a $customer
+// since they will always be called with a Customer
 // instance.
 &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$customer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;updateDefaultShippingAddress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$new_shipping_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
@@ -158,7 +158,7 @@ but you are introducing a completely different set of technology into the
 keyboard, it’d be bloated, and it’d introduce a single point of failure problem
 which makes your computer unusable when the keyboard decides to act up.&lt;/p&gt;
 
-&lt;p&gt;Think about toy blocks, they are simple in shapes and when stack properly
+&lt;p&gt;Think about toy blocks, they are simple in shapes and when stacked properly
 together, you can build tons of different types of buildings with them. But if
 their shapes become too complex and serve more purposes, they become
 &lt;strong&gt;&lt;em&gt;specific&lt;/em&gt;&lt;/strong&gt;, only usable under certain situations, thus limiting your ability
@@ -211,12 +211,12 @@ together to form a module, and every module work together as a system.&lt;/p&gt;
 
 &lt;p&gt;The above code shows a very poorly designed class, if you try your best to
 verbosely describe the class, it’s one that “Calculates the tax and generates
-invoice email and sends email to the user”. You may as well name the class as
+invoice email and sends email to a user”. You may as well name the class as
 &lt;strong&gt;&lt;em&gt;TaxAndInvoiceAndEmailService&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is how this simple trick works, if you ever see a class that should be
 named with &lt;strong&gt;&lt;em&gt;and&lt;/em&gt;&lt;/strong&gt; in it’s name, then it’s most probably not following the
-SPR.&lt;/p&gt;
+SRP.&lt;/p&gt;
 
 &lt;p&gt;You may argue that your business logic is such that an email would only be
 generated and sent to the user in the case of sending invoices, it makes sense
@@ -237,7 +237,7 @@ it &lt;strong&gt;&lt;em&gt;only&lt;/em&gt;&lt;/strong&gt;. Any method serves mor
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// If your method name suggests it does one thing,
 // Don't make it do something else.
 &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculateAverageGPAFor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;calculateStudentAverageScore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;array_sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subjects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scores&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -271,9 +271,9 @@ scientist!&lt;/p&gt;
 only calculate the subtotal. Such code pollutes the codebase and is very hard to
 maintain. Imaigine your co-worker’s face when she sees calculateSubtotal
 function throwing an &lt;em&gt;EmailDeliveryFailed&lt;/em&gt; exception. Or what if you are
-required to do your boss’s dirty deeds by helping his buddy to fake a product’s
-sales, and now random users are getting invoices for products they never
-purchased? (FYI, a true story)&lt;/p&gt;
+required to do your boss’s dirty deeds by helping his buddy to fake a seller’s
+sales record in your multi-tenant ecommerce system, and now random users are getting
+invoices for products they never purchased? (FYI, a true story)&lt;/p&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;enrolStudentToSemester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Student&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Semester&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$semester&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$student&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasOutstandingInvoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
