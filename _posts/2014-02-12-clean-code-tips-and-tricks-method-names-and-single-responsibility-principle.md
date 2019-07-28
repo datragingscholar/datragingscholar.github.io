@@ -12,7 +12,7 @@ talk about method names today.
 ## Method Names
 
 ### Use verbs and questions
-The same rules apply here as for varibale names, but instead of using nouns and
+The same rules apply here as for variable names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.
 
 ``` php
@@ -159,7 +159,7 @@ connected to. It has only one functionality or interface if you will, but you
 can use it to play games, write articles, or even play an instrument if you have
 the right software installed on your computer. A game, a word processor, or an
 instrument simulator. Now these are all interchangable parts on the other side
-of the interface, but provides great potential of possible applications when
+of the interface, but provides great potential to possible applications when
 working together as a system, all the while having the keyboard only focus on
 ***one task***.
 
@@ -192,7 +192,7 @@ company strive to make the business profitable.
 
 It's exactly the same thing in writing source code, every line of code in a
 method works together to define the method, every method in a class servers
-their purposes and create sense for the class, every class in a module fit
+their purpose and create sense for the class, every class in a module fit
 together to form a module, and every module work together as a system.
 
 ``` php
@@ -212,7 +212,7 @@ class EmailService {
         return $invoice->subtotal * 0.025;
     }
 
-    public function emailInvoiceForUser(User $user) {
+    public function emailInvoiceToUser(User $user) {
         /* Code to generate email message */
         if (!$emailHasSentSuccessfully) return false;
 
@@ -256,12 +256,12 @@ public function calculateStudentAverageScore(Student $student) {
 ```
 
 You are returning the total scores, not the average score in the example above.
-It happens more often than you think it would, some developers simply name their
-method one thing and change their mind about it's purpose as they implement it.
-Some are casued by co-workers modifying an existing method but misunderstood
-it's intention. It is extremely confusing expecially when the method is long and
-complicated. What if someone new joins the team and uses the method to generate
-the report card?
+It happens more often than you think it would, some developers name their
+method one thing and simply change their mind about it's purpose as they
+implement it. Some are casued by co-workers modifying an existing method but
+misunderstood it's intention. It is extremely confusing expecially when the
+method is long and complicated. What if someone new joins the team and uses the
+method to generate the report card?
 
 Your average score is 692 points? I always knew my son would one day become a
 scientist!

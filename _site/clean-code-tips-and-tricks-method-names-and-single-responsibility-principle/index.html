@@ -337,7 +337,7 @@ talk about method names today.</p>
 <h2 id="method-names">Method Names</h2>
 
 <h3 id="use-verbs-and-questions">Use verbs and questions</h3>
-<p>The same rules apply here as for varibale names, but instead of using nouns and
+<p>The same rules apply here as for variable names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">doSomething</span><span class="p">();</span>
@@ -476,7 +476,7 @@ connected to. It has only one functionality or interface if you will, but you
 can use it to play games, write articles, or even play an instrument if you have
 the right software installed on your computer. A game, a word processor, or an
 instrument simulator. Now these are all interchangable parts on the other side
-of the interface, but provides great potential of possible applications when
+of the interface, but provides great potential to possible applications when
 working together as a system, all the while having the keyboard only focus on
 <strong><em>one task</em></strong>.</p>
 
@@ -509,7 +509,7 @@ company strive to make the business profitable.</p>
 
 <p>It’s exactly the same thing in writing source code, every line of code in a
 method works together to define the method, every method in a class servers
-their purposes and create sense for the class, every class in a module fit
+their purpose and create sense for the class, every class in a module fit
 together to form a module, and every module work together as a system.</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
@@ -528,7 +528,7 @@ together to form a module, and every module work together as a system.</p>
         <span class="k">return</span> <span class="nv">$invoice</span><span class="o">-&gt;</span><span class="na">subtotal</span> <span class="o">*</span> <span class="mf">0.025</span><span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">emailInvoiceForUser</span><span class="p">(</span><span class="nx">User</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">emailInvoiceToUser</span><span class="p">(</span><span class="nx">User</span> <span class="nv">$user</span><span class="p">)</span> <span class="p">{</span>
         <span class="cm">/* Code to generate email message */</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$emailHasSentSuccessfully</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 
@@ -571,12 +571,12 @@ it <strong><em>only</em></strong>. Any method serves more than one purpose is no
 </code></pre></div></div>
 
 <p>You are returning the total scores, not the average score in the example above.
-It happens more often than you think it would, some developers simply name their
-method one thing and change their mind about it’s purpose as they implement it.
-Some are casued by co-workers modifying an existing method but misunderstood
-it’s intention. It is extremely confusing expecially when the method is long and
-complicated. What if someone new joins the team and uses the method to generate
-the report card?</p>
+It happens more often than you think it would, some developers name their
+method one thing and simply change their mind about it’s purpose as they
+implement it. Some are casued by co-workers modifying an existing method but
+misunderstood it’s intention. It is extremely confusing expecially when the
+method is long and complicated. What if someone new joins the team and uses the
+method to generate the report card?</p>
 
 <p>Your average score is 692 points? I always knew my son would one day become a
 scientist!</p>

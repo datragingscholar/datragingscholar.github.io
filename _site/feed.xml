@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-28T12:21:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-28T12:59:42+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
@@ -9,7 +9,7 @@ talk about method names today.&lt;/p&gt;
 &lt;h2 id=&quot;method-names&quot;&gt;Method Names&lt;/h2&gt;
 
 &lt;h3 id=&quot;use-verbs-and-questions&quot;&gt;Use verbs and questions&lt;/h3&gt;
-&lt;p&gt;The same rules apply here as for varibale names, but instead of using nouns and
+&lt;p&gt;The same rules apply here as for variable names, but instead of using nouns and
 statements to describe variables, we use verbs and questions to name methods.&lt;/p&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
@@ -148,7 +148,7 @@ connected to. It has only one functionality or interface if you will, but you
 can use it to play games, write articles, or even play an instrument if you have
 the right software installed on your computer. A game, a word processor, or an
 instrument simulator. Now these are all interchangable parts on the other side
-of the interface, but provides great potential of possible applications when
+of the interface, but provides great potential to possible applications when
 working together as a system, all the while having the keyboard only focus on
 &lt;strong&gt;&lt;em&gt;one task&lt;/em&gt;&lt;/strong&gt;.&lt;/p&gt;
 
@@ -181,7 +181,7 @@ company strive to make the business profitable.&lt;/p&gt;
 
 &lt;p&gt;It’s exactly the same thing in writing source code, every line of code in a
 method works together to define the method, every method in a class servers
-their purposes and create sense for the class, every class in a module fit
+their purpose and create sense for the class, every class in a module fit
 together to form a module, and every module work together as a system.&lt;/p&gt;
 
 &lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
@@ -200,7 +200,7 @@ together to form a module, and every module work together as a system.&lt;/p&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$invoice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;subtotal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.025&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;emailInvoiceForUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;emailInvoiceToUser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;User&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;cm&quot;&gt;/* Code to generate email message */&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$emailHasSentSuccessfully&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -243,12 +243,12 @@ it &lt;strong&gt;&lt;em&gt;only&lt;/em&gt;&lt;/strong&gt;. Any method serves mor
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;You are returning the total scores, not the average score in the example above.
-It happens more often than you think it would, some developers simply name their
-method one thing and change their mind about it’s purpose as they implement it.
-Some are casued by co-workers modifying an existing method but misunderstood
-it’s intention. It is extremely confusing expecially when the method is long and
-complicated. What if someone new joins the team and uses the method to generate
-the report card?&lt;/p&gt;
+It happens more often than you think it would, some developers name their
+method one thing and simply change their mind about it’s purpose as they
+implement it. Some are casued by co-workers modifying an existing method but
+misunderstood it’s intention. It is extremely confusing expecially when the
+method is long and complicated. What if someone new joins the team and uses the
+method to generate the report card?&lt;/p&gt;
 
 &lt;p&gt;Your average score is 692 points? I always knew my son would one day become a
 scientist!&lt;/p&gt;
