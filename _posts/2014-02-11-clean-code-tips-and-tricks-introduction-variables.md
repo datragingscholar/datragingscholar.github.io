@@ -1,7 +1,7 @@
 ---
 title        : "Clean Code Tips and Tricks: Introduction & Variables"
 date         : "2014-04-11"
-tags         : [Clean Code, PHP]
+tags         : [Clean Code, PHP, Software Principle]
 ---
 
 I recently organized a workshop for my team members to talk about Clean Code. It

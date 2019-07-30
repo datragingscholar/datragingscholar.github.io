@@ -1,7 +1,7 @@
 ---
 title        : "Clean Code Tips and Tricks: Method Names and Single Responsibility Principle"
 date         : "2014-04-12"
-tags         : [Clean Code, PHP]
+tags         : [Clean Code, PHP, Software Principle]
 ---
 
 Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
