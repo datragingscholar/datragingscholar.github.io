@@ -393,7 +393,7 @@ two responsibilities, splitting and processing data files, thus there are two
 reasons to change the class, which violates the SRP.
 
 Secondly, SRP only covers classes, does that mean modules and methods can have
-mulitple responsibilites or mulitple reason to change?
+mulitple responsibilites or mulitple reasons to change?
 
 In a sense, yes. For example we've seen a function called
 `registerUserAndSendNotification()` in one of our previous examples, and we can
@@ -806,12 +806,12 @@ class Invoice {
 ```
 
 We have a `calculateTotalShippingCosts()` and a `calculateTaxCredit()` function
-here which grants users credit according the the tax rate of the product they
+here which grants users credit according to the tax rate of the product they
 purchased, this was intended as a virtual currency for tax-refund purposes.
 
 Same as the last time, after we extended `Product` class with a new
 `PromotionalProduct` class, these two functions in `Invoice` class broke. When
-there are at least one `PromotionalProduct` in `$order`,
+there is at least one `PromotionalProduct` in `$order`,
 `calculateShippingCosts()` wouldn't return anything meaningful since
 `$product->getShippingCost()` now sometimes returns a string which we never
 expected when writting the `Invoice` class, and `calculateTaxCredit()` function
@@ -849,7 +849,7 @@ public function getTax() {
 ```
 
 And the `getTax()` function in our `PromotionalProduct` class, by adding one
-more possible return value, zero, we made the postcondition stronger. This
+more possible return value, zero, we made the postcondition ***weaker***. This
 caused clients or users of the `Product` class getting unexpected return values
 from instances of `PromotionalProduct`, which means the substitution didn't
 successfully happen without causing issue or altering existing behaviors.
@@ -947,7 +947,7 @@ class PromotionNotification {
 ```
 
 We say that `PromotionNotification` class is tightly coupled with `Email` class
-since it directly depends on it and know it's business logic. The problem with
+since it directly depends on it and knows it's business logic. The problem with
 coupling is if we decide to add another way to send promotional messages,
 through SMS for example, we'd have to go back to our `PromotionNotification`
 class to change it's implementation, thus violating Open-Closed Principle.
@@ -1000,7 +1000,7 @@ Here we added an abstraction interface called `MessageService` and let both our
 on `MessageService` and by protocol defined, we know any derived class should
 have a `send()` function implemented.
 
-We are now complaint with DIP since we now don't depend on any contrete class,
+We are now complaint with DIP since we now don't depend on any concrete class,
 and we are free to switch `MessageService` with any of it's implementing class
 without having to modify existing code, or affect our system's behavior.
 
@@ -1048,7 +1048,7 @@ Choose either method according to your requirements.
 Whew, what a journey. This is the end of our three-instalment Clean Code Tips
 and Tricks, I hope you enjoyed it as much as I enjoyed preparing it.
 
-We talked about the importance of write readable code that'll make you and
+We talked about the importance of writing readable code that'll make you and
 your co-workers understand better and enjoy working with. Then we talked
 about the S.O.L.I.D principle which I think is very important to make our code
 maintainable and robust.
