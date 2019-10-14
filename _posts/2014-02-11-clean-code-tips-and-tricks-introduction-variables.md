@@ -5,12 +5,12 @@ tags         : [Clean Code, PHP, Software Principle]
 ---
 
 I recently organized a workshop for my team members to talk about Clean Code. It
-has been a major issue plaguing the team and has been slowing us down by
+has been a major issue plaguing our code and has been slowing us down by
 generating tons of unreadable and unmaintainable code. So I took the oppoturnity
 of the Chinese New Year holidays and delivered these three-days talk online.
 
 I had great feedback from my team members and learned a few things myself by
-preaching the Clean Code concept along with part of the S.O.L.I.D Principle. The
+preaching the Clean Code concept along with the S.O.L.I.D Principle. The
 following weeks brought exiciting and notable results, the code quality improved
 significantly just by following these simple tips and tricks. Better still, even
 some skilled developers with many years of work experience showed signs of
@@ -18,10 +18,11 @@ improvement in code quality.
 
 So I figured it might be of help to other developers if I post these notes
 online. I revised the notes I used to deliver the talks and incorporated some of
-the new ideas I've learned, now I'm ready to share them with you.
+the new ideas I've learned to share with you, though I'll leave S.O.L.I.D
+principles for a later series that focuses on design principles.
 
-This will be divided into three instalments as the original workshop lasted three
-days as well, it'd be a pain to wade through in just one session.
+This talk will be divided into three instalments as the original workshop lasted
+three days as well, it'd be a pain to wade through in just one session.
 
 Alright, enough talk, let's jump right in.
 
@@ -34,7 +35,7 @@ I would say that understandability is the most important among all other
 properties. People would enjoy working with your code if they are easy to
 understand.
 
-Maintainablity is the ability to freely extend a piece of existing code  without
+Maintainablity is the ability to freely extend a piece of existing code without
 having to modify too much. Having great maintainability is definitely
 profitable for the long haul, you wouldn't be afraid of requirement changes so
 much anymore.

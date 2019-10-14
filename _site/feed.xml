@@ -1,8 +1,1066 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-31T00:02:00+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-10-15T00:19:38+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Raging Scholar</title><subtitle>A shitposting rehabilitation center</subtitle><author><name>Hai Lang</name><email>send@hailang.email</email></author><entry><title type="html">What is wrong with microservice</title><link href="http://localhost:4000/what-is-wrong-with-microservice/" rel="alternate" type="text/html" title="What is wrong with microservice" /><published>2019-07-21T00:00:00+08:00</published><updated>2019-07-21T00:00:00+08:00</updated><id>http://localhost:4000/what-is-wrong-with-microservice</id><content type="html" xml:base="http://localhost:4000/what-is-wrong-with-microservice/">&lt;h1 id=&quot;welcome&quot;&gt;Welcome&lt;/h1&gt;
 
 &lt;p&gt;&lt;strong&gt;Hello world&lt;/strong&gt;, this is my first Jekyll blog post.&lt;/p&gt;
 
-&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle</title><link href="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle" /><published>2014-04-13T00:00:00+08:00</published><updated>2014-04-13T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/">&lt;p&gt;Welcome back fellow computer witches and wizards, let’s get back to where we
+&lt;p&gt;I hope you like it!&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><summary type="html">Welcome</summary></entry><entry><title type="html">How I Switched From Vim to Emacs</title><link href="http://localhost:4000/how-i-switched-from-vim-to-emacs/" rel="alternate" type="text/html" title="How I Switched From Vim to Emacs" /><published>2015-03-19T00:00:00+08:00</published><updated>2015-03-19T00:00:00+08:00</updated><id>http://localhost:4000/how-i-switched-from-vim-to-emacs</id><content type="html" xml:base="http://localhost:4000/how-i-switched-from-vim-to-emacs/">&lt;p&gt;I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+years, I’ve tried other text editors and IDEs, sometimes in search of a better
+editing tool, sometimes to fit the development evironment of the projects I
+worked on, but vim was trumphant as I kept installing vim emulators even when I
+was using other editors, and I always went back to it eventually.&lt;/p&gt;
+
+&lt;p&gt;One may have many different kinds of reasons for switching to another text
+editor, and many feel obliged to justify their reasonings as editors mean more
+than just tools to program in, they’ve become faith, even religions.&lt;/p&gt;
+
+&lt;p&gt;Jokingly or seriously, switching from vim to emacs can already be considered
+&lt;strong&gt;sacriligous&lt;/strong&gt;, let alone the fact that I actually use evil-mode to emulate vim
+key mappings to ease the learning curve. Though I have personnally gone through
+lots of thinkings and justifications to make the final decision, I figure it
+would mean little to those who doesn’t care about editor wars, and even less
+to editor apologists, my reasonings may just offend them more.&lt;/p&gt;
+
+&lt;p&gt;So to completely avoid the fruitless effort of blogging my justifications, and
+as the title of this post intended, this is about &lt;strong&gt;how&lt;/strong&gt; I made the switch, not
+&lt;strong&gt;why&lt;/strong&gt; I did it. If you are new to emacs, and have used vim before, my config and
+comments below can be a good boilerplate to get you started.&lt;/p&gt;
+
+&lt;h1 id=&quot;summary&quot;&gt;Summary&lt;/h1&gt;
+
+&lt;p&gt;This setup was tailored specifically to meet my requirements and use cases,
+I’ll however be more than happy if you find it useful out-of-the-box, though I
+deem this better as a starter config to get things going and to showcase what
+emacs and some popular plugins can do.&lt;/p&gt;
+
+&lt;p&gt;This config is heavily inspired (and copied from) &lt;a href=&quot;https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org&quot;&gt;Harry R. Schwartz’s&lt;/a&gt;,
+it’s his talk that got me switching to emacs in the first place.&lt;/p&gt;
+
+&lt;h2 id=&quot;general-structure&quot;&gt;General Structure&lt;/h2&gt;
+
+&lt;p&gt;Save &lt;a href=&quot;https://github.com/datragingscholar/dotfiles/blob/master/.emacs.d/init.el&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;init.el&lt;/code&gt;&lt;/a&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.emacs.d/init.el&lt;/code&gt;, it installs &lt;a href=&quot;https://github.com/jwiegley/use-package&quot;&gt;&lt;em&gt;use-package&lt;/em&gt;&lt;/a&gt; and
+configures it with some popular repos.&lt;/p&gt;
+
+&lt;p&gt;Save &lt;a href=&quot;https://github.com/datragingscholar/dotfiles/blob/master/.emacs.d/conf.org&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conf.org&lt;/code&gt;&lt;/a&gt; as &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.emacs.d/conf.org&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;init.el&lt;/code&gt; would compile this org
+document into &lt;code class=&quot;highlighter-rouge&quot;&gt;conf.el&lt;/code&gt; and then load it with &lt;em&gt;org-babel-load-file&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;This allows &lt;em&gt;literature programming&lt;/em&gt;, which helps keeping this configuration
+readable and maintainable.&lt;/p&gt;
+
+&lt;h1 id=&quot;package-configuration&quot;&gt;Package Configuration&lt;/h1&gt;
+
+&lt;p&gt;Make sure &lt;a href=&quot;https://github.com/jwiegley/use-package&quot;&gt;&lt;em&gt;use-package&lt;/em&gt;&lt;/a&gt; auto compiles and always uses the newest version.&lt;/p&gt;
+
+&lt;p&gt;This is the package or plugin control system if you will for emacs.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;use-package-always-ensure&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;load-prefer-newer&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;auto-compile&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;auto-compile-on-load-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;default-configuration&quot;&gt;Default Configuration&lt;/h1&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org&quot;&gt;&lt;em&gt;sensible-defaults.el&lt;/em&gt;&lt;/a&gt; for some recommended default setups.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately this can’t be installed as a package. Though the repo hasn’t
+been updated for two years, makes sense to just copy-paste it into emacs.d folder.&lt;/p&gt;
+
+&lt;p&gt;You need to manually checkout the file into your emacs config folder for this
+to work properly.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;load-file&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/.emacs.d/sensible-defaults.el&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sensible-defaults/use-all-settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sensible-defaults/use-all-keybindings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;sensible-defaults/backup-to-temp-directory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bind the M-o key to switch between windows. This does not work on my Macbook
+though, need to find out why. The good old &lt;em&gt;C-x o&lt;/em&gt; works perfectly still.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;M-o&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'other-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;evil-mode&quot;&gt;Evil Mode&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Somelauw/evil-org-mode&quot;&gt;&lt;em&gt;evil-mode&lt;/em&gt;&lt;/a&gt; enables vim keymappings for emacs, it makes my life much easier.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Enable org-mode agenda keymaps with &lt;a href=&quot;https://github.com/Somelauw/evil-org-mode&quot;&gt;&lt;em&gt;evil-org-mode&lt;/em&gt;&lt;/a&gt;. Now you can use vim key bindings in org-mode.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-org&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-org-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:after&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-org-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-org-mode-hook&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-org-set-key-theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-org-agenda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-org-agenda-set-keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here comes &lt;a href=&quot;https://github.com/emacs-evil/evil-surround&quot;&gt;&lt;em&gt;evil-surround&lt;/em&gt;&lt;/a&gt;, a ported version of &lt;a href=&quot;https://github.com/tpope/vim-surround&quot;&gt;&lt;em&gt;surround.vim&lt;/em&gt;&lt;/a&gt;, good stuff.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-surround&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:ensure&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-evil-surround-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/milkypostman/powerline&quot;&gt;&lt;em&gt;Powerline&lt;/em&gt;&lt;/a&gt; for emacs, to make you feel right at home.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;powerline-evil&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:ensure&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;powerline-evil-center-color-theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;ui-preferences&quot;&gt;UI Preferences&lt;/h1&gt;
+
+&lt;h2 id=&quot;tweak-window-chrome&quot;&gt;Tweak window chrome&lt;/h2&gt;
+
+&lt;p&gt;Disables tool-bar and menu-bar, they take spaces but I rarely use them.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;tool-bar-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;menu-bar-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There’s a tiny scroll bar that appears in the minibuffer window. This
+disables that:&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;set-window-scroll-bars&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;minibuffer-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The default frame title isn’t useful. This binds it to the name of the
+current projectile project:&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;frame-title-format&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:eval&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;projectile-project-name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;use-fancy-lambdas&quot;&gt;Use Fancy Lambdas&lt;/h2&gt;
+
+&lt;p&gt;Yea, why not.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-prettify-symbols-mode&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;theme&quot;&gt;Theme&lt;/h2&gt;
+
+&lt;p&gt;I like &lt;code class=&quot;highlighter-rouge&quot;&gt;wilson theme&lt;/code&gt; from &lt;a href=&quot;https://github.com/owainlewis/emacs-color-themes&quot;&gt;&lt;em&gt;sublime themes&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;sublime-themes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;load-theme&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'wilson&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;scroll-conservatively&quot;&gt;Scroll conservatively&lt;/h2&gt;
+
+&lt;p&gt;This prevents the screen from jumping when your cursor moves out of the window.&lt;/p&gt;
+
+&lt;p&gt;I actually find the default &lt;em&gt;center at the cursor location&lt;/em&gt; fun and useful. Uncomment this line and try if it works for you.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;;; (setq scroll-conservatively 100)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;highlight-the-current-line&quot;&gt;Highlight the current line&lt;/h2&gt;
+
+&lt;p&gt;&lt;em&gt;global-hl-line-mode&lt;/em&gt; softly highlights the background color of the line containing point.
+It makes it a bit easier to find point, and it’s useful when pairing or presenting code.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-hl-line-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;diminish-unnecessary-modes&quot;&gt;Diminish unnecessary modes&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/myrjola/diminish.el&quot;&gt;&lt;em&gt;diminish&lt;/em&gt;&lt;/a&gt; to hide or abbreviates minor modes from the mode line. They continue to work, though.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;diminish&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;project-management&quot;&gt;Project management&lt;/h1&gt;
+
+&lt;h2 id=&quot;dired&quot;&gt;dired&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/mattiasb/dired-hide-dotfiles&quot;&gt;&lt;em&gt;dired-hide-dotfiles&lt;/em&gt;&lt;/a&gt; to hide dot files and toggle visibility with &lt;code class=&quot;highlighter-rouge&quot;&gt;.&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-hide-dotfiles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-dired-mode-hook&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;My `dired' mode hook.&quot;&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;;; To hide dot-files by default&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dired-hide-dotfiles-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+       &lt;span class=&quot;c1&quot;&gt;;; To toggle hiding&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-mode-map&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;.&quot;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dired-hide-dotfiles-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'dired-mode-hook&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;my-dired-mode-hook&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;These are the switches that get passed to &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; when &lt;code class=&quot;highlighter-rouge&quot;&gt;dired&lt;/code&gt; gets a list of files. We’re using:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;l&lt;/code&gt;: Use the long listing format.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt;: Use human-readable sizes.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;v&lt;/code&gt;: Sort numbers naturally.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;a&lt;/code&gt;: Include all files.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Change this if you want your folder listing in a different flavor.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setq-default&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-listing-switches&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-lhva&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Kill buffers of files/directories that are deleted in &lt;code class=&quot;highlighter-rouge&quot;&gt;dired&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-clean-up-buffers-too&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Always copy directories recursively instead of asking every time.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-recursive-copies&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'always&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Ask before recursively &lt;em&gt;deleting&lt;/em&gt; a directory, though.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-recursive-deletes&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Open a file with an external program (I use a Mac, so it’s &lt;code class=&quot;highlighter-rouge&quot;&gt;open&lt;/code&gt;) by hitting
+&lt;code class=&quot;highlighter-rouge&quot;&gt;C-c C-o&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-xdg-open&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;In dired, open the file named on this line.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;dired-get-filename&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;call-process&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;open&quot;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dired-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c C-o&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'dired-xdg-open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;ag&quot;&gt;ag&lt;/h2&gt;
+
+&lt;p&gt;Set up &lt;a href=&quot;https://agel.readthedocs.io/en/latest/installation.html&quot;&gt;&lt;em&gt;ag&lt;/em&gt;&lt;/a&gt; for displaying search results. You need to install &lt;code class=&quot;highlighter-rouge&quot;&gt;ag&lt;/code&gt; binary for this to work properly.&lt;/p&gt;
+
+&lt;p&gt;Run &lt;em&gt;brew install ag&lt;/em&gt; manually if you are a Mac user.&lt;/p&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;M-x&lt;/code&gt;, then type &lt;code class=&quot;highlighter-rouge&quot;&gt;ag&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;ag-project&lt;/code&gt; and press enter to search
+recursively.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;company&quot;&gt;company&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;http://company-mode.github.io&quot;&gt;&lt;em&gt;company-mode&lt;/em&gt;&lt;/a&gt; everywhere.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;company&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;company-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'after-init-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'global-company-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I use &lt;em&gt;ac-php&lt;/em&gt; for auto completion. Still useful to bind a &lt;em&gt;company-mode&lt;/em&gt; completion key.&lt;/p&gt;
+
+&lt;p&gt;You can hit &lt;code class=&quot;highlighter-rouge&quot;&gt;M-/&lt;/code&gt; for auto completion no matter what language you use.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;M-/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'company-complete-common&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;dumb-jump&quot;&gt;dumb-jump&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/jacktasia/dumb-jump&quot;&gt;&lt;em&gt;dumb-jump&lt;/em&gt;&lt;/a&gt; is the “jump to definition” package for emacs.&lt;/p&gt;
+
+&lt;p&gt;I bind &lt;code class=&quot;highlighter-rouge&quot;&gt;M-v&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;M-w&lt;/code&gt; to ‘go’ and ‘back’ respectively since I use Dvorak
+keyboard.&lt;/p&gt;
+
+&lt;p&gt;They are equivalent to &lt;code class=&quot;highlighter-rouge&quot;&gt;M-&amp;gt;&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;M-&amp;lt;&lt;/code&gt; if you use QWERT keyboard, so change
+the following keybindings if you do.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dumb-jump&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-normal-state-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;M-v&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'dumb-jump-go&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-normal-state-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;M-w&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'dumb-jump-back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;dumb-jump-selector&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'ivy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;flycheck&quot;&gt;flycheck&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.flycheck.org/en/latest/&quot;&gt;&lt;em&gt;flycheck&lt;/em&gt;&lt;/a&gt; is a on the fly syntax checking extension. It supports many
+programming languages out of the box.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flycheck&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:ensure&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:init&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-flycheck-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;magit&quot;&gt;magit&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://magit.vc&quot;&gt;&lt;em&gt;magit&lt;/em&gt;&lt;/a&gt; is a fantastic version control extension for emacs.&lt;/p&gt;
+
+&lt;p&gt;There are some tweaks here:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bind magit status menu to &lt;code class=&quot;highlighter-rouge&quot;&gt;C-x g&lt;/code&gt;.
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;After that, bring up help menu with &lt;code class=&quot;highlighter-rouge&quot;&gt;h&lt;/code&gt; and select actions you want to perform.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;It’ll tell you the key binding combination for that action, you can memerize it for next time.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use &lt;a href=&quot;https://github.com/emacs-evil/evil-magit&quot;&gt;evil-magit&lt;/a&gt; for evil key bindings.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Per &lt;a href=&quot;http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html&quot;&gt;tpope’s suggestions&lt;/a&gt;, highlight commit text in the summary line that goes beyond 50 characters.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;I’d like to start in the insert state when writing a commit message.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;magit&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:bind&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;C-x g&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;magit-status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-magit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;with-editor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;git-commit-summary-max-length&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'with-editor-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-insert-state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;projectile&quot;&gt;Projectile&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/bbatsov/projectile&quot;&gt;&lt;em&gt;projectile&lt;/em&gt;&lt;/a&gt; is a project interaction library for emacs which enables
+functionalities like switching between projects, search for file in a
+project, replace in project and so on.&lt;/p&gt;
+
+&lt;p&gt;The following enables projectile globally, customizes some key chords and
+sets the default directory to look for projects. You can find a more detailed
+customization guide in its documentation.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:bind&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;C-c v&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-ag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-command-map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-normal-state-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-find-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-define-key&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'motion&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ag-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-find-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-define-key&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'motion&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;rspec-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-p&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-find-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile-completion-system&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'ivy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile-switch-project-action&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'projectile-dired&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile-require-project-root&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;projectile-project-search-path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;~/Projects/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;projectile-global-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;programming-language-specifics&quot;&gt;Programming Language Specifics&lt;/h1&gt;
+
+&lt;h2 id=&quot;general-programming&quot;&gt;General Programming&lt;/h2&gt;
+
+&lt;p&gt;Some adjustments and tweaks for general text editing.&lt;/p&gt;
+
+&lt;h3 id=&quot;tabs&quot;&gt;Tabs&lt;/h3&gt;
+
+&lt;p&gt;Change tab width to 2.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setq-default&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;tab-width&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;superword&quot;&gt;superword&lt;/h3&gt;
+
+&lt;p&gt;I’d like to treat camelCasedWord as a whole and don’t often have to navigate inside them.
+If treating camelCasedWord as three different words is what you want, uncomment the following code.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;c1&quot;&gt;;; (use-package subword-mode&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;;  :diminish subword-mode&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;;  :config (global-subword-mode 1))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I enabled &lt;em&gt;superword-mode&lt;/em&gt; as a hook for /php-mode/(see PHP section) since that’s what I desire mostly when working on PHP projects.&lt;/p&gt;
+
+&lt;h3 id=&quot;ya-snippet&quot;&gt;Ya-snippet&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/joaotavora/yasnippet&quot;&gt;&lt;em&gt;yasnippet&lt;/em&gt;&lt;/a&gt; is a templating system for emacs. I’m not very crazy about
+snippets, but it’s good to know it’s available.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;yasnippet&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;yasnippet-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;yas-global-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I keep my non-existent snippets in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.emacs/snippets/text-mode&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;yas-snippet-dirs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;~/.emacs.d/snippets/text-mode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I &lt;em&gt;don’t&lt;/em&gt; want &lt;code class=&quot;highlighter-rouge&quot;&gt;yas&lt;/code&gt; to automatically indent the snippets it inserts.
+Sometimes this looks pretty bad (when indenting org-mode, for example, or
+trying to guess at the correct indentation for Python).&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;yas/indent-line&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;spell-checking&quot;&gt;Spell-checking&lt;/h3&gt;
+
+&lt;p&gt;Endable &lt;a href=&quot;https://www.emacswiki.org/emacs/FlySpell&quot;&gt;&lt;em&gt;flyspell&lt;/em&gt;&lt;/a&gt; when editing text, markdown, org-mode and git commit message.&lt;/p&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl-xs&lt;/code&gt; to auto correct previous word from cursor.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flyspell&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flyspell-mode&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'text-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'turn-on-auto-fill&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'gfm-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'flyspell-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'flyspell-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'git-commit-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'flyspell-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\C-xs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'flyspell-auto-correct-previous-word&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;wrap-paragraphs-automatically&quot;&gt;Wrap paragraphs automatically&lt;/h3&gt;
+
+&lt;p&gt;Automatically trigger &lt;a href=&quot;https://www.emacswiki.org/emacs/AutoFillMode&quot;&gt;&lt;em&gt;autofillmode&lt;/em&gt;&lt;/a&gt; when edition text, markdown or in org-mode.
+Same as hitting &lt;code class=&quot;highlighter-rouge&quot;&gt;M-q&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'text-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-fill-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'gfm-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-fill-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-fill-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;diminish&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-fill-function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;set-up-helpful&quot;&gt;Set up helpful&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/Wilfred/helpful&quot;&gt;&lt;em&gt;helpful&lt;/em&gt;&lt;/a&gt; is an alternative emacs help extension that provides much more
+contextual information.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;helpful&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-h f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-callable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-h v&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-variable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-h k&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-define-key&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'normal&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;helpful-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;q&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'quit-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;;; Lookup the current symbol at point. C-c C-d is a common keybinding&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; for this in lisp modes.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c C-d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-at-point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;;; Look up *F*unctions (excludes macros).&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; already links to the manual, if a function is referenced there.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-h F&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;;; Look up *C*ommands.&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; By default, C-h C is bound to describe `describe-coding-system'. I&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; don't find this very useful, but it's frequently useful to only&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;;; look at interactive functions.&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-h C&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;helpful-command&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;save-my-location-within-a-file&quot;&gt;Save my location within a file&lt;/h3&gt;
+
+&lt;p&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;save-place-mode&lt;/code&gt; saves the location of point for every file I visit.
+If I close the file or close the editor, then later re-open it, point will
+be at the last place I visited.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;save-place-mode&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;always-indent-with-spaces&quot;&gt;Always indent with spaces&lt;/h3&gt;
+
+&lt;p&gt;Never use tabs. Tabs are the devil’s whitespace.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;setq-default&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;indent-tabs-mode&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-and-configure-which-key&quot;&gt;Install and configure &lt;code class=&quot;highlighter-rouge&quot;&gt;which-key&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/justbur/emacs-which-key&quot;&gt;&lt;em&gt;which-key&lt;/em&gt;&lt;/a&gt; displays the possible completions for a long keybinding. Which
+is really helpful for some modes (like &lt;code class=&quot;highlighter-rouge&quot;&gt;projectile&lt;/code&gt;, for example).&lt;/p&gt;
+
+&lt;p&gt;Handy when you forget a keybinding, try hitting something like &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl-x&lt;/code&gt; and
+wait for the magic to happen.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;which-key&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;which-key-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configure-swiper&quot;&gt;Configure Swiper&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/abo-abo/swiper&quot;&gt;&lt;em&gt;swiper&lt;/em&gt;&lt;/a&gt; repo contains &lt;em&gt;ivy&lt;/em&gt; for completion, &lt;em&gt;counsel&lt;/em&gt; for a collection of
+emacs commands and &lt;em&gt;swiper&lt;/em&gt; as an alternative to isearch.&lt;/p&gt;
+
+&lt;p&gt;This configuration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Uses &lt;code class=&quot;highlighter-rouge&quot;&gt;counsel-M-x&lt;/code&gt; for command completion,&lt;/li&gt;
+  &lt;li&gt;Replaces &lt;em&gt;isearch&lt;/em&gt; with &lt;em&gt;swiper&lt;/em&gt;,&lt;/li&gt;
+  &lt;li&gt;Uses &lt;a href=&quot;https://github.com/nonsequitur/smex/&quot;&gt;&lt;em&gt;smex&lt;/em&gt;&lt;/a&gt; to maintain &lt;code class=&quot;highlighter-rouge&quot;&gt;M-x&lt;/code&gt; history,&lt;/li&gt;
+  &lt;li&gt;Enables fuzzy matching everywhere except swiper (where it’s thoroughly unhelpful), and&lt;/li&gt;
+  &lt;li&gt;Includes recent files in the switch buffer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;counsel&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:bind&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;M-x&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'counsel-M-x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;C-s&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'swiper&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;flx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;smex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ivy-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy-use-virtual-buffers&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy-count-format&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;(%d/%d) &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy-initial-inputs-alist&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy-re-builders-alist&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;swiper&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy--regex-plus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ivy--regex-fuzzy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;switch-and-rebalance-windows-when-splitting&quot;&gt;Switch and rebalance windows when splitting&lt;/h3&gt;
+
+&lt;p&gt;When splitting a window, I invariably want to switch to the new window. This
+makes that automatic.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/split-window-below-and-switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Split the window horizontally, then switch to the new pane.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;split-window-below&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;balance-windows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;other-window&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/split-window-right-and-switch&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Split the window vertically, then switch to the new pane.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;split-window-right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;balance-windows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;other-window&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-x 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'hrs/split-window-below-and-switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-x 3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'hrs/split-window-right-and-switch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;markdown&quot;&gt;Markdown&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/jrblevin/markdown-mode&quot;&gt;&lt;em&gt;markdown-mode&lt;/em&gt;&lt;/a&gt; to handle .md files and &lt;a href=&quot;http://pandoc.org&quot;&gt;&lt;em&gt;pandoc&lt;/em&gt;&lt;/a&gt; for generating result.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Associate &lt;code class=&quot;highlighter-rouge&quot;&gt;.md&lt;/code&gt; files with GitHub-flavored Markdown.&lt;/li&gt;
+  &lt;li&gt;Use &lt;code class=&quot;highlighter-rouge&quot;&gt;pandoc&lt;/code&gt; to render the results.&lt;/li&gt;
+  &lt;li&gt;Leave the code block font unchanged.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;markdown-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:commands&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;gfm-mode&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:mode&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.md$&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;gfm-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;markdown-command&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;pandoc --standalone --mathjax --from=markdown&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;custom-set-faces&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;markdown-code-face&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;php&quot;&gt;PHP&lt;/h2&gt;
+
+&lt;p&gt;There are other PHP extensions such as &lt;em&gt;phpunit&lt;/em&gt; and &lt;em&gt;composer&lt;/em&gt;,
+but I feel they don’t contribute too much to my emacs experience and I still prefer to run these manually.&lt;/p&gt;
+
+&lt;h3 id=&quot;ac-php-and-php-mode&quot;&gt;ac-php and php-mode&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/emacs-php/php-mode&quot;&gt;&lt;em&gt;php-mode&lt;/em&gt;&lt;/a&gt; for PHP support and &lt;a href=&quot;https://github.com/xcwen/ac-php&quot;&gt;&lt;em&gt;ac-php&lt;/em&gt;&lt;/a&gt; for auto completion.&lt;/p&gt;
+
+&lt;p&gt;Things to note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Enabled &lt;em&gt;superword-mode&lt;/em&gt; when editing PHP files.&lt;/li&gt;
+  &lt;li&gt;Common lisp library &lt;em&gt;cl&lt;/em&gt; as suggested by &lt;em&gt;ac-php&lt;/em&gt;’s documentation was
+replaced by &lt;em&gt;cl-lib&lt;/em&gt; as the latter is newer and recommended.&lt;/li&gt;
+  &lt;li&gt;You can choose to use &lt;em&gt;auto-complet-mode&lt;/em&gt; or &lt;em&gt;company-mode&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;I believe if you want &lt;em&gt;jump-to-definition&lt;/em&gt; to work, &lt;a href=&quot;https://packagist.org/packages/techlivezheng/phpctags&quot;&gt;&lt;em&gt;phpctags&lt;/em&gt;&lt;/a&gt; is required
+to generate ctags, though I haven’t been able to make it work properly.&lt;/li&gt;
+  &lt;li&gt;I’m using &lt;em&gt;company-mode&lt;/em&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;M-v&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;M-w&lt;/code&gt; from &lt;em&gt;dumb-jump&lt;/em&gt; work good enough for now.&lt;/li&gt;
+  &lt;li&gt;Need to &lt;code class=&quot;highlighter-rouge&quot;&gt;touch .ac-php-conf-json&lt;/code&gt; in root directory of the project to have &lt;em&gt;ac-php&lt;/em&gt; work properly.&lt;/li&gt;
+  &lt;li&gt;Need to manually run &lt;code class=&quot;highlighter-rouge&quot;&gt;ac-php-remake-tags-all&lt;/code&gt; to regenerate tags when source code changes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;cl-lib&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;php-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;ac-php&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;company-php&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'php-mode-hook&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;superword-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ac-php-core-eldoc-setup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;;; enable eldoc&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;make-local-variable&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'company-backends&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'company-backends&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'company-ac-php-backend&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;web&quot;&gt;WEB&lt;/h2&gt;
+
+&lt;p&gt;I don’t work much on front-end development, I only have some minimal configuration here.&lt;/p&gt;
+
+&lt;h3 id=&quot;web-mode&quot;&gt;web-mode&lt;/h3&gt;
+
+&lt;p&gt;As suggested by &lt;a href=&quot;http://web-mode.org&quot;&gt;&lt;em&gt;web-mode&lt;/em&gt;&lt;/a&gt; documentation, both &lt;em&gt;add-to-list&lt;/em&gt; and &lt;em&gt;web-mode-engines-alist&lt;/em&gt; are recommened.
+This enables web-mode for most web templates as well as blade template for Laravel framework.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.phtml\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.tpl\\.php\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.[agj]sp\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.as[cp]x\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.erb\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.mustache\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'auto-mode-alist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\\.djhtml\\'&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;web-mode-engines-alist&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;php&quot;&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\\.phtml\\'&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;blade&quot;&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\\.blade\\.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;css-sass-and-less&quot;&gt;CSS, Sass, and Less&lt;/h3&gt;
+
+&lt;p&gt;Indent by 2 spaces when working with css files.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;css-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;css-indent-offset&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Don’t compile the current SCSS file every time I save.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;scss-mode&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:config&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;scss-compile-at-save&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install Less&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;less-css-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;javascript&quot;&gt;Javascript&lt;/h3&gt;
+
+&lt;p&gt;Indent javascripts by 2 spaces&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;js-indent-level&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;terminal&quot;&gt;Terminal&lt;/h1&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://www.emacswiki.org/emacs/MultiTerm&quot;&gt;&lt;em&gt;multi-term&lt;/em&gt;&lt;/a&gt; for terminals and bind it to &lt;code class=&quot;highlighter-rouge&quot;&gt;C-c t&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;multi-term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'multi-term&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Set the default shell, I use zsh.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;multi-term-program&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bin/zsh&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Don’t use evil mode in terminal buffers.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;evil-set-initial-state&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'term-mode&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'emacs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;org-mode&quot;&gt;Org Mode&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://orgmode.org&quot;&gt;&lt;em&gt;org-mode&lt;/em&gt;&lt;/a&gt; is luuuuuuuuuv. If you haven’t made your mind switching to emacs
+yet, click on the link and read about org-mode.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:diminish&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-indent-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;display-preferences&quot;&gt;Display preferences&lt;/h2&gt;
+
+&lt;p&gt;I like to see an outline of pretty bullets instead of a list of asterisks.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-bullets&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:init&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-bullets-mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I like seeing a little downward-pointing arrow instead of the usual ellipsis
+(&lt;code class=&quot;highlighter-rouge&quot;&gt;...&lt;/code&gt;) that org displays when there’s stuff under a header.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-ellipsis&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;⤵&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Use syntax highlighting in source blocks while editing.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-src-fontify-natively&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Make TAB act as if it were issued in a buffer of the language’s major mode.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-src-tab-acts-natively&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When editing a code snippet, use the current window rather than popping open a
+new one (which shows the same information).&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-src-window-setup&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'current-window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;task-and-org-capture-management&quot;&gt;Task and org-capture management&lt;/h2&gt;
+
+&lt;p&gt;Store my org files in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/Projects/org&lt;/code&gt;, the location of an index file (my main todo list), and archive finished tasks in &lt;code class=&quot;highlighter-rouge&quot;&gt;~/Projects/org/archive.org&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-directory&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Projects/org&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-file-path&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Return the absolute address of an org file, given its relative name.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file-name-as-directory&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-directory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-index-file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;org-file-path&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;index.org&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-archive-location&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;org-file-path&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;archive.org&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;::* From %s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Set the master todo file &lt;code class=&quot;highlighter-rouge&quot;&gt;~/Projects/org/index.org&lt;/code&gt; as the agenda file&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-agenda-files&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-index-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hitting &lt;code class=&quot;highlighter-rouge&quot;&gt;C-c C-x C-s&lt;/code&gt; will mark a todo as done and move it to an appropriate
+place in the archive.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/mark-done-and-archive&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Mark the state of an org-mode item as DONE and archive it.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;org-todo&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'done&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;org-archive-subtree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-mode-map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c C-x C-s&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'hrs/mark-done-and-archive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Record the time that a todo was archived.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-log-done&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Capturing tasks&lt;/p&gt;
+
+    &lt;p&gt;Define a few common tasks as capture templates.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-capture-templates&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;n&quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Notes&quot;&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;entry&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Projects/org/notes.org&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&quot;* %?\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;t&quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Todo&quot;&lt;/span&gt;
+             &lt;span class=&quot;nv&quot;&gt;entry&lt;/span&gt;
+             &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file+headline&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-index-file&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;New Tasks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+             &lt;span class=&quot;s&quot;&gt;&quot;* TODO %?\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When I’m starting an Org capture template I’d like to begin in insert mode.
+   I’m opening it up in order to start typing something, so this skips a step.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-capture-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-insert-state&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Refiling according to the document’s hierarchy.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-refile-use-outline-path&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-outline-path-complete-in-steps&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Keybindings&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Bind a few handy keys.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;global-map&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\C-cl&quot;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-store-link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;global-map&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\C-ca&quot;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-agenda&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;global-map&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\C-cs&quot;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-agenda-show&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;define-key&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;global-map&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\C-cc&quot;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-capture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;C-c i&lt;/code&gt; to quickly open up my todo list.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;open-index-file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;s&quot;&gt;&quot;Open the master org TODO list.&quot;&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;find-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-index-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;flycheck-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;end-of-buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c i&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'open-index-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Bind &lt;code class=&quot;highlighter-rouge&quot;&gt;C-c n&lt;/code&gt; to quickly open up notes.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;open-note-file&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;s&quot;&gt;&quot;Open the notes.&quot;&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;find-file&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Projects/org/notes.org&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;flycheck-mode&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;end-of-buffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;C-c n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'open-note-file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Hit &lt;code class=&quot;highlighter-rouge&quot;&gt;M-n&lt;/code&gt; to quickly open up a capture template for a new todo.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-capture-todo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;org-capture&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:keys&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;t&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;global-set-key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;kbd&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;M-n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-capture-todo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;export&quot;&gt;Export&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;a href=&quot;https://github.com/hniksic/emacs-htmlize&quot;&gt;&lt;em&gt;htmlize&lt;/em&gt;&lt;/a&gt; for exporting html file. Disable footer.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;htmlize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-html-postamble&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;blogging&quot;&gt;Blogging&lt;/h1&gt;
+
+&lt;p&gt;Copied these from hrs’s config as I also blog with jekyll. You may need to
+modify some paths to have it working correctly for you.&lt;/p&gt;
+
+&lt;p&gt;I don’t yet want to introduce more key chords for blogging functionalities,
+use &lt;em&gt;M-x&lt;/em&gt; to invoke these functions or bind your customized key chords as you
+like.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defvar&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/jekyll-posts-directory&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Projects/ragingscholar/_posts/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defvar&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/jekyll-post-extension&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;.md&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/replace-whitespace-with-hyphens&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/replace-nonalphanumeric-with-whitespace&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[^A-Za-z0-9 ]&quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; &quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/remove-quotes&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[\'\&quot;]&quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/replace-unusual-characters&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Remove quotes, downcase everything, and replace characters
+    that aren't alphanumeric with hyphens.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/replace-whitespace-with-hyphens&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;s-trim&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;downcase&lt;/span&gt;
+         &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/replace-nonalphanumeric-with-whitespace&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/remove-quotes&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/slug-for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Given a blog post title, return a convenient URL slug.
+       Downcase letters and remove special characters.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;slug&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/replace-unusual-characters&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;string-match&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;--&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;slug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;slug&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;replace-regexp-in-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;--&quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;slug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;nv&quot;&gt;slug&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/timestamped-slug-for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Turn a string into a slug with a timestamp and title.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;format-time-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%Y-%m-%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+              &lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;
+              &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/slug-for&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/jekyll-yaml-template&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Return the YAML header information appropriate for a blog
+       post. Include the title, the current date, the post layout,
+       and an empty list of tags.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;&quot;---\n&quot;&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;&quot;title: &quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\n&quot;&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;&quot;date: &quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;format-time-string&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;%Y-%m-%d %H:%M:%S&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;\n&quot;&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;&quot;tags: []\n&quot;&lt;/span&gt;
+       &lt;span class=&quot;s&quot;&gt;&quot;---\n\n&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/new-blog-post&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Create a new blog post in Jekyll.&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;interactive&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;sPost title: &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;concat&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;hrs/jekyll-posts-directory&lt;/span&gt;
+                          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/timestamped-slug-for&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                          &lt;span class=&quot;nv&quot;&gt;hrs/jekyll-post-extension&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;file-exists-p&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;find-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;find-file&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;insert&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hrs/jekyll-yaml-template&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;email&quot;&gt;Email&lt;/h1&gt;
+
+&lt;p&gt;I use &lt;em&gt;mu4e&lt;/em&gt; to send and receive emails. To have the following configuration
+work correctly, you have to install &lt;a href=&quot;https://www.djcbsoftware.nl/code/mu/mu4e/index.html#SEC_Contents&quot;&gt;&lt;em&gt;mu&lt;/em&gt;&lt;/a&gt; with emacs support, then
+&lt;a href=&quot;http://www.offlineimap.org&quot;&gt;&lt;em&gt;offlineimap&lt;/em&gt;&lt;/a&gt; as a service to receive and send emails. You can click on their
+names to refer to their documentation respectively, or you can checkout &lt;a href=&quot;http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/&quot;&gt;A
+COMPLETE GUIDE TO EMAIL IN EMACS USING MU AND MU4E&lt;/a&gt; for a specific
+walkthrough.&lt;/p&gt;
+
+&lt;p&gt;I use &lt;a href=&quot;https://github.com/JorisE/evil-mu4e&quot;&gt;&lt;em&gt;evil-mu4e&lt;/em&gt;&lt;/a&gt; to have a consistent vim keymapping experience when working
+with emails. You should change the path to the mail directory you set up with mu.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;use-package&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;evil-mu4e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'evil-mu4e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-maildir&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Mail&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-confirm-quit&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Setting mu4e contexts, this is good when you have more than one email
+addresses.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-contexts&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;make-mu4e-context&lt;/span&gt;
+        &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Yandex&quot;&lt;/span&gt;
+        &lt;span class=&quot;ss&quot;&gt;:match-func&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;msg&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;string-prefix-p&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-message-field&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:maildir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+        &lt;span class=&quot;ss&quot;&gt;:vars&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;user-mail-address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;send@hailang.email&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-trash-folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex/Trash&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-refile-folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex/Archive&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-sent-folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex/Sent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-drafts-folder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex/Drafts&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;reading-emails&quot;&gt;Reading Emails&lt;/h2&gt;
+
+&lt;p&gt;Display sender’s email address along with their names.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-view-show-addresses&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Save attachments in my ~/Downloads directory, not my home directory. This
+works better on a Mac.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-attachment-dir&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Downloads&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Some html emails are hideous to read in emacs, this binds &lt;em&gt;a h&lt;/em&gt; to open the
+email in your default browser.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-to-list&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'mu4e-view-actions&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;html in browser&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-action-view-in-browser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;composing-emails&quot;&gt;Composing Emails&lt;/h2&gt;
+
+&lt;p&gt;Enable Org-style tables and list manipulation.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'message-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'turn-on-orgtbl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'message-mode-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'turn-on-orgstruct++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once I’ve sent an email, kill the associated buffer instead of just burying it.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;message-kill-buffer-on-exit&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;sending-emails&quot;&gt;Sending Emails&lt;/h2&gt;
+
+&lt;p&gt;Send email with sendmail.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;message-send-mail-function&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'message-send-mail-with-sendmail&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;message-sendmail-f-is-evil&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-sent-folder&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Mail/Yandex/Sent&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;mu4e-drafts-folder&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;~/Mail/Yandex/Drafts&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;user-mail-address&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;send@hailang.email&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;smtpmail-default-smtp-server&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;smtp.yandex.com&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;smtpmail-smtp-server&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;smtp.yandex.com&quot;&lt;/span&gt;
+      &lt;span class=&quot;nv&quot;&gt;smtpmail-smtp-service&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;587&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defvar&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-mu4e-account-alist&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Yandex&quot;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-sent-folder&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/Yandex/Sent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;user-mail-address&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;send@hailang.email&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;smtpmail-smtp-user&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;send@hailang.email&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;smtpmail-local-domain&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;yandex.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;smtpmail-default-smtp-server&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;smtp.yandex.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;smtpmail-smtp-server&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;smtp.yandex.com&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;smtpmail-smtp-service&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;587&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;;; Include any other accounts here ...&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;defun&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-mu4e-set-account&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;&quot;Set the account for composing a message.
+       This function is taken from:
+         https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html&quot;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;account&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-compose-parent-message&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;maildir&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mu4e-message-field&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;mu4e-compose-parent-message&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:maildir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;string-match&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/\\(.*?\\)/&quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;maildir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;match-string&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;maildir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;completing-read&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Compose with account: (%s) &quot;&lt;/span&gt;
+                 &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;mapconcat&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;car&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+                &lt;span class=&quot;nv&quot;&gt;my-mu4e-account-alist&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+               &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mapcar&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;car&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-mu4e-account-alist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+               &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;t&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;caar&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-mu4e-account-alist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;account-vars&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cdr&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;assoc&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;account&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;my-mu4e-account-alist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;account-vars&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;mapc&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;#'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;car&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cadr&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+            &lt;span class=&quot;nv&quot;&gt;account-vars&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;error&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;No email account found&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))))&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;add-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'mu4e-compose-pre-hook&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'my-mu4e-set-account&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;org-integration&quot;&gt;Org Integration&lt;/h2&gt;
+
+&lt;p&gt;I use &lt;em&gt;org-mu4e&lt;/em&gt; to store emails or search queries as links (org-store-link),
+insert links in any org document such as my todo list (org-store-link) and
+follow the link when I need to (evil-org-open-links).&lt;/p&gt;
+
+&lt;p&gt;Refer to &lt;a href=&quot;https://www.djcbsoftware.nl/code/mu/mu4e/Org_002dmode-links.html&quot;&gt;&lt;em&gt;this link&lt;/em&gt;&lt;/a&gt; for more customizations.&lt;/p&gt;
+
+&lt;div class=&quot;language-emacs-lisp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;'org-mu4e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;setq&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;org-mu4e-link-query-in-headers-mode&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;further-on&quot;&gt;Further On&lt;/h1&gt;
+
+&lt;p&gt;I’ll keep tweaking this configuration as I continue to use this wonderful
+text editing system. Many of the functions and configs that I copied from the
+Internet need more experimenting before I can feel comfortable hacking, and
+I’ll need much more experience to have my own customizations and hacks.&lt;/p&gt;
+
+&lt;p&gt;If you are thinking about switching to emacs from vim yourself and like what
+you read, consider giving it a try for a few days to see if it works for you.&lt;/p&gt;
+
+&lt;p&gt;You can certainly try my configuration out even if you’ve never used vim
+before, though that would make &lt;em&gt;evil-mode&lt;/em&gt; and its related keybinding settings
+less sensible. I would highly recommend learning the &lt;em&gt;original&lt;/em&gt; emacs
+keybindings in this case.&lt;/p&gt;
+
+&lt;p&gt;Check back to this repository for updates if you liked it, have fun hacking
+around!&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Emacs" /><summary type="html">I’ve been using vim as my preferred choice of editor for a little more than five years by the time I decided to leave for emacs for good. During these five years, I’ve tried other text editors and IDEs, sometimes in search of a better editing tool, sometimes to fit the development evironment of the projects I worked on, but vim was trumphant as I kept installing vim emulators even when I was using other editors, and I always went back to it eventually.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle</title><link href="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle" /><published>2014-04-13T00:00:00+08:00</published><updated>2014-04-13T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/">&lt;p&gt;Welcome back fellow computer witches and wizards, let’s get back to where we
 left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
 talk about some general guidelines and tips to write better code, and then
 continue our discussion on S.O.L.I.D principle. Let’s get started.&lt;/p&gt;
@@ -1073,7 +2131,7 @@ tuned if you are interested, however be warned that I won’t be writing
 introductions or tutorials, I’ll be sharing my opinions and experiences with
 them.&lt;/p&gt;
 
-&lt;p&gt;Have a nice day and see you soon.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">Welcome back fellow computer witches and wizards, let’s get back to where we left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll talk about some general guidelines and tips to write better code, and then continue our discussion on S.O.L.I.D principle. Let’s get started.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle</title><link href="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Method Names and Single Responsibility Principle" /><published>2014-04-12T00:00:00+08:00</published><updated>2014-04-12T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/">&lt;p&gt;Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+&lt;p&gt;Have a nice day and see you soon.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">Welcome back fellow computer witches and wizards, let’s get back to where we left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll talk about some general guidelines and tips to write better code, and then continue our discussion on S.O.L.I.D principle. Let’s get started.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle</title><link href="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Method Names and Single Responsibility Principle" /><published>2014-04-12T00:00:00+08:00</published><updated>2014-04-12T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/">&lt;p&gt;Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
 Tricks. As said at the end of the &lt;a href=&quot;/clean-code-tips-and-tricks-introduction-variables/&quot;&gt;first one&lt;/a&gt;, we are going to
 talk about method names today.&lt;/p&gt;
 
@@ -1427,13 +2485,13 @@ freely choose which behavior fits their requirements best.&lt;/p&gt;
 Single Responsibility Principle from S.O.L.I.D, and covered what SRP means to both
 functions and classes. I hope you enjoyed it, we’ll talk about some general tips
 in the next instalment and a little bit on other S.O.L.I.D principles, see you
-then.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and Tricks. As said at the end of the first one, we are going to talk about method names today.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Introduction &amp;amp; Variables</title><link href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Introduction &amp; Variables" /><published>2014-04-11T00:00:00+08:00</published><updated>2014-04-11T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-introduction-variables</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">&lt;p&gt;I recently organized a workshop for my team members to talk about Clean Code. It
-has been a major issue plaguing the team and has been slowing us down by
+then.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and Tricks. As said at the end of the first one, we are going to talk about method names today.</summary></entry><entry><title type="html">Clean Code Tips and Tricks: Introduction &amp;amp; Variables</title><link href="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/" rel="alternate" type="text/html" title="Clean Code Tips and Tricks: Introduction &amp; Variables" /><published>2014-04-11T00:00:00+08:00</published><updated>2014-04-11T00:00:00+08:00</updated><id>http://localhost:4000/clean-code-tips-and-tricks-introduction-variables</id><content type="html" xml:base="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">&lt;p&gt;I recently organized a workshop for my team members to talk about Clean Code. It
+has been a major issue plaguing our code and has been slowing us down by
 generating tons of unreadable and unmaintainable code. So I took the oppoturnity
 of the Chinese New Year holidays and delivered these three-days talk online.&lt;/p&gt;
 
 &lt;p&gt;I had great feedback from my team members and learned a few things myself by
-preaching the Clean Code concept along with part of the S.O.L.I.D Principle. The
+preaching the Clean Code concept along with the S.O.L.I.D Principle. The
 following weeks brought exiciting and notable results, the code quality improved
 significantly just by following these simple tips and tricks. Better still, even
 some skilled developers with many years of work experience showed signs of
@@ -1441,10 +2499,11 @@ improvement in code quality.&lt;/p&gt;
 
 &lt;p&gt;So I figured it might be of help to other developers if I post these notes
 online. I revised the notes I used to deliver the talks and incorporated some of
-the new ideas I’ve learned, now I’m ready to share them with you.&lt;/p&gt;
+the new ideas I’ve learned to share with you, though I’ll leave S.O.L.I.D
+principles for a later series that focuses on design principles.&lt;/p&gt;
 
-&lt;p&gt;This will be divided into three instalments as the original workshop lasted three
-days as well, it’d be a pain to wade through in just one session.&lt;/p&gt;
+&lt;p&gt;This talk will be divided into three instalments as the original workshop lasted
+three days as well, it’d be a pain to wade through in just one session.&lt;/p&gt;
 
 &lt;p&gt;Alright, enough talk, let’s jump right in.&lt;/p&gt;
 
@@ -1457,7 +2516,7 @@ testable, and robust code.&lt;/p&gt;
 properties. People would enjoy working with your code if they are easy to
 understand.&lt;/p&gt;
 
-&lt;p&gt;Maintainablity is the ability to freely extend a piece of existing code  without
+&lt;p&gt;Maintainablity is the ability to freely extend a piece of existing code without
 having to modify too much. Having great maintainability is definitely
 profitable for the long haul, you wouldn’t be afraid of requirement changes so
 much anymore.&lt;/p&gt;
@@ -1811,7 +2870,7 @@ for definitions.&lt;/p&gt;
 &lt;p&gt;Alight! Thanks for reading. We talked about why we have to write clean code, the
 benefits of adopting it and some tips about variables. I hope you enjoyed the
 post, we’ll talk about functions and methods in the next instalment, later
-geeks!&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">I recently organized a workshop for my team members to talk about Clean Code. It has been a major issue plaguing the team and has been slowing us down by generating tons of unreadable and unmaintainable code. So I took the oppoturnity of the Chinese New Year holidays and delivered these three-days talk online.</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
+geeks!&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Clean Code" /><category term="PHP" /><category term="Software Principle" /><summary type="html">I recently organized a workshop for my team members to talk about Clean Code. It has been a major issue plaguing our code and has been slowing us down by generating tons of unreadable and unmaintainable code. So I took the oppoturnity of the Chinese New Year holidays and delivered these three-days talk online.</summary></entry><entry><title type="html">Largest Product In A Series</title><link href="http://localhost:4000/largest-product-in-a-series/" rel="alternate" type="text/html" title="Largest Product In A Series" /><published>2013-08-04T00:00:00+08:00</published><updated>2013-08-04T00:00:00+08:00</updated><id>http://localhost:4000/largest-product-in-a-series</id><content type="html" xml:base="http://localhost:4000/largest-product-in-a-series/">&lt;blockquote&gt;
   &lt;p&gt;Find the greatest product of five consecutive digits in the 1000-digit number.&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -1889,7 +2948,7 @@ this is a simple question, I’ll just be lazy and ignore the possible ugliness 
 this code.&lt;/p&gt;
 
 &lt;p&gt;The answer is &lt;strong&gt;40824&lt;/strong&gt;, if you print out the five digits, they are, &lt;strong&gt;(9, 9, 8, 7,
-9)&lt;/strong&gt;, starting at index &lt;strong&gt;364&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Find the greatest product of five consecutive digits in the 1000-digit number.</summary></entry><entry><title type="html">10001st Prime Number</title><link href="http://localhost:4000/10001st-prime-number/" rel="alternate" type="text/html" title="10001st Prime Number" /><published>2013-07-22T00:00:00+08:00</published><updated>2013-07-22T00:00:00+08:00</updated><id>http://localhost:4000/10001st-prime-number</id><content type="html" xml:base="http://localhost:4000/10001st-prime-number/">&lt;blockquote&gt;
+9)&lt;/strong&gt;, starting at index &lt;strong&gt;364&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">Find the greatest product of five consecutive digits in the 1000-digit number.</summary></entry><entry><title type="html">10001st Prime Number</title><link href="http://localhost:4000/10001st-prime-number/" rel="alternate" type="text/html" title="10001st Prime Number" /><published>2013-07-22T00:00:00+08:00</published><updated>2013-07-22T00:00:00+08:00</updated><id>http://localhost:4000/10001st-prime-number</id><content type="html" xml:base="http://localhost:4000/10001st-prime-number/">&lt;blockquote&gt;
   &lt;p&gt;By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
 that the 6th prime is 13. What is the 10001st prime number?&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1996,7 +3055,7 @@ idea to get the 10001st prime number,&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;# In some other programming languages.&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The answer is &lt;strong&gt;104743&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13. What is the 10001st prime number?</summary></entry><entry><title type="html">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis</title><link href="http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="alternate" type="text/html" title="FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis" /><published>2013-06-20T00:00:00+08:00</published><updated>2013-06-20T00:00:00+08:00</updated><id>http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis</id><content type="html" xml:base="http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/">&lt;blockquote&gt;
+&lt;p&gt;The answer is &lt;strong&gt;104743&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see that the 6th prime is 13. What is the 10001st prime number?</summary></entry><entry><title type="html">FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis</title><link href="http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/" rel="alternate" type="text/html" title="FreeBSD mmap+ptrace Privilege Escalation Exploit Analysis" /><published>2013-06-20T00:00:00+08:00</published><updated>2013-06-20T00:00:00+08:00</updated><id>http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis</id><content type="html" xml:base="http://localhost:4000/freebsd-mmap-ptrace-privilege-escalation-exploit-analysis/">&lt;blockquote&gt;
   &lt;p&gt;Happy Birthday FreeBSD! Now you are 20 years old and your security is the same
 as 20 years ago… :) – Hunger &lt;a href=&quot;mailto:hunger@hunger.hu&quot;&gt;hunger@hunger.hu&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -2261,7 +3320,7 @@ there to patch your system.&lt;/p&gt;
 
 &lt;p&gt;The patch adds security checking upon virtual memory copying.&lt;/p&gt;
 
-&lt;p&gt;Nice birthday gift Hunger, had some very fun reading and debugging.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="FreeBSD" /><category term="Security" /><category term="C++" /><summary type="html">Happy Birthday FreeBSD! Now you are 20 years old and your security is the same as 20 years ago… :) – Hunger hunger@hunger.hu</summary></entry><entry><title type="html">Sum Square Difference</title><link href="http://localhost:4000/sum-square-difference/" rel="alternate" type="text/html" title="Sum Square Difference" /><published>2013-05-29T00:00:00+08:00</published><updated>2013-05-29T00:00:00+08:00</updated><id>http://localhost:4000/sum-square-difference</id><content type="html" xml:base="http://localhost:4000/sum-square-difference/">&lt;blockquote&gt;
+&lt;p&gt;Nice birthday gift Hunger, had some very fun reading and debugging.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="FreeBSD" /><category term="Security" /><category term="C++" /><summary type="html">Happy Birthday FreeBSD! Now you are 20 years old and your security is the same as 20 years ago… :) – Hunger hunger@hunger.hu</summary></entry><entry><title type="html">Sum Square Difference</title><link href="http://localhost:4000/sum-square-difference/" rel="alternate" type="text/html" title="Sum Square Difference" /><published>2013-05-29T00:00:00+08:00</published><updated>2013-05-29T00:00:00+08:00</updated><id>http://localhost:4000/sum-square-difference</id><content type="html" xml:base="http://localhost:4000/sum-square-difference/">&lt;blockquote&gt;
   &lt;p&gt;The difference between the sum of the squares of the first ten natural numbers
 and the square of the sum is 3025 385 = 2640. Find the difference between the
 sum of the squares of the first one hundred natural numbers and the square of
@@ -2293,7 +3352,7 @@ squares of the first 100 natural numbers,&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;#25164150&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The answer is &lt;strong&gt;25164150&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">The difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 385 = 2640. Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.</summary></entry><entry><title type="html">Smallest Multiple</title><link href="http://localhost:4000/smallest-multiple/" rel="alternate" type="text/html" title="Smallest Multiple" /><published>2013-05-28T00:00:00+08:00</published><updated>2013-05-28T00:00:00+08:00</updated><id>http://localhost:4000/smallest-multiple</id><content type="html" xml:base="http://localhost:4000/smallest-multiple/">&lt;blockquote&gt;
+&lt;p&gt;The answer is &lt;strong&gt;25164150&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">The difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 385 = 2640. Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.</summary></entry><entry><title type="html">Smallest Multiple</title><link href="http://localhost:4000/smallest-multiple/" rel="alternate" type="text/html" title="Smallest Multiple" /><published>2013-05-28T00:00:00+08:00</published><updated>2013-05-28T00:00:00+08:00</updated><id>http://localhost:4000/smallest-multiple</id><content type="html" xml:base="http://localhost:4000/smallest-multiple/">&lt;blockquote&gt;
   &lt;p&gt;2520 is the smallest number that can be divided by each of the numbers from 1
 to 10 without any remainder.&lt;/p&gt;
 
@@ -2421,54 +3480,4 @@ used to calculate GCD of two integers very fast.&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;#232792560&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Either way, the answer is &lt;strong&gt;232792560&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder. What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</summary></entry><entry><title type="html">Largest Palindrome Product</title><link href="http://localhost:4000/largest-palindrome-product/" rel="alternate" type="text/html" title="Largest Palindrome Product" /><published>2013-02-17T00:00:00+08:00</published><updated>2013-02-17T00:00:00+08:00</updated><id>http://localhost:4000/largest-palindrome-product</id><content type="html" xml:base="http://localhost:4000/largest-palindrome-product/">&lt;blockquote&gt;
-  &lt;p&gt;A palindromic number reads the same both ways. The largest palindrome made
-from the product of two 2-digit numbers is 9009 = 91*99.&lt;/p&gt;
-
-  &lt;p&gt;Find the largest palindrome made from the product of two 3-digit numbers.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;4th question from &lt;a href=&quot;http://projecteuler.net/problem=4&quot;&gt;Project Euler&lt;/a&gt;. Finiding
-the largest palindromic number that is a product of two 3-digit numbers.&lt;/p&gt;
-
-&lt;p&gt;The game plan is to get all the product of 3-digit numbers, find which ones are
-palindromic, and then print the largest one.&lt;/p&gt;
-
-&lt;p&gt;It is clear that the range of 3-digit number is 100 to 999.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;itertools.product&lt;/em&gt; is used to generate pairs of 3-digit numbers.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;itertools&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;It is a short and clean substitute for nested loops.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#equivalent to&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#equivalent to&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For details, refer to &lt;a href=&quot;http://docs.python.org/2/library/itertools.html#itertools.product&quot;&gt;Python Docs&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Finding if a given number is palindromic can be done by converting it into a
-string and compare it with its reverse copy.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;110011&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#True&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we only need to put the results in a list and print the largest one using
-&lt;code class=&quot;highlighter-rouge&quot;&gt;max()&lt;/code&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;itertools&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;product&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repeat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; \
-            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[::&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;results&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#906609&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So the answer is &lt;strong&gt;906609&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>ragingscholar@protonmail.com</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91*99. Find the largest palindrome made from the product of two 3-digit numbers.</summary></entry></feed>
+&lt;p&gt;Either way, the answer is &lt;strong&gt;232792560&lt;/strong&gt;.&lt;/p&gt;</content><author><name>Hai Lang</name><email>send@hailang.email</email></author><category term="Algorithm" /><category term="Python" /><summary type="html">2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder. What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?</summary></entry></feed>

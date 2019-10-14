@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.16.5 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -10,8 +10,10 @@
     <meta charset="utf-8">
 
 <!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Introduction &amp; Variables | Raging Scholar</title>
-<meta name="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+<meta name="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
 
+
+  <meta name="author" content="Hai Lang">
 
 
 <meta property="og:type" content="article">
@@ -21,7 +23,7 @@
 <meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-introduction-variables/">
 
 
-  <meta property="og:description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+  <meta property="og:description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
 
 
 
@@ -45,19 +47,16 @@
 
 
 
-
-
-
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
       "@type": "Person",
       "name": "Hai Lang",
-      "url": "http://localhost:4000",
-      "sameAs": null
-    }
-  </script>
-
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
 
 
 
@@ -79,7 +78,7 @@
 <!-- For all browsers -->
 <link rel="stylesheet" href="/assets/css/main.css">
 
-<!--[if IE ]>
+<!--[if IE]>
   <style>
     /* old IE unsupported flexbox fixes */
     .greedy-nav .site-title {
@@ -239,8 +238,8 @@
 
       
         <li>
-          <a href="mailto:ragingscholar@protonmail.com">
-            <meta itemprop="email" content="ragingscholar@protonmail.com" />
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
             <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
           </a>
         </li>
@@ -307,7 +306,7 @@
 
   <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
     <meta itemprop="headline" content="Clean Code Tips and Tricks: Introduction &amp; Variables">
-    <meta itemprop="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing the team and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+    <meta itemprop="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
     <meta itemprop="datePublished" content="April 11, 2014">
     
 
@@ -323,6 +322,7 @@
 
 
   11 minute read
+
 </p>
           
         </header>
@@ -331,12 +331,12 @@
       <section class="page__content" itemprop="text">
         
         <p>I recently organized a workshop for my team members to talk about Clean Code. It
-has been a major issue plaguing the team and has been slowing us down by
+has been a major issue plaguing our code and has been slowing us down by
 generating tons of unreadable and unmaintainable code. So I took the oppoturnity
 of the Chinese New Year holidays and delivered these three-days talk online.</p>
 
 <p>I had great feedback from my team members and learned a few things myself by
-preaching the Clean Code concept along with part of the S.O.L.I.D Principle. The
+preaching the Clean Code concept along with the S.O.L.I.D Principle. The
 following weeks brought exiciting and notable results, the code quality improved
 significantly just by following these simple tips and tricks. Better still, even
 some skilled developers with many years of work experience showed signs of
@@ -344,10 +344,11 @@ improvement in code quality.</p>
 
 <p>So I figured it might be of help to other developers if I post these notes
 online. I revised the notes I used to deliver the talks and incorporated some of
-the new ideas I’ve learned, now I’m ready to share them with you.</p>
+the new ideas I’ve learned to share with you, though I’ll leave S.O.L.I.D
+principles for a later series that focuses on design principles.</p>
 
-<p>This will be divided into three instalments as the original workshop lasted three
-days as well, it’d be a pain to wade through in just one session.</p>
+<p>This talk will be divided into three instalments as the original workshop lasted
+three days as well, it’d be a pain to wade through in just one session.</p>
 
 <p>Alright, enough talk, let’s jump right in.</p>
 
@@ -360,7 +361,7 @@ testable, and robust code.</p>
 properties. People would enjoy working with your code if they are easy to
 understand.</p>
 
-<p>Maintainablity is the ability to freely extend a piece of existing code  without
+<p>Maintainablity is the ability to freely extend a piece of existing code without
 having to modify too much. Having great maintainability is definitely
 profitable for the long haul, you wouldn’t be afraid of requirement changes so
 much anymore.</p>
@@ -810,11 +811,42 @@ geeks!</p>
 
 
   less than 1 minute read
+
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Welcome
 
 </p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
   </article>
 </div>
 
@@ -839,6 +871,7 @@ geeks!</p>
 
 
   24 minute read
+
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
@@ -868,42 +901,12 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 
   8 minute read
+
 </p>
     
     <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
 Tricks. As said at the end of the first one, we are going to
 talk about meth...</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/largest-product-in-a-series/" rel="permalink">Largest Product In A Series
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  1 minute read
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-  Find the greatest product of five consecutive digits in the 1000-digit number.
-
-
-</p>
   </article>
 </div>
 
