@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -126,7 +126,7 @@
         
         <a class="site-title" href="/">
           Raging Scholar
-          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
         </a>
         <ul class="visible-links"></ul>
         
@@ -604,26 +604,26 @@ mkdir call to complete the request.</p>
 </code></pre></div></div>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# make clean
-rm <span class="nt">-f</span> export_syms mkdir_hook.ko mkdir_hook.kld mkdir_hook.o
+<span class="nb">rm</span> <span class="nt">-f</span> export_syms mkdir_hook.ko mkdir_hook.kld mkdir_hook.o
 ZFSTest# make
 Warning: Object directory not changed from original /zroot/development/4.Hooks
 cc <span class="nt">-O2</span> <span class="nt">-pipe</span> <span class="nt">-fno-strict-aliasing</span> <span class="nt">-Werror</span> <span class="nt">-D_KERNEL</span> <span class="nt">-DKLD_MODULE</span> <span class="nt">-nostdinc</span>   <span class="nt">-I</span><span class="nb">.</span> <span class="nt">-I</span>@ <span class="nt">-I</span>@/contrib/altq <span class="nt">-finline-limit</span><span class="o">=</span>8000 <span class="nt">--param</span> inline-unit-growth<span class="o">=</span>100 <span class="nt">--param</span> large-function-growth<span class="o">=</span>1000 <span class="nt">-fno-common</span>  <span class="nt">-fno-omit-frame-pointer</span>  <span class="nt">-mcmodel</span><span class="o">=</span>kernel <span class="nt">-mno-red-zone</span>  <span class="nt">-mfpmath</span><span class="o">=</span>387 <span class="nt">-mno-sse</span> <span class="nt">-mno-sse2</span> <span class="nt">-mno-sse3</span> <span class="nt">-mno-mmx</span> <span class="nt">-mno-3dnow</span>  <span class="nt">-msoft-float</span> <span class="nt">-fno-asynchronous-unwind-tables</span> <span class="nt">-ffreestanding</span> <span class="nt">-fstack-protector</span> <span class="nt">-std</span><span class="o">=</span>iso9899:1999 <span class="nt">-fstack-protector</span> <span class="nt">-Wall</span> <span class="nt">-Wredundant-decls</span> <span class="nt">-Wnested-externs</span> <span class="nt">-Wstrict-prototypes</span>  <span class="nt">-Wmissing-prototypes</span> <span class="nt">-Wpointer-arith</span> <span class="nt">-Winline</span> <span class="nt">-Wcast-qual</span>  <span class="nt">-Wundef</span> <span class="nt">-Wno-pointer-sign</span> <span class="nt">-fformat-extensions</span> <span class="nt">-c</span> mkdir_hook.c
 ld  <span class="nt">-d</span> <span class="nt">-warn-common</span> <span class="nt">-r</span> <span class="nt">-d</span> <span class="nt">-o</span> mkdir_hook.ko mkdir_hook.o
 :&gt; export_syms
-awk <span class="nt">-f</span> /sys/conf/kmod_syms.awk mkdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % mkdir_hook.ko
+<span class="nb">awk</span> <span class="nt">-f</span> /sys/conf/kmod_syms.awk mkdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % mkdir_hook.ko
 objcopy <span class="nt">--strip-debug</span> mkdir_hook.ko
 </code></pre></div></div>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# kldload ./mkdir_hook.ko
-The mkdir_hook is loaded, you can try to mkdir now.
+The mkdir_hook is loaded, you can try to <span class="nb">mkdir </span>now.
 
-ZFSTest# mkdir <span class="nb">test
+ZFSTest# <span class="nb">mkdir test
 </span>The directory <span class="s2">"test"</span> will be created with the following permissions: 777
 
 ZFSTest# kldunload mkdir_hook.ko
 The mkdir_hook is unloaded, everything is back to normal now.
 
-ZFSTest# mkdir <span class="nb">test
+ZFSTest# <span class="nb">mkdir test
 </span>ZFSTest#
 </code></pre></div></div>
 
@@ -719,36 +719,6 @@ writing a semi-working Rootkit on next note, stay tuned!</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Welcome
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
 </a>
       
@@ -779,7 +749,7 @@ y...</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="permalink">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
 </a>
       
     </h2>
@@ -789,12 +759,12 @@ y...</p>
 
 
 
-  24 minute read
+  23 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
-left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
 ...</p>
   </article>
 </div>
@@ -809,7 +779,36 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="permalink">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
 </a>
       
     </h2>
@@ -823,9 +822,9 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
-Tricks. As said at the end of the first one, we are going to
-talk about meth...</p>
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
   </article>
 </div>
 

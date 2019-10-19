@@ -1,0 +1,918 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Variables | Raging Scholar</title>
+<meta name="description" content="Welcome back to the second installment of Clean Code Tips and Tricks. Today weare going to talk about variables, specifically, naming your variables.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: Variables">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-variables/">
+
+
+  <meta property="og:description" content="Welcome back to the second installment of Clean Code Tips and Tricks. Today weare going to talk about variables, specifically, naming your variables.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-12T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-variables/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: Variables</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: Variables">
+    <meta itemprop="description" content="Welcome back to the second installment of Clean Code Tips and Tricks. Today weare going to talk about variables, specifically, naming your variables.">
+    <meta itemprop="datePublished" content="April 12, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: Variables
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Welcome back to the second installment of Clean Code Tips and Tricks. Today we
+are going to talk about variables, specifically, naming your variables.</p>
+
+<p>Naming things in programming is perhaps the most overlooked aspect that can
+actually greatly help improving the readability of our code. You’ll see after
+reading this installment that giving variables proper names can make your
+intentions clear and avoid ambiguity, moreover, hunting good names can often
+reveal problems within your code.</p>
+
+<p>In the process of finding good names for your variables, you may find out
+problems with the content of the data they are going to hold and refactor your
+code to have a better structure. For example, if you find it hard to name a
+variable that’s holding the return result of a method because it returns more
+than one types of relatively unrelated data, that’s a good sign that your method
+is not properly structured and is trying to do more than one thing, it then
+becomes clear that splitting the method into smaller ones each performs one
+particular action would improve the cleanness of your codebase.</p>
+
+<p>Many of the practices I suggest here for naming a variable apply to others such
+as method names, class name, module names and even array key names. We’ll cover
+those that are different or specific in later installments, now let’s get
+started with variables first.</p>
+
+<h2 id="use-english-words-duh">Use English Words (Duh!?)</h2>
+
+<p>This is a huge problem many of my teams suffered, they used to use <em>PinYin</em> as
+variable names, a method to write Chinese characters using letters to spell the
+pronunciation. Problem is there are some guesswork involved before you can
+determine what characters are being spelled out due to the huge amount of
+homonyms in Chinese. Plus using roman letters only can’t effectively express
+intonations, which is crucial to the meaning of a phrase.</p>
+
+<p>It’s quite a common thing in China, many teams suffer from this problem. It
+takes roughly 5-10 seconds for a native Chinese speaker to figure out the
+meaning of a variable name by guessing and relying on context, quite ineffective
+and ambiguous.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$baoxian</span> <span class="c1">// This can mean preservation or insurance</span>
+<span class="nv">$youli</span> <span class="c1">// This can mean advantagous, powerful, or rational</span>
+<span class="nv">$zhiwu</span> <span class="c1">// Plant, job position</span>
+<span class="nv">$baodao</span> <span class="c1">// Student attendance, news report</span>
+</code></pre></div></div>
+
+<p>It gets worse when your team has members from different countries or speak
+different languages. I’ve seen lots of variable names written completely or
+partially in Malayu when I was working in Malaysia, which was a huge pain for me
+as a foreigner.</p>
+
+<p>I personally estimated the rough amount of frequently used English words when
+programming is only 100 - 500, give or take as people work in different types of
+businesses. Comparing to high school graduates in China, they have learned at
+least 2000 English vocabulary, which is more than enough to write English
+variable names.</p>
+
+<h2 id="use-nouns-or-stataments">Use Nouns Or Stataments</h2>
+
+<p>Variables are containers that hold data or state, you shouldn’t name them with
+verbs or questions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Nouns are the most common variable names.</span>
+<span class="nv">$comment</span><span class="p">;</span>
+<span class="nv">$avatar</span><span class="p">;</span>
+<span class="nv">$firstname</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>This is straightforward, we have been naming our variables with nouns all the
+time, but when it comes to expressions and statements, sometimes we name them in
+a way that’ll confuse other people.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// It sounds more like an action.</span>
+<span class="nv">$moveStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Should be a function name instead</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">moveStudent</span><span class="p">(</span><span class="nv">$student</span><span class="p">){}</span>
+
+<span class="c1">// Now it looks like a question</span>
+<span class="nv">$shouldMoveStudent</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="c1">// Interrogative sentences are good names</span>
+<span class="c1">// for functions that answer a specific question</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">shouldMoveStudent</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Finally a general sentence suit for a variable</span>
+<span class="c1">// Nice and clear.</span>
+<span class="nv">$studentShouldBeMoved</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="dont-abbreviate-dont-be-too-verbose-either">Don’t Abbreviate, Don’t Be Too Verbose Either</h2>
+
+<p>It sometimes surprises me how many people still name their variables with C or
+even ealier programming language styles decades ago, when efficiency was the
+utmost priority. They use abbreviations, single letter temporary variable names,
+even some mathmatical terms and habits like <code class="highlighter-rouge">$tot</code>, <code class="highlighter-rouge">$sqrt</code>, or <code class="highlighter-rouge">$log</code>.</p>
+
+<p>Please don’t, as I noticed some new developers who didn’t witness the C era
+picked up the habits from other programmers, but have no idea why they name
+like that, or what do they mean.</p>
+
+<p>Not everyone understands your abbreviation, not everyone’s feeling nostalgia,
+and we don’t have to shorten our code to save space anymore. Keep in mind that
+this suggestion works and should be applied to function names, class names, and
+module names.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// What do they mean?</span>
+<span class="nv">$i</span><span class="p">,</span> <span class="nv">$q</span><span class="p">,</span> <span class="nv">$r</span><span class="p">,</span> <span class="nv">$c</span><span class="p">;</span>
+
+<span class="c1">// What if someone don't understand these abbreviations?</span>
+<span class="nv">$idx</span><span class="p">,</span> <span class="nv">$req</span><span class="p">,</span> <span class="nv">$res</span><span class="p">,</span> <span class="nv">$cnt</span><span class="p">;</span>
+
+<span class="c1">// Better but not perfect.</span>
+<span class="nv">$index</span><span class="p">,</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$response</span><span class="p">,</span> <span class="nv">$count</span><span class="p">;</span>
+
+<span class="c1">// Don't make them too long either</span>
+<span class="nv">$customersHusbandOrWifeAddress</span><span class="p">;</span> <span class="o">=&gt;</span> <span class="nv">$spouseAddress</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Sometimes it’s hard to tell exactly how long is <em>too verbose</em>, but being too
+long is still better than being too short. We have to try our best to get rid of
+ambiguous abbreviations since it harms the understandability while on the other
+hand unnecessarily verbose names just waste a little of your time.</p>
+
+<p>A practical rule I read online is to determine the length of your variable name
+based on the scope it lives. The wider this variable’s scope is, the longer and
+more specific the name of the variable should be since it would be even harder
+to check back to the context where the variable was defined when it is so widely
+referred to. And it is acceptable to name a counter as <em>$counter</em> when the scope
+it lives in is only 3 lines of code.</p>
+
+<h2 id="be-descriptive">Be Descriptive</h2>
+
+<p>Be generous when you name your variables, try to describe everything about the
+data or state your variables are holding.</p>
+
+<p>Describe your intention clearly, don’t let your readers rely on context to
+understand your variable’s purpose.</p>
+
+<p>Describe their natures fully. If you don’t express all characteristics of your
+variables, you risk confusing your readers.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Count of what?</span>
+<span class="nv">$count</span><span class="p">;</span>
+
+<span class="c1">// Better, but have you described its purpose clearly?</span>
+<span class="nv">$appliedCount</span><span class="p">;</span>
+
+<span class="c1">// Perfect, especially when you have an $appliedTeachersCount</span>
+<span class="c1">// in the context, this avoids ambiguity</span>
+<span class="nv">$appliedStudentsCount</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>We code within contexts, and can easily take the context for granted and assume
+everyone who’s going to read this piece of code processes the same level of
+understanding of the context. It is often not the case, and if we can help our
+readers grasp the meaning of our variables in it’s proper context by naming them
+correctly, why shouldn’t we?</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * It's hard to understand the full picture.
+ * You are not describing every aspect of it.
+ * Is it the average score of all subjects of a particular
+ * student or is it the average score of the class?
+ */</span>
+<span class="nv">$averageScore</span> <span class="o">=</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$scores</span><span class="p">)</span><span class="o">/</span><span class="nb">count</span><span class="p">(</span><span class="nv">$scores</span><span class="p">);</span>
+
+<span class="c1">// Much better</span>
+<span class="nv">$studentAverageScore</span> <span class="o">=</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$subjectsScores</span><span class="p">)</span><span class="o">/</span><span class="nb">count</span><span class="p">(</span><span class="nv">$subjectsScores</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="more-examples">More Examples</h2>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$times</span> <span class="o">=</span> <span class="nx">AlarmService</span><span class="o">::</span><span class="na">getTotalTimes</span><span class="p">(</span><span class="nv">$alarm_id</span><span class="p">);</span>
+
+<span class="k">return</span> <span class="nv">$times</span><span class="p">;</span>
+
+<span class="c1">// The following is much more descriptive</span>
+
+<span class="nv">$alarmTriggeredTimes</span> <span class="o">=</span> <span class="nx">AlarmService</span><span class="o">::</span><span class="na">getTotalTriggeredTimesFor</span><span class="p">(</span><span class="nv">$alarm_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$revenue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span>
+    <span class="nv">$company</span><span class="o">-&gt;</span><span class="na">getAllRevenue</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">latest</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">as</span> <span class="nv">$temp</span> <span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nv">$revenue</span> <span class="o">+=</span> <span class="nv">$temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">return</span> <span class="nv">$revenue</span><span class="p">;</span>
+
+<span class="cm">/*
+ * Don't confuse your readers with names like $temp
+ * It's hard to understand this piece of code
+ * without noticing what 12 means.
+ */</span>
+
+<span class="nv">$yearly_revenue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span>
+    <span class="nv">$company</span><span class="o">-&gt;</span><span class="na">getAllRevenue</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">latest</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">limit</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+    <span class="k">as</span> <span class="nv">$monthly_revenue</span> <span class="p">)</span>
+<span class="p">{</span>
+
+    <span class="nv">$yearly_revenue</span> <span class="o">+=</span> <span class="nv">$monthly_revenue</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * Naming your variables and methods properly
+ * makes your code read like natural language.
+ * and become so much easier to read and work with.
+ */</span>
+
+<span class="nv">$userIsActive</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">isActive</span><span class="p">();</span>
+
+<span class="nv">$addressIsDefault</span> <span class="o">=</span> <span class="nv">$address</span><span class="o">-&gt;</span><span class="na">isDefault</span><span class="p">();</span>
+
+<span class="nv">$newVersionAvailable</span> <span class="o">=</span> <span class="nx">VersionService</span><span class="o">::</span><span class="na">isNewVersionAvailable</span><span class="p">();</span>
+
+<span class="k">do</span> <span class="p">{</span>
+    <span class="nv">$allEmailsSent</span> <span class="o">=</span> <span class="nx">EmailService</span><span class="o">::</span><span class="na">processEmailQueue</span><span class="p">();</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nv">$allEmailsSent</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$studentFailedAnyExam</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ReportService</span><span class="o">::</span><span class="na">generateTranscriptWithRedBackground</span><span class="p">(</span><span class="nv">$student_id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="declare-variables-close-to-where-you-use-them">Declare Variables Close To Where You Use Them</h2>
+
+<p>Unless they are constants or class properties, declaring your variables too far
+away from where you actually use them force your readers to jump around looking
+for definitions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * Declaring all variables at the beginning may be
+ * considered a good practice under certain context
+ * but it feels more like natural language to declare
+ * only when you are about to use them.
+ */</span>
+
+<span class="nv">$expiringCoupons</span> <span class="o">=</span> <span class="nv">$user</span><span class="o">-&gt;</span><span class="na">listExpiringCoupons</span><span class="p">();</span>
+<span class="nv">$eligibleCouponValues</span> <span class="o">=</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">250</span><span class="p">];</span>
+<span class="nv">$hasIneligibleCoupon</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$expiringCoupons</span> <span class="k">as</span> <span class="nv">$expiringCoupon</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$expiringCoupon</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">,</span> <span class="nv">$eligibleCouponValues</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$hasIneligibleCoupon</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">continue</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">CouponService</span><span class="o">:</span><span class="nx">extendCoupon</span><span class="p">(</span><span class="nv">$expiringCoupon</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="mi">30</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$hasIneligibleCoupon</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+<span class="nx">EmailService</span><span class="o">::</span><span class="na">sendCouponExpiringWarning</span><span class="p">(</span><span class="nv">$user</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Reading and writing code requires a high level of concentration, tracking
+half a dozen of variable names, their definitions and types while trying to
+understand a piece of code is challenging to every human brain. Our efficiency
+would deteriorate if we were constantly interrupted to look for variable
+definitions across the lengthy source file.</p>
+
+<h2 id="use-explanatory-variables">Use Explanatory Variables</h2>
+
+<p>Explanatory variables exist, while, to explain your code. By introducing a
+variable that would otherwise be considered unnecessary and giving it a proper
+name can do wonders to help your readers better understand the code.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">foreach</span> <span class="p">(</span><span class="nv">$expiringCoupons</span> <span class="k">as</span> <span class="nv">$expriringCoupon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$expipringCoupon</span><span class="o">-&gt;</span><span class="na">value</span><span class="p">,</span>
+        <span class="nx">config</span><span class="p">(</span><span class="s1">'promotion.nationalday.coupon_values'</span><span class="p">)</span>
+       <span class="p">)</span> <span class="p">{</span>
+       <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// The above code works perfectly, there's nothing</span>
+<span class="c1">// wrong with it, but the following is more friendly to</span>
+<span class="c1">// your readers, they'll appreciate your efforts.</span>
+
+<span class="nv">$eligibleCouponValues</span> <span class="o">=</span> <span class="nx">config</span><span class="p">(</span><span class="s1">'promotion.nationalday.coupon_values'</span><span class="p">);</span>
+
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$expiringCoupons</span> <span class="k">as</span> <span class="nv">$expiringCoupon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$expipringCoupon</span><span class="p">,</span> <span class="nv">$eligibleCouponValues</span><span class="p">))</span> <span class="p">{</span>
+        <span class="o">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note that defining <em>$eligibleCouponValues</em> was not necessary, however it helps
+to understand the code as if we <em>documented</em> the nature of the data it holds.</p>
+
+<p>That’s it for today, we talked about how to properly name your variables to
+improved readability and avoid ambiguity. I think it is the first and most
+effective step towards a better and cleaner codebase. You may noticed that the
+tips may not necessarily improve <em>efficiency</em> from a computer’s perspective who
+consumes code, but they reduces headache from a reader’s perspective, we don’t
+want to favor computers by providing them efficient but hard to understand
+instructions when your co-workers are the ones you should really care about.</p>
+
+<p>It is true for the coming tips and practices in the following installments, and
+also true for most design patterns and software development principles, but I
+would say this is a rather pleasant trade-off of code efficiency for enjoyable
+reading and efficient collaborating experiences, don’t you agree?</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming-guideline" class="page__taxonomy-item" rel="tag">Programming Guideline</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-12T00:00:00+08:00">April 12, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+Variables%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-variables%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-variables%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-variables%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/clean-code-tips-and-tricks-introduction/" class="pagination--pager" title="Clean Code Tips and Tricks: Introduction
+">Previous</a>
+    
+    
+      <a href="/clean-code-tips-and-tricks-functions/" class="pagination--pager" title="Clean Code Tips and Tricks: Functions
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  23 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,943 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Introduction | Raging Scholar</title>
+<meta name="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: Introduction">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-introduction/">
+
+
+  <meta property="og:description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-11T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-introduction/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: Introduction</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: Introduction">
+    <meta itemprop="description" content="I recently organized a workshop for my team members to talk about Clean Code. Ithas been a major issue plaguing our code and has been slowing us down bygenerating tons of unreadable and unmaintainable code. So I took the oppoturnityof the Chinese New Year holidays and delivered these three-days talk online.">
+    <meta itemprop="datePublished" content="April 11, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: Introduction
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  14 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>I recently organized a workshop for my team members to talk about Clean Code. It
+has been a major issue plaguing our code and has been slowing us down by
+generating tons of unreadable and unmaintainable code. So I took the oppoturnity
+of the Chinese New Year holidays and delivered these three-days talk online.</p>
+
+<p>I had great feedback from my team members and learned a few things myself by
+preaching the Clean Code concept along with the S.O.L.I.D Principle. The
+following weeks brought exiciting and notable results, the code quality improved
+significantly just by following these simple tips and tricks. Better still, even
+some skilled developers with many years of work experience showed signs of
+improvement in code quality.</p>
+
+<p>So I figured it might be of help to other developers if I posted these notes
+online. I revised the notes I used to deliver the talks and incorporated some of
+the new ideas I’ve learned during the process to share with you, though I’ll
+leave S.O.L.I.D principles for a later series that focuses on design principles.</p>
+
+<p>This talk will be divided into five installments to try to cover one aspect of
+clean code guidelines per post. The workshop lasted for three days and I’ve got
+a lot more to share so it might be unpleasant to wade through the whole thing
+one shot.</p>
+
+<h2 id="what-is-this-all-about">What is this all about?</h2>
+
+<p>It’s all about quality, and to be specific, code quality.</p>
+
+<p>You see we programmers and software users have different definitions when it
+comes to judging the quality of a piece of software, an app or a web site.
+Customers expect good look and feel, simple and elegant interactive design and
+rich functionalities, but from the point of view of those who <em>make</em> the
+software, they <em>should</em> care about its internal quality.</p>
+
+<p>I said we <em>should</em> because that is unfortunately and surprisingly not often the
+case despite how natural and convincing that sounds. Yes you may hear some of
+your colleagues talking about how messy and troublesome a codebase is to work
+with, but when they program, they do it as if they were end users – focusing
+solely on delivering functionalities that satisfy customers’ requirements.</p>
+
+<p>Overtime they stop caring about internal quality and view the very software that
+they are making themselves as a black box, they don’t put enough thoughts on the
+actual implementation and structure, they only expects their code to <em>just
+work</em>.</p>
+
+<p>Ironically, some others see the harm this does to the codebase, and they
+understand good quality should be defined internally, but they choose not to
+follow guidelines and best practices for reasons that are plainly wrong: they
+think sacrificing quality is the necessary evil for faster delivery and lower
+development costs. It is so horribly wrong I couldn’t wait for you to read the
+part I explain this in detail.</p>
+
+<p>And of course there are others who only <em>followed the team styles</em> or <em>did it
+the usual way</em> that they unknowingly contributed to poor code quality with bad
+variable names, repetitive implementations, poor function structures, and the
+like which to them, <em>is not a big deal, we did it like this only all the time</em>.</p>
+
+<p>What characteristics I think a good quality codebase should have are as listed
+below, people may come up with different list but I believe they essentially
+mean the same thing.</p>
+
+<ul>
+  <li>Readability
+    <ul>
+      <li>Good code should be easy to read and understand. They are not only written
+for computers to execute, but also (I’d even claim more importantly) for
+your co-workers to read and collaborate with.</li>
+    </ul>
+  </li>
+  <li>Maintainability
+    <ul>
+      <li>When fixing bugs or modifying existing functionalities, codebase with good
+maintainability not only reduces the workload, but also the chance of
+introducing new bugs.</li>
+    </ul>
+  </li>
+  <li>Extensibility
+    <ul>
+      <li>And when we add new features, we don’t end up pulling our hairs off trying
+to figure out where and how to implement in a way that won’t break existing
+features or introduce new problems.</li>
+    </ul>
+  </li>
+  <li>Testability
+    <ul>
+      <li>I’d say all code pieces are testable, but there are some that are
+particularly hard to test. Good quality code should be easy to write test
+for.</li>
+    </ul>
+  </li>
+  <li>Robustness
+    <ul>
+      <li>It’s equivalent to endurance, it makes your code strong and mature in
+exception handling that would still fight like a tough soldier after years
+of production.</li>
+    </ul>
+  </li>
+</ul>
+
+<p>These characteristics are interconnected, you’d often times find that in order
+to adopt one of them properly, you have to implement one of the others, it’s also
+true that when you work on one aspect, others would naturally improve as well.</p>
+
+<p>We did have a brief discussion about S.O.L.I.D principle on day 3 when I first
+presented to my team, I think it’s great and should be adopted by every
+developer. Following good design patterns and architectural principles would make a
+profound qualitative change to maintainability, extensibility and testability,
+and certainly attributes to the cleanness of your codebase as well, but those
+are out of the scope of this post series. I’m planning on writing about patterns
+and principles I’ve personally had experience with in the near future, stay
+tuned if you are interested.</p>
+
+<p>Though this series mainly focus on readability, working on it alone can already
+have a powerful impact on your codebase, and not only do they become easier to
+understand, but also more enjoyable to maintain, to hunt bugs and to write tests
+for.</p>
+
+<h2 id="but-why">But Why?</h2>
+
+<blockquote>
+  <p>“When it comes to writing code, an ounce of prevention is worth a pound of cure.”</p>
+</blockquote>
+
+<p>We all had some experiences that somewhat resemble this: whether you yourself
+or one of your co-workers who wrote code carelessly and irresponsibly that led
+to bugs, performance issues, and weird system behaviors nobody knew what caused
+it and how to solve it. After days of debugging, you finally pinpointed that
+piece of <del>shit</del>, um I mean code, you found it utterly gibberish and unbearably
+hard to understand. Then after pulling all your hairs off, you finally
+understood the code and the cause of the issue, just to be confronted by the
+harsh reality that it is nearly impossible to modify the original code without
+editing <strong><em>too much</em></strong> or breaking <strong><em>too many</em></strong> existing functionalities. As the
+same issue piles up and consumes nearly all your time, and at some stage along
+this path, a hard decision would be made to <strong><em>rewrite</em></strong> the whole thing in hope
+of solving those issues altogether, but this time you wouldn’t even be surprised
+to find out the <strong><em>refactored</em></strong> project would go through exactly the same set
+of problems all over again.</p>
+
+<p>It’s a vicious cycle with no way but only one way out – WRITE, CLEAN, CODE.</p>
+
+<h3 id="its-evil-but-certainly-not-necessary">It’s Evil, But Certainly Not Necessary</h3>
+
+<p>People intentionally and irresponsibly write bad code justify their actions on a
+wrong premise that this could save development time or cost, perhaps both. When
+confronted with a tight schedule or budget, they instinctively deteriorate their
+code quality assuming it is just a trade-off of quality for efficiency as if
+software development was a one-time deal.</p>
+
+<p>It is not.</p>
+
+<p>When you take bug fixings, requirement changes and feature additions into
+account, sacrificing code quality to save development time and cost is most
+likely a dumb thing to do, it’s as if you are intentionally saving long and
+exhaustive hair-pulling sessions for later.</p>
+
+<p>Saving time and money developing a piece of software but end up spending more
+than you saved on extensions and maintenance due to bad code quality does not
+sound like a good plan at all, it perhaps only make sense when the scope is only
+to develop a MVP or prototype, and you are dead sure nobody needs to touch the
+codebase ever again.</p>
+
+<p>The reason I observed resistance to the idea of writing clean code from the
+teams I’ve worked with is perhaps that it asks programmers to spend <strong><em>more</em></strong> time
+writing good code when horrific bugs and new feature requests with undetermined
+side effects are already taking too much of their time. Hence I hear this over
+and over,</p>
+
+<blockquote>
+  <p><strong><em>Meh, I’m Just Too Busy</em></strong></p>
+</blockquote>
+
+<p>It is more important to do the <strong><em>right stuff</em></strong> than doing the <strong><em>wrong
+thing</em></strong> but being productive and busy as a bee. You are just being a really
+naughty bee, now don’t be a bad bee when asked to improve your work ethics by
+saying, “but I’m already too busy polluting the honey with poison!”</p>
+
+<p>Writing readable, robust and maintainable code is not a waste of time, it’s what
+you should do as a professional developer.</p>
+
+<blockquote>
+  <p>“We spend most of our time staring into the abyss rather than power typing.”
+~Douglas Crockford</p>
+</blockquote>
+
+<p>Let’s face the fact here, we are not like those dope hackers in the movies who
+type like their lives depend on it in front of the computer. No, we spend most of
+our time looking at ugly code, cursing the guy who committed it and sometimes
+even later realized it was you who wrote it.</p>
+
+<p>We spend so much time staring at code that in fact the time ratio of reading and
+writing code is 10:1. For each hour of typing code, you spend 10 hours reading.</p>
+
+<p>Writing beautiful, elegant, and understandable code is not altruism, it’s to
+relieve yourself from pulling all-nighters to catch up with schedule, and being
+called in the middle of the night to be lashed about a bad bug.</p>
+
+<p>Surprisingly only few people understands schedule delay and slow feature
+delivery are not because your team members are typing too slow, on the contrary,
+it’s because you are writing too fast without caring about code quality and have
+to spend tons of time wading through horrific death swamp just to extend a new
+feature or fix a minor bug. It <strong><em>is</em></strong> lucrative to spend more time writing
+better code, and less time reading bad ones.</p>
+
+<blockquote>
+  <p><strong><em>But we don’t have the budget for it</em></strong></p>
+</blockquote>
+
+<p>And some project owners feel reluctant towards clean code for the same reasons,
+except that they are more concerned about monetary issues. Starting off a brand
+new project can benefit from adopting clean code as it saves time and money by
+reducing the costs on maintaining and extending the software, it is however less
+straightforward in cases of existing projects, since again, we are asking for
+more costs writing better code before we can observe notable costs reductions.</p>
+
+<p>Managers and project owners assume good quality things cost more, it must be
+logical to lower quality standards in order to reduce costs. It may be true from
+the end user’s point of view, they want a better looking software with more
+functionalities, they often have to pay more.</p>
+
+<p>However it is not necessarily true from the development team’s point of view,
+and sometimes I even observe the exact opposite – better the quality of the
+codebase, less costs it incurs comparing to competitors that offer same level of
+end user experience.</p>
+
+<p>It is true that in short term, we can cut some costs by sacrificing code
+quality, but team members and managers often underestimate how quickly bad code
+pieces would build up and slow the overall process.</p>
+
+<p>High code quality leads to faster and less expensive delivery of new features
+and improvements, which I’d say is more important for customers. I personally
+would be more willing to pay for an app with less feature but more frequent
+improvements than one with more features but slow in fixing bugs and responding
+to new feature requests. And eventually this app with better internal structure
+will catch up and have more features to offer thanks to its accumulating costs
+reductions.</p>
+
+<h3 id="its-your-responsibility">It’s Your Responsibility</h3>
+
+<p>As a professional software developer, your job is not just to implement required
+functionalities, you have to deliver them with good practices and code quality.</p>
+
+<p>It is your responsibility to write clean and quality code, not your clients’,
+not your colleagues’, not your team leader’s or your boss’s, yours. A famous
+analogy is that you don’t tell your doctor to skip washing their hands because
+it saves time. Client or manager telling you to be quick to deliver and catch up
+with schedule are <strong><em>NOT</em></strong> suggesting lowering code quality.</p>
+
+<p>Every job has their own work ethics, guidelines and procedures they follow to do
+their jobs right, so should we. As Martin said in one of his talks, software
+developers are becoming more and more influential to the physical world, if we
+don’t come up with some code of conduct or principles on our own, governments
+would impose them on us when the day comes where a software bug could
+potentially get people killed.</p>
+
+<p>That day’s nigh, clock’s ticking :-D</p>
+
+<h2 id="how-to-clean-code">How to Clean Code</h2>
+
+<p>We’ll be discussing tips, tricks and guidelines to write clean code in the later
+installments of this blog series, but the general rule of thumb is just to be
+responsible, polite and considerate when you write code, think about the
+consequences of your approach, respect and reflect your team’s style and
+architectural design.</p>
+
+<h3 id="be-polite">Be Polite</h3>
+
+<p>Bad code is rude, and you don’t want to be rude to your co-workers and the
+future you.</p>
+
+<p>At the dawn of Computer Science, programming was more of a method to talk to
+computers, to let the computers know our intentions and do our deeds. But that
+has changed since we invented high level progamming languages and introduced
+teamwork to the making of software.</p>
+
+<p>Now we must write for not just computers, but other humanzzz as well. Writing
+code that is hard to read and maintain by the future you or your co-workers
+brings much more trouble than compiling errors and runtime exceptions.</p>
+
+<p>Programmers are more like writers, you should write as a writer, write stuff you
+and your co-workers would enjoy reading and working on.</p>
+
+<h3 id="be-considerate">Be Considerate</h3>
+
+<p>Computers don’t care about your code quality, it does whatever you tell it to
+do. But you should keep other people in mind when you code, think about what
+approach and implementation they’d appreciate, and how you can help to make
+their life (and yours) easier.</p>
+
+<blockquote>
+  <p><strong><em>You code is the best document if done right</em></strong></p>
+</blockquote>
+
+<p>Your code is the best document if it’s done right. No matter how ellaborate you
+document your code, it won’t be of any help if the code quality is horrible.</p>
+
+<p>And everytime you update your codebase, corresponding changes should be
+committed to the documents as well. If we don’t even write good quality code, I
+can’t imagine how awful the document would look like.</p>
+
+<p>My team maintains no document whatsoever, partly because it brings more overhead
+than it brings good for a small team, but mostly because I believe
+self-explanatory code invalidate the purpose of documentation.</p>
+
+<p>However, I’m not saying documentless is the definite way to go, many teams still
+maintain documentation or wiki about their codebase. But if you and your
+co-workers can understand eachother’s code without referring to comments or
+documentation, then why not?</p>
+
+<h3 id="be-thorough">Be Thorough</h3>
+
+<p>Unfortunately, modern high level languages are supposedly closer to human
+languages, but the flow of expressions and the way we convey instructions are
+far from what we are familiar with in our daily lives. A non-programmer may find
+herself fully understand the literal meaning of a piece of code but couldn’t
+just grasp the true intention of it.</p>
+
+<p>We have to admit that the way we are used to write code often isn’t the best way
+to present it to other people. Train a human resource employee to validate job
+application forms is much easier than writing a piece of code to do it, we have
+to consider all the possibilities and small steps, handle every subtle and even
+hidden aspects of the matter and try to cover everything there is to consider.</p>
+
+<p>We are good at being thorough to computers, now is time to do the same for your
+co-workers. We should consider how we can present our thoughts in a way that is
+more natural for another programmer to understand, maintain and extend.</p>
+
+<h3 id="leave-it-better-than-you-found-it">Leave It Better Than You Found It</h3>
+
+<p>So what if you are working on a gigantic ball of mud codebase and it seems too
+late to adopt any of these tips?</p>
+
+<p>Actually it’s never too late to start writing clean code, and if you can
+convince yourself and you co-workers to improve the dirty code everytime they
+come across it, you’ll eventually have a clean codebase.</p>
+
+<p>Now, note that leave the code you come across better than you found it does not
+necessarily mean rewriting or refactoring a whole class. Fix the variable names,
+improve the structure of the class, divide functions that don’t follow Single
+Responsibility Principle into smaller ones, and implement meaningful method
+names would be good enough to have notable effects in just a few weeks.</p>
+
+<p>That’s it! Thanks for reading. We talked about why we have to write clean code,
+the benefits of adopting it and some common misconceptions and
+misunderstandings. I hope you enjoyed it, looking forward to seeing you in the
+next installment of Clean Code Tips and Tricks.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming-guideline" class="page__taxonomy-item" rel="tag">Programming Guideline</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-11T00:00:00+08:00">April 11, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+Introduction%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-introduction%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/largest-product-in-a-series/" class="pagination--pager" title="Largest Product In A Series
+">Previous</a>
+    
+    
+      <a href="/clean-code-tips-and-tricks-variables/" class="pagination--pager" title="Clean Code Tips and Tricks: Variables
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  23 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

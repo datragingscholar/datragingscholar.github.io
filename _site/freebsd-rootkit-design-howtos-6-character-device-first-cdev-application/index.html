@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -126,7 +126,7 @@
         
         <a class="site-title" href="/">
           Raging Scholar
-          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
         </a>
         <ul class="visible-links"></ul>
         
@@ -343,8 +343,8 @@ so let’s take a look at the refined code and compile it first.</p>
 #include &lt;sys/conf.h&gt;
 #include &lt;sys/uio.h&gt;
 </span>
-<span class="c1">// Function prototypes
-</span><span class="n">d_open_t</span> <span class="n">open</span><span class="p">;</span>
+<span class="c1">// Function prototypes</span>
+<span class="n">d_open_t</span> <span class="n">open</span><span class="p">;</span>
 <span class="n">d_close_t</span> <span class="n">close</span><span class="p">;</span>
 <span class="n">d_read_t</span> <span class="n">read</span><span class="p">;</span>
 <span class="n">d_write_t</span> <span class="n">write</span><span class="p">;</span>
@@ -358,8 +358,8 @@ so let’s take a look at the refined code and compile it first.</p>
     <span class="p">.</span><span class="n">d_name</span> <span class="o">=</span><span class="s">"cd_example"</span>
 <span class="p">};</span>
 
-<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space
-</span><span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
+<span class="k">static</span> <span class="kt">char</span> <span class="n">buf</span><span class="p">[</span><span class="mi">512</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span> <span class="c1">//A string in kernel space</span>
+<span class="k">static</span> <span class="kt">size_t</span> <span class="n">len</span><span class="p">;</span>
 
 <span class="kt">int</span> <span class="nf">open</span><span class="p">(</span><span class="k">struct</span> <span class="n">cdev</span> <span class="o">*</span><span class="n">dev</span><span class="p">,</span> <span class="kt">int</span> <span class="n">flag</span><span class="p">,</span> <span class="kt">int</span> <span class="n">otyp</span><span class="p">,</span> <span class="k">struct</span> <span class="kr">thread</span> <span class="o">*</span><span class="n">td</span><span class="p">)</span>
 <span class="p">{</span>
@@ -476,8 +476,8 @@ functions to interact with it.</p>
         <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="kt">int</span> <span class="n">kernel_fd</span><span class="p">;</span> <span class="c1">//Kernel File Descriptor
-</span>    <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">kernel_fd</span><span class="p">;</span> <span class="c1">//Kernel File Descriptor</span>
+    <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
 
     <span class="cm">/* Open cd_example. */</span>
     <span class="k">if</span> <span class="p">((</span><span class="n">kernel_fd</span> <span class="o">=</span> <span class="n">open</span><span class="p">(</span><span class="s">"/dev/"</span> <span class="n">CDEV_DEVICE</span><span class="p">,</span> <span class="n">O_RDWR</span><span class="p">))</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
@@ -514,7 +514,7 @@ functions to interact with it.</p>
 ZFSTest# ./testcdev Having fun with cdev
 Wrote <span class="s2">"Having fun with cdev"</span> to device /dev/cd_example.
 Read <span class="s2">"Having fun with cdev"</span> from device /dev/cd_example.
-ZFSTest# dmesg | tail <span class="nt">-n</span> 5
+ZFSTest# dmesg | <span class="nb">tail</span> <span class="nt">-n</span> 5
 <span class="nt">---</span> syscall <span class="o">(</span>5, FreeBSD ELF64, open<span class="o">)</span>, rip <span class="o">=</span> 0x800732abc, rsp <span class="o">=</span> 0x7ffffffbc058, rbp <span class="o">=</span> 0x7ffffffe6089 <span class="nt">---</span>
 <span class="o">[</span>cd_example]Open Called!
 <span class="o">[</span>cd_example]Write Called! String is:Having fun with cdev
@@ -609,36 +609,6 @@ into the next note, see you there!</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Welcome
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
 </a>
       
@@ -669,7 +639,7 @@ y...</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="permalink">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
 </a>
       
     </h2>
@@ -679,12 +649,12 @@ y...</p>
 
 
 
-  24 minute read
+  23 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
-left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
 ...</p>
   </article>
 </div>
@@ -699,7 +669,36 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="permalink">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
 </a>
       
     </h2>
@@ -713,9 +712,9 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
-Tricks. As said at the end of the first one, we are going to
-talk about meth...</p>
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
   </article>
 </div>
 

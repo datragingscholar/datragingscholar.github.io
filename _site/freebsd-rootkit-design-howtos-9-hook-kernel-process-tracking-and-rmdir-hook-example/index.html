@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -126,7 +126,7 @@
         
         <a class="site-title" href="/">
           Raging Scholar
-          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
         </a>
         <ul class="visible-links"></ul>
         
@@ -361,8 +361,8 @@ be generated. And then we can utilize <code class="highlighter-rouge">kdump</cod
 when performing the command we specified earlier. Let’s see an example now.</p>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# <span class="nb">cd</span> /tmp
-ZFSTest# mkdir test_folder
-ZFSTest# ktrace rmdir test_folder
+ZFSTest# <span class="nb">mkdir </span>test_folder
+ZFSTest# ktrace <span class="nb">rmdir </span>test_folder
 ZFSTest# <span class="nb">ls</span>
 .ICE-unix       .XIM-unix       conftest.osav       ktrace.out      mysql.sock      <span class="nb">test</span>
 .X11-unix       .font-unix      conftest.sav        make_fifo_KyuyJ99a2 rmtest
@@ -403,33 +403,33 @@ default will look for ktrace.out file in current working directory.</p>
   2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
   2769 ktrace   NAMI  <span class="s2">"/bin/rmdir"</span>
   2769 ktrace   NAMI  <span class="s2">"/libexec/ld-elf.so.1"</span>
-  2769 rmdir    RET   execve 0
-  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
-  2769 rmdir    RET   mmap 34365181952/0x800531000
-  2769 rmdir    CALL  issetugid
-  2769 rmdir    RET   issetugid 0
+  2769 <span class="nb">rmdir    </span>RET   execve 0
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>RET   mmap 34365181952/0x800531000
+  2769 <span class="nb">rmdir    </span>CALL  issetugid
+  2769 <span class="nb">rmdir    </span>RET   issetugid 0
 
 ...
 ...
 
-  2769 rmdir    RET   <span class="nb">read </span>128/0x80
-  2769 rmdir    CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
-  2769 rmdir    RET   lseek 128/0x80
-  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>RET   <span class="nb">read </span>128/0x80
+  2769 <span class="nb">rmdir    </span>CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>RET   lseek 128/0x80
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
 
 ...
 ...
 
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
-  2769 rmdir    RET   sigprocmask 0
-  2769 rmdir    CALL  rmdir<span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
-  2769 rmdir    NAMI  <span class="s2">"test_folder"</span>
-  2769 rmdir    RET   rmdir 0
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>RET   sigprocmask 0
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">rmdir</span><span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>NAMI  <span class="s2">"test_folder"</span>
+  2769 <span class="nb">rmdir    </span>RET   <span class="nb">rmdir </span>0
 
 ...
 ...
 
-  2769 rmdir    CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
 </code></pre></div></div>
 
 <p>There were many different system calls performed when we deleted the
@@ -441,36 +441,36 @@ keyword CALL to only concentrate on system calls and their names.</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# kdump | <span class="nb">grep </span>CALL
   2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
   2769 ktrace   CALL  execve<span class="o">(</span>0x7fffffffe590,0x7fffffffeb10,0x7fffffffeb28<span class="o">)</span>
-  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
-  2769 rmdir    CALL  issetugid
-  2769 rmdir    CALL  open<span class="o">(</span>0x80052ca92,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x1b6<span class="o">)</span>
-  2769 rmdir    CALL  open<span class="o">(</span>0x80052bba9,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x2f<span class="o">)</span>
-  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x7fffffffe040,0x80<span class="o">)</span>
-  2769 rmdir    CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
-  2769 rmdir    CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
-  2769 rmdir    CALL  close<span class="o">(</span>0x3<span class="o">)</span>
-  2769 rmdir    CALL  access<span class="o">(</span>0x800535000,0&lt;F_OK&gt;<span class="o">)</span>
-  2769 rmdir    CALL  open<span class="o">(</span>0x800532040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63a5e0<span class="o">)</span>
-  2769 rmdir    CALL  fstat<span class="o">(</span>0x3,0x7fffffffe2c0<span class="o">)</span>
-  2769 rmdir    CALL  pread<span class="o">(</span>0x3,0x8006395c0,0x1000,0<span class="o">)</span>
-  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x248000,0&lt;PROT_NONE&gt;,0x21002&lt;MAP_PRIVATE|MAP_ANON|MAP_NOCORE&gt;,0xffffffff,0<span class="o">)</span>
-  2769 rmdir    CALL  mmap<span class="o">(</span>0x800647000,0x10e000,0x5&lt;PROT_READ|PROT_EXEC&gt;,0x20012&lt;MAP_PRIVATE|MAP_FIXED|MAP_NOCORE&gt;,0x3,0<span class="o">)</span>
-  2769 rmdir    CALL  mmap<span class="o">(</span>0x800854000,0x1f000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x12&lt;MAP_PRIVATE|MAP_FIXED&gt;,0x3,0x10d000<span class="o">)</span>
-  2769 rmdir    CALL  mprotect<span class="o">(</span>0x800873000,0x1c000,0x3&lt;PROT_READ|PROT_WRITE&gt;<span class="o">)</span>
-  2769 rmdir    CALL  close<span class="o">(</span>0x3<span class="o">)</span>
-  2769 rmdir    CALL  sysarch<span class="o">(</span>0x81,0x7fffffffe3a0<span class="o">)</span>
-  2769 rmdir    CALL  munmap<span class="o">(</span>0x800538000,0x1000<span class="o">)</span>
-  2769 rmdir    CALL  mmap<span class="o">(</span>0,0x19000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe370<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe340<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
-  2769 rmdir    CALL  rmdir<span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe990<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe940<span class="o">)</span>
-  2769 rmdir    CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
-  2769 rmdir    CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0,0x8000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  issetugid
+  2769 <span class="nb">rmdir    </span>CALL  open<span class="o">(</span>0x80052ca92,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x1b6<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  open<span class="o">(</span>0x80052bba9,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x2f<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x7fffffffe040,0x80<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  lseek<span class="o">(</span>0x3,0x80,SEEK_SET<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">read</span><span class="o">(</span>0x3,0x800534000,0x42<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  access<span class="o">(</span>0x800535000,0&lt;F_OK&gt;<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  open<span class="o">(</span>0x800532040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63a5e0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  fstat<span class="o">(</span>0x3,0x7fffffffe2c0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  pread<span class="o">(</span>0x3,0x8006395c0,0x1000,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0,0x248000,0&lt;PROT_NONE&gt;,0x21002&lt;MAP_PRIVATE|MAP_ANON|MAP_NOCORE&gt;,0xffffffff,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0x800647000,0x10e000,0x5&lt;PROT_READ|PROT_EXEC&gt;,0x20012&lt;MAP_PRIVATE|MAP_FIXED|MAP_NOCORE&gt;,0x3,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0x800854000,0x1f000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x12&lt;MAP_PRIVATE|MAP_FIXED&gt;,0x3,0x10d000<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mprotect<span class="o">(</span>0x800873000,0x1c000,0x3&lt;PROT_READ|PROT_WRITE&gt;<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sysarch<span class="o">(</span>0x81,0x7fffffffe3a0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  munmap<span class="o">(</span>0x800538000,0x1000<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  mmap<span class="o">(</span>0,0x19000,0x3&lt;PROT_READ|PROT_WRITE&gt;,0x1002&lt;MAP_PRIVATE|MAP_ANON&gt;,0xffffffff,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe370<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe340<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">rmdir</span><span class="o">(</span>0x7fffffffed5e<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe990<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_BLOCK,0x8006394c0,0x7fffffffe940<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  sigprocmask<span class="o">(</span>SIG_SETMASK,0x8006394d0,0<span class="o">)</span>
+  2769 <span class="nb">rmdir    </span>CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
 </code></pre></div></div>
 
 <h3 id="how-about-some-invincible-folders-sir">How About Some Invincible Folders, Sir?</h3>
@@ -486,8 +486,8 @@ as rm -r or what if rm -rf? Will the system call the same for all
 folder-deleting operations even if they were issued by different command? The
 answer is yes.</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# mkdir test_folder
-ZFSTest# ktrace rm <span class="nt">-rf</span> test_folder/
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# <span class="nb">mkdir </span>test_folder
+ZFSTest# ktrace <span class="nb">rm</span> <span class="nt">-rf</span> test_folder/
 ZFSTest#
 </code></pre></div></div>
 
@@ -495,17 +495,17 @@ ZFSTest#
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
 ...
-  2824 rm       CALL  close<span class="o">(</span>0x3<span class="o">)</span>
-  2824 rm       CALL  access<span class="o">(</span>0x800537000,0&lt;F_OK&gt;<span class="o">)</span>
-  2824 rm       CALL  open<span class="o">(</span>0x800534040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63c5e0<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  close<span class="o">(</span>0x3<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  access<span class="o">(</span>0x800537000,0&lt;F_OK&gt;<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  open<span class="o">(</span>0x800534040,0&lt;O_RDONLY&gt;,&lt;unused&gt;0x63c5e0<span class="o">)</span>
 ...
 ...
-  2824 rm       CALL  close<span class="o">(</span>0x4<span class="o">)</span>
-  2824 rm       CALL  fchdir<span class="o">(</span>0x3<span class="o">)</span>
-  2824 rm       CALL  rmdir<span class="o">(</span>0x800c10100<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  close<span class="o">(</span>0x4<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  fchdir<span class="o">(</span>0x3<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  <span class="nb">rmdir</span><span class="o">(</span>0x800c10100<span class="o">)</span>
 ...
 ...
-  2824 rm       CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
+  2824 <span class="nb">rm       </span>CALL  <span class="nb">exit</span><span class="o">(</span>0<span class="o">)</span>
 </code></pre></div></div>
 
 <p>As you can see, the system call that actually did the deletion is still rmdir.
@@ -618,8 +618,8 @@ rmdir command is available at: /usr/src/bin/rmdir/rmdir.c.</p>
 </span>    <span class="cp">#include &lt;string.h&gt;
 </span>    <span class="cp">#include &lt;unistd.h&gt;
 </span>
-    <span class="k">static</span> <span class="kt">int</span> <span class="n">rm_path</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
-    <span class="k">static</span> <span class="kt">void</span> <span class="n">usage</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="nf">rm_path</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">void</span> <span class="nf">usage</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
 
     <span class="k">static</span> <span class="kt">int</span> <span class="n">pflag</span><span class="p">;</span>
     <span class="k">static</span> <span class="kt">int</span> <span class="n">vflag</span><span class="p">;</span>
@@ -754,8 +754,8 @@ call.</p>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">secret</span><span class="p">))</span>
     <span class="p">{</span>
         <span class="n">uprintf</span><span class="p">(</span><span class="s">"[Deleting folder]... FAILEDn"</span><span class="p">);</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit
-</span>    <span class="p">}</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit</span>
+    <span class="p">}</span>
     <span class="cm">/*
         If path is a path
 
@@ -776,8 +776,8 @@ call.</p>
                 <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">strcmp</span><span class="p">(</span><span class="n">pch</span><span class="p">,</span><span class="n">secret</span><span class="p">))</span>
                 <span class="p">{</span>
                     <span class="n">uprintf</span><span class="p">(</span><span class="s">"[Deleting folder]... FAILEDn"</span><span class="p">);</span>
-                    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit
-</span>                <span class="p">}</span>
+                    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//Exit</span>
+                <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
@@ -840,9 +840,9 @@ that we need to think about just for a few minutes.</p>
 The troublesome part here is that rmdir accepts both of them, meaning that all
 following commands are acceptable.</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rmdir /usr/local/etc/test_conf
-rmdir ./../local/etc/test_conf
-rmdir <span class="nb">local</span>/etc/../../local/etc/test_conf
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rmdir</span> /usr/local/etc/test_conf
+<span class="nb">rmdir</span> ./../local/etc/test_conf
+<span class="nb">rmdir local</span>/etc/../../local/etc/test_conf
 </code></pre></div></div>
 
 <p>We need to protect our folders from being deleted by using relative path, that’s
@@ -863,7 +863,7 @@ demonstration.</p>
 <span class="nv">KMOD</span><span class="o">=</span>   rmdir_hook
 <span class="nv">SRCS</span><span class="o">=</span>   rmdir_hook.c
 
-<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+<span class="err">.</span><span class="k">include</span><span class="sx"> &lt;bsd.kmod.mk&gt;</span>
 </code></pre></div></div>
 
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# make
@@ -871,32 +871,32 @@ Warning: Object directory not changed from original /zroot/development/4.Hooks/e
 cc <span class="nt">-O2</span> <span class="nt">-pipe</span> <span class="nt">-fno-strict-aliasing</span> <span class="nt">-Werror</span> <span class="nt">-D_KERNEL</span> <span class="nt">-DKLD_MODULE</span> <span class="nt">-nostdinc</span>   <span class="nt">-I</span><span class="nb">.</span> <span class="nt">-I</span>@ <span class="nt">-I</span>@/contrib/altq <span class="nt">-finline-limit</span><span class="o">=</span>8000 <span class="nt">--param</span> inline-unit-growth<span class="o">=</span>100 <span class="nt">--param</span> large-function-growth<span class="o">=</span>1000 <span class="nt">-fno-common</span>  <span class="nt">-fno-omit-frame-pointer</span>  <span class="nt">-mcmodel</span><span class="o">=</span>kernel <span class="nt">-mno-red-zone</span>  <span class="nt">-mfpmath</span><span class="o">=</span>387 <span class="nt">-mno-sse</span> <span class="nt">-mno-sse2</span> <span class="nt">-mno-sse3</span> <span class="nt">-mno-mmx</span> <span class="nt">-mno-3dnow</span>  <span class="nt">-msoft-float</span> <span class="nt">-fno-asynchronous-unwind-tables</span> <span class="nt">-ffreestanding</span> <span class="nt">-fstack-protector</span> <span class="nt">-std</span><span class="o">=</span>iso9899:1999 <span class="nt">-fstack-protector</span> <span class="nt">-Wall</span> <span class="nt">-Wredundant-decls</span> <span class="nt">-Wnested-externs</span> <span class="nt">-Wstrict-prototypes</span>  <span class="nt">-Wmissing-prototypes</span> <span class="nt">-Wpointer-arith</span> <span class="nt">-Winline</span> <span class="nt">-Wcast-qual</span>  <span class="nt">-Wundef</span> <span class="nt">-Wno-pointer-sign</span> <span class="nt">-fformat-extensions</span> <span class="nt">-c</span> rmdir_hook.c
 ld  <span class="nt">-d</span> <span class="nt">-warn-common</span> <span class="nt">-r</span> <span class="nt">-d</span> <span class="nt">-o</span> rmdir_hook.ko rmdir_hook.o
 :&gt; export_syms
-awk <span class="nt">-f</span> /sys/conf/kmod_syms.awk rmdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % rmdir_hook.ko
+<span class="nb">awk</span> <span class="nt">-f</span> /sys/conf/kmod_syms.awk rmdir_hook.ko  export_syms | xargs <span class="nt">-J</span>% objcopy % rmdir_hook.ko
 objcopy <span class="nt">--strip-debug</span> rmdir_hook.ko
 ZFSTest#
 </code></pre></div></div>
 
 <h3 id="testing-the-invincibility">Testing The Invincibility</h3>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# mkdir <span class="nt">-p</span> /tmp/1/hailang/2
-ZFSTest# mkdir /tmp/1/hailang/3
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ZFSTest# <span class="nb">mkdir</span> <span class="nt">-p</span> /tmp/1/hailang/2
+ZFSTest# <span class="nb">mkdir</span> /tmp/1/hailang/3
 ZFSTest# kldload ./rmdir_hook.ko
-The rmdir_hook is loaded, you can try to rmdir now.
-ZFSTest# rmdir /tmp/1/hailang/
+The rmdir_hook is loaded, you can try to <span class="nb">rmdir </span>now.
+ZFSTest# <span class="nb">rmdir</span> /tmp/1/hailang/
 The directory <span class="s2">"/tmp/1/hailang/"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
-ZFSTest# rmdir /tmp/1/hailang/<span class="k">*</span>
+ZFSTest# <span class="nb">rmdir</span> /tmp/1/hailang/<span class="k">*</span>
 The directory <span class="s2">"/tmp/1/hailang/2"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
 The directory <span class="s2">"/tmp/1/hailang/3"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
-ZFSTest# rm <span class="nt">-rf</span> /tmp/1/hailang/<span class="k">*</span>
+ZFSTest# <span class="nb">rm</span> <span class="nt">-rf</span> /tmp/1/hailang/<span class="k">*</span>
 The directory <span class="s2">"/tmp/1/hailang/2"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
 The directory <span class="s2">"/tmp/1/hailang/3"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
 ZFSTest# <span class="nb">cd</span> /tmp/1
-ZFSTest# rmdir ./../1/hailang/2/
+ZFSTest# <span class="nb">rmdir</span> ./../1/hailang/2/
 The directory <span class="s2">"./../1/hailang/2/"</span> will be removed!
 <span class="o">[</span>Deleting folder]... FAILED
 ZFSTest#
@@ -992,36 +992,6 @@ things we can potentially achieve with kernel hooking. Have fun!</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Welcome
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
 </a>
       
@@ -1052,7 +1022,7 @@ y...</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="permalink">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
 </a>
       
     </h2>
@@ -1062,12 +1032,12 @@ y...</p>
 
 
 
-  24 minute read
+  23 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
-left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
 ...</p>
   </article>
 </div>
@@ -1082,7 +1052,36 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="permalink">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
 </a>
       
     </h2>
@@ -1096,9 +1095,9 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
-Tricks. As said at the end of the first one, we are going to
-talk about meth...</p>
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
   </article>
 </div>
 

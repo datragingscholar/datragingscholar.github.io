@@ -1,0 +1,1149 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Functions | Raging Scholar</title>
+<meta name="description" content="Hello fellow geeks, welcome back to the second instalment of Clean Code Tips andTricks.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: Functions">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-functions/">
+
+
+  <meta property="og:description" content="Hello fellow geeks, welcome back to the second instalment of Clean Code Tips andTricks.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-13T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-functions/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: Functions</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: Functions">
+    <meta itemprop="description" content="Hello fellow geeks, welcome back to the second instalment of Clean Code Tips andTricks.">
+    <meta itemprop="datePublished" content="April 13, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: Functions
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+Tricks.</p>
+
+<p>In this post we’ll talk about functions, or methods. We’ll discuss some of the
+specific guidelines for naming functions, and some tips on writing and working
+with functions.</p>
+
+<h2 id="function-names">Function Names</h2>
+
+<h3 id="use-actions-and-interrogative-sentences">Use Actions and Interrogative Sentences</h3>
+<p>The same rules apply here as for variable names, but instead of using nouns and
+general statements to describe variables, we use verbs and questions to name
+methods.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">doSomething</span><span class="p">();</span>
+
+<span class="nx">performSomeAction</span><span class="p">();</span>
+
+<span class="nx">saveSomeData</span><span class="p">();</span>
+
+<span class="nx">filterSomeInput</span><span class="p">();</span>
+
+<span class="nx">validateSomeForm</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Interrogative sentences clearly states the intent of the function – to answer a
+specific question.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">isUserActive</span><span class="p">();</span>
+
+<span class="nx">isCustomerAdult</span><span class="p">();</span>
+
+<span class="nx">shouldSendEmailAgain</span><span class="p">();</span>
+
+<span class="nx">hasFailedAnyExam</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="be-descriptive">Be Descriptive</h3>
+
+<p>Similar to variable names, be sure to describe your intention well and
+wholly.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">getCount</span><span class="p">();</span>
+
+<span class="c1">// More descriptive</span>
+<span class="nx">getDailyVisitors</span><span class="p">();</span>
+
+<span class="c1">// And fully describe the nature</span>
+<span class="nx">getAverageDailyVisitors</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Method names do look longer this way, but it helps your readers to figure out
+the usage of these methods without even looking at their definitions.</p>
+
+<p>However if a method name become too long, you may have given it more than one
+thing to do, then it’s advisable to break that function into smaller ones. We’ll
+talk about this in detail later.</p>
+
+<p>Contrary to variable names, which the lengths of their names are proportionate
+to the scope they live in, the lengths of method names should be
+disproportionate to its scope.</p>
+
+<p>A function that is widely used throughout the system indicates that it is
+general and performs a certain task that is common in many aspects of the
+software, hence it’s name should be generalized and short. And a function with a
+smaller scope (i.e. a private function) shows that it’s usage are specific in
+limited scenarios, you should name it longer with details to reflect it’s
+specifications.</p>
+
+<h3 id="examples">Examples</h3>
+
+<p>These are quiz designed for my team to practice naming methods, I’ll list some
+of them here as examples.</p>
+
+<p>Some examples are filtered ‘cause they were only there to examine my team’s
+ability to properly name methods in English.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Get a particular user's email address.</span>
+<span class="nx">getUserEmailAddress</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+
+<span class="c1">//or to make it read more like natural language</span>
+<span class="nx">getEmailAddressOfUser</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Get number of users in a group</span>
+<span class="nx">getGroupUserCount</span><span class="p">(</span><span class="nv">$group_id</span><span class="p">);</span>
+
+<span class="nx">getUserCountInGroup</span><span class="p">(</span><span class="nv">$group_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Update customer's defalut shipping address</span>
+<span class="nx">updateDefaultAddress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
+
+<span class="nx">setDefaultAddress</span><span class="p">(</span><span class="nv">$new_address</span><span class="p">);</span>
+
+<span class="c1">// If the customer entity has another property</span>
+<span class="c1">// with a similar name, e.g. defaultPostalAddress</span>
+<span class="c1">// then it's better to avoid ambiguity by</span>
+<span class="nx">updateDefaultShippingAddress</span><span class="p">(</span><span class="nv">$new_shipping_address</span><span class="p">);</span>
+
+<span class="nx">setDefaultPostalAddress</span><span class="p">(</span><span class="nv">$new_postal_address</span><span class="p">);</span>
+
+<span class="c1">// If they are customer entity's methods,</span>
+<span class="c1">// I would personally not include 'customer' in</span>
+<span class="c1">// method names since they will always be called</span>
+<span class="c1">// with a Customer instance.</span>
+<span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">updateDefaultShippingAddress</span><span class="p">(</span><span class="nv">$new_shipping_address</span><span class="p">);</span>
+
+<span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">setCustomerDefaultPostalAddress</span><span class="p">(</span><span class="nv">$new_shipping_address</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Update a given user's active status</span>
+<span class="nx">activateUser</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span> <span class="nx">disableUser</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+
+<span class="c1">// Or with one function</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">toggleActiveStatus</span><span class="p">();</span>
+<span class="nx">toggleUserActiveStatus</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+<span class="nx">toggleActiveStatusForUser</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Is there any order placed by a user in the last month</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">hasPlacedAnyOrderLastMonth</span><span class="p">();</span>
+
+<span class="nx">didUserPlaceAnyOrderLastMonth</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">);</span>
+
+<span class="c1">// Check if the email has been sent successfully</span>
+<span class="nv">$email</span><span class="o">-&gt;</span><span class="na">hasSuccessfullySent</span><span class="p">();</span>
+
+<span class="nx">didEmailSendSuccessfully</span><span class="p">(</span><span class="nv">$email_id</span><span class="p">);</span>
+
+<span class="c1">// Is it necessary to send the notification again</span>
+<span class="nv">$notification</span><span class="o">-&gt;</span><span class="na">shouldSendAgain</span><span class="p">();</span>
+
+<span class="nx">shouldSendNotificationAgain</span><span class="p">(</span><span class="nv">$notification_id</span><span class="p">);</span>
+
+<span class="c1">// Check if admin has the permission to perform an action</span>
+<span class="nv">$admin</span><span class="o">-&gt;</span><span class="na">canPerform</span><span class="p">(</span><span class="nv">$action_id</span><span class="p">);</span>
+
+<span class="nx">adminHasPermissionTo</span><span class="p">(</span><span class="nv">$admin_id</span><span class="p">,</span> <span class="nv">$action_id</span><span class="p">);</span>
+
+<span class="nv">$admin</span><span class="o">-&gt;</span><span class="na">isAuthorizedTo</span><span class="p">(</span><span class="nv">$action_id</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="name-functions-accurately">Name Functions Accurately</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// If your method name suggests it does one thing,</span>
+<span class="c1">// Don't make it do something else.</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">calculateStudentAverageScore</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">array_sum</span><span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">subjects</span><span class="o">-&gt;</span><span class="na">scores</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>In the example above, we are returning the total score instead of the average
+score. It happens more often than you think it would, some developers name their
+method one thing and simply change their mind about it’s purpose as they
+implement it. Some are casued by someone modifying an existing method six months
+later but misunderstood it’s intention. It is extremely confusing especially
+when the method is bloated and complicated. What if someone new joins the team
+and uses the method <em>incorrectly</em> to generate the report card?</p>
+
+<blockquote>
+  <p>Your average score is 692 points? I always knew my son would one day become a
+doctor! ~ An excited Asian mom</p>
+</blockquote>
+
+<p>And no, it’s not racist when I say it. ;-D</p>
+
+<h2 id="a-function-should-only-do-one-thing">A Function Should Only Do One Thing</h2>
+
+<p>You’ve probably heard this popular phrase, <strong><em>A function should do one thing, it
+should do it well, and it should do it only</em></strong>.</p>
+
+<p>Think about toy blocks, they are simple in shapes and when stacked properly
+together, you can build tons of different types of buildings with them. But if
+their shapes become too complex and start serving more than one purposes, they
+become <strong><em>specific</em></strong>, and hard to work with, limiting your ability to be
+versatile, and increasing your chance of making mistakes.</p>
+
+<h3 id="what-could-possibly-go-wrong">What Could Possibly Go Wrong?</h3>
+
+<p>Take a look at the following example, let’s say that the initial intent of the
+function was to calculate subtotal of a given list of products, and then a new
+feature request came in to send that invoice to users, instead of putting that
+abstraction into a separate function, someone lazy just put it here without
+refactoring the name of the function.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">calculateSubtotal</span><span class="p">(</span><span class="nv">$productList</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$subtotal</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$productList</span> <span class="k">as</span> <span class="nv">$product</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$subtotal</span> <span class="o">+=</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">price</span> <span class="o">*</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">quantity</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">EmailService</span><span class="o">::</span><span class="na">sendInvoice</span><span class="p">(</span><span class="nv">$user_id</span><span class="p">,</span> <span class="nv">$subtotal</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nv">$subtotal</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we end up emailing invoice in a method that is supposed to only calculate
+the subtotal. Such code pollutes the codebase and is very hard to maintain. What
+if you are asked to do your boss’s dirty deeds by helping his buddy faking sales
+record in your multi-tenant ecommerce system, and now random users are getting
+invoices for products they never purchased? (FYI, a true story)</p>
+
+<p>The last example illustrates a function that contains a misplaced business
+logic, however there are cases with more subtle problems – these functions
+contain a set of abstractions that are tightly related but of different levels.
+See the example code below.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Note that for the purpose of illustration, the following</span>
+<span class="c1">// code was written in a simplified way. It has more problems</span>
+<span class="c1">// other than just violating the 'one thing rule'.</span>
+<span class="kd">class</span> <span class="nc">Subject</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">enrollStudent</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">hasOutstandingInvoice</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentHasOutstandingInvoiceException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$student</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">listStudents</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentAlreadyEnrolledException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">students</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentNumberExceededException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="nv">$studentScheduledForExam</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">preliminaryExams</span> <span class="k">as</span> <span class="nv">$examSchedule</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$examSchedule</span><span class="p">[</span><span class="s1">'attendees'</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$examSchedule</span><span class="p">[</span><span class="s1">'attendees'</span><span class="p">][]</span> <span class="o">=</span> <span class="nv">$student</span><span class="p">;</span>
+                <span class="nv">$studentScheduledForExam</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$studentScheduledForExam</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">NoValidPreliminaryExamScheduleException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">students</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$student</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>The above code performs a set of closely related actions, it checks if the
+student has any outstanding bills to pay, prevents repetitive enrollment and
+ensures that there would be no more than 200 students in the classroom. It then
+tries to schedule the student for one of the preliminary exam schedules. And
+finally it adds the student to the subject’s student list and returns itself.</p>
+
+<p>This looks reasonable. Many would claim that those validations and preliminary
+exam scheduling are inseparable parts of the business process of enrolling the
+student to a class, thus it should be considered as doing <em>one thing</em>.</p>
+
+<p>Unfortunately although these steps are indeed part of the business logic, but it
+is also true that the function does more than one thing. To understand why, we
+have to discuss what exactly <em>one thing</em> means.</p>
+
+<h3 id="defining-one-thing">Defining One Thing</h3>
+
+<p>There are some handy ways to determine if your function is doing only one thing.
+Let’s try to discuss and follow these tips and make our function a one thing
+function first, and then we’ll discuss what benefits it brings us which would
+then answers the question of why should we do this in the first place.</p>
+
+<blockquote>
+  <p>A one thing function should have one level of indentation.</p>
+</blockquote>
+
+<p>Our enrollStudent() function clearly has more than that, look at the part where
+we check and schedule preliminary exams. A function with multiple levels of
+indentation indicates that it has multiple levels of implementations of
+abstractions. In other words, the execution of the steps is not linear.</p>
+
+<p>We all hate a big lengthy function with multiple levels of indentation that
+the edge of the function looks like – as Martin puts it – a ragged saw. See
+which of the following two functions seems easier to understand and work with.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">doSomethingA</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">doSomethingFirst</span><span class="p">();</span>
+    <span class="nx">checkSomeOtherThing</span><span class="p">();</span>
+
+    <span class="nx">doIt</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">doSomethingB</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">someConditions</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">tryToDoThis</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">doSomethingFirst</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">foreach</span><span class="p">(</span><span class="nx">things</span> <span class="k">as</span> <span class="nx">thing</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">doSomeOtherThingWith</span><span class="p">(</span><span class="nx">thing</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="nx">doTheActualThing</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>A one thing function should work with one level of abstraction</p>
+</blockquote>
+
+<p>It’s easy to spot that doSomethingB() function in the last example checks some
+conditions and loops a list to do <strong><em>some other actions</em></strong> with <strong><em>some other
+things</em></strong> before it finally does the actual thing we intended it to do the very
+last. This is an example of performing action at multiple levels of abstraction.</p>
+
+<p>authenticateUser() is at a level of abstraction which is different than
+persistUserCookie(), and renderHtmlReportCard(). It’s like concating some
+strings and save it to a log file and then inform a lecturer about an exam
+schedule change – they work at different levels of the system, one is lower and
+deals with logging and data persistent and the other is performing a high level
+business logic – they should work together, but not be placed in the same
+function.</p>
+
+<blockquote>
+  <p>A one thing function should be extracted from until you can’t anymore</p>
+</blockquote>
+
+<p>We keep extracting things that are not related to performing the <em>actual thing</em>
+from the function and put them into separate functions until we reach a point
+where no more code can be extracted from it meaningfully.</p>
+
+<p>If we try this with our enrollStudent() function, it’ll become this,</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Subject</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">enrollStudent</span><span class="p">(</span><span class="nx">Student</span> <span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">guardAgainstOutstandingInvoice</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">guardAgainstRepetitiveEnrollment</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">guardAgainstExcessiveStudent</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">schedulePreliminaryExam</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">students</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$student</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">guardAgainstOutstandingInvoice</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">hasOutstandingInvoice</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentHasOutstandingInvoiceException</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">guardAgainstRepetitiveEnrollment</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$student</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">listStudents</span><span class="p">()))</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentAlreadyEnrolledException</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">guardAgainstExcessiveStudent</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">students</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">studentNumberExceededException</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">schedulePreliminaryExam</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$examSchedule</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">findFirstAvailableExamSchedule</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$examSchedule</span><span class="p">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">NoValidPreliminaryExamScheduleException</span><span class="p">();</span>
+
+        <span class="nv">$examSchedule</span><span class="p">[</span><span class="s1">'attendees'</span><span class="p">][]</span> <span class="o">=</span> <span class="nv">$student</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">function</span> <span class="nf">findFirstAvailableExamSchedule</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">preliminaryExams</span> <span class="k">as</span> <span class="nv">$examSchedule</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">count</span><span class="p">(</span><span class="nv">$examSchedule</span><span class="p">[</span><span class="s1">'attendees'</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="mi">50</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nv">$examSchedule</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>We can see that by extracting excessive code from the function and put them into
+separate functions respectively, we end up with only 6 lines of code that except
+for all the function calls, does only one thing – enroll the student.</p>
+
+<p>Each of the guard functions performs their own validation and we even split
+preliminary exam scheduling code into two functions, one in charge of finding an
+available schedule slot, the other dedicates in the actual scheduling.</p>
+
+<p>By applying the three rules we discussed about to each of every function in this
+example, you’ll find that they all have one level of indentation, they work
+under the same level of abstraction within themselves, and we practically cannot
+extract anything meaningful from any of them anymore.</p>
+
+<p>Now we can say our functions comply the one thing rule, but what good does this
+do?</p>
+
+<h3 id="was-that-really-necessary">Was That Really Necessary?</h3>
+
+<p>The most obvious change was the reduction of the length of our enrollStudent()
+function. You may think it’s cheating because all we did was to put those lines
+of code into other functions. That is true, however we did successfully reduced
+the length of the original function and now every function in that class is
+short and clean.</p>
+
+<p>Would you rather work with one gigantic function, or a dozen of well organized
+smaller ones each does exact one thing at a time? Our brains are not good at
+following up complex systems and tracking down complicated logics, by
+decomposing a large concept into smaller pieces each containing highly cohesive
+set of steps, we ease the difficulty of understanding and maintaining the code,
+which is once again, the main purpose of Clean Code.</p>
+
+<p>By reorganizing excessive code into other functions and having our original
+function call them, we encapsulated details of other levels of implementation
+into other functions. This allows our readers to get a brief idea by a quick
+glance at the short function, they may then choose the follow these function
+calls that interest them to read the details, or they could ignore all the
+boring details and just focus on what this function does.</p>
+
+<p>Another added advantage is that by creating more functions, which is a byproduct
+of the extraction process, we end up with more <strong><em>names</em></strong>. And if we follow the
+advise on naming your functions properly, these names would serve as
+documentation to your code, they help us to understand the intention of the
+code, it’s almost like putting labels on your drawers that keeps your socks and
+underwear separately.</p>
+
+<p>Even if an excessive piece of code would only be executed along with a business
+logic, it should be split into a different function, you never know if a new
+feature request in the future would required that same functionality from a
+different business process. This improves code reusability.</p>
+
+<h2 id="function-parameters">Function Parameters</h2>
+
+<p>Now let’s talk about an important part of a function’s signature, its required
+parameters.</p>
+
+<h3 id="no-more-than-3">No More Than 3</h3>
+
+<p>A function should really have no more than 3 parameters. A function with 2
+parameters each one is of boolean type would already yield a total of 4 possible
+combinations, imagine a function with 7 mix-typed parameters.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">registerStudent</span><span class="p">(</span><span class="nv">$firstname</span><span class="p">,</span> <span class="nv">$lastname</span><span class="p">,</span> <span class="nv">$dob</span><span class="p">,</span> <span class="nv">$major</span><span class="p">,</span>
+    <span class="nv">$secondary_major</span><span class="p">,</span> <span class="nv">$fatherdob</span><span class="p">,</span> <span class="nv">$motherdob</span><span class="p">,</span> <span class="nv">$address</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="nx">registerStudent</span><span class="p">(</span><span class="s1">'James'</span><span class="p">,</span> <span class="s1">'Bond'</span><span class="p">,</span> <span class="s1">'Computer Science'</span><span class="p">,</span> <span class="s1">'Network Security'</span><span class="p">,</span>
+<span class="s1">'1990-01-01'</span><span class="p">,</span> <span class="s1">'1966-02-02'</span><span class="p">,</span> <span class="s1">'1970-03-03'</span><span class="p">,</span> <span class="s1">'1-1-1, Broad Avenue'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Look at this function with a messy signature like this, it would be really
+confusing when we invoke the function call. What are these dates for? What is
+the correct order?</p>
+
+<p>When you encounter a function with more than 3 parameters, check if it follows
+the one thing rule first, there’s a good chance it’s receiving too many
+parameters because it’s trying to do multiple things. If that’s not the case,
+use a value object to pass the data around, or at least utilize array to
+aggregate parameters.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">registerStudent</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="nx">registerStudent</span><span class="p">([</span>
+    <span class="s1">'firstname'</span><span class="o">=&gt;</span> <span class="s1">'James'</span><span class="p">,</span>
+    <span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s1">'Bond'</span><span class="p">,</span>
+    <span class="s1">'dob'</span> <span class="o">=&gt;</span> <span class="s1">'1990-01-01'</span><span class="p">,</span>
+    <span class="s1">'major'</span> <span class="o">=&gt;</span> <span class="s1">'Computer Science'</span><span class="p">,</span>
+    <span class="s1">'secondary_major'</span> <span class="o">=&gt;</span> <span class="s1">'Network Security'</span><span class="p">,</span>
+    <span class="s1">'fatherdob'</span> <span class="o">=&gt;</span> <span class="s1">'1966-02-02'</span><span class="p">,</span>
+    <span class="s1">'motherdob'</span> <span class="o">=&gt;</span> <span class="s1">'1970-03-03'</span><span class="p">,</span>
+    <span class="s1">'address'</span> <span class="o">=&gt;</span> <span class="s1">'1-1-1, Broad Avenue'</span><span class="p">,</span>
+<span class="p">]);</span>
+</code></pre></div></div>
+
+<h3 id="avoid-boolean-switches">Avoid Boolean Switches</h3>
+
+<p>That’s right, hash tag noboolean, we should avoid using parameter switches. A
+parameter switch is a parameter, often boolean in a function that is used for
+conditional switches.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReport</span><span class="p">(</span><span class="nv">$student</span><span class="p">,</span> <span class="nv">$gpa</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$gpa</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Convert results into gpa scoring system</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Use normal scoring system</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Print a student’s academic report is the <em>one thing</em> this function was intended
+to do, but whether to use GPA scoring schema or a regular 100 scoring schema
+should not be part of it’s logic, it should be up to the higher level of the
+business flow to decide what it wants.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReportWithNormalSchema</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{}</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReportWithGPASchema</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<p>Now the calling party can freely decide what behavior they expect and invoke
+corresponding calls accordingly.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReport</span><span class="p">(</span><span class="nv">$student</span><span class="p">,</span> <span class="nv">$gpa</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$gpa</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Convert results into gpa scoring system</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Use normal scoring system</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">isFinalYear</span><span class="p">())</span> <span class="p">{</span>
+        <span class="c1">// Append final class result</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Note that whether the student is a final year student and choose whether or not
+to append the final class result in the report is indeed part of the printing
+logic. However it works at a different abstraction level and should be extracted
+out, now combine these together we get the following functions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReportWithNormalSchema</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appendFinalClassResultIfApplicable</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+    <span class="c1">// Do the actual printing.</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">printStudentReportWithGPASchema</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">appendFinalClassResultIfApplicable</span><span class="p">(</span><span class="nv">$student</span><span class="p">);</span>
+
+    <span class="c1">// Do the actual printing.</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">function</span> <span class="nf">appendFinalClassResultIfApplicable</span><span class="p">(</span><span class="nv">$student</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$student</span><span class="o">-&gt;</span><span class="na">isFinalYear</span><span class="p">())</span>
+        <span class="k">return</span><span class="p">;</span>
+
+    <span class="c1">// Append final class result</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Alrighty, this is it folks. We’ve talked about naming functions, the one thing
+rule and some other handy tips and guidelines when working with functions. I
+hope you like it and see you in the next installment.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming-guideline" class="page__taxonomy-item" rel="tag">Programming Guideline</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-13T00:00:00+08:00">April 13, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+Functions%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-functions%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-functions%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-functions%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/clean-code-tips-and-tricks-variables/" class="pagination--pager" title="Clean Code Tips and Tricks: Variables
+">Previous</a>
+    
+    
+      <a href="/clean-code-tips-and-tricks-classes/" class="pagination--pager" title="Clean Code Tips and Tricks: Classes
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  23 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -126,7 +126,7 @@
         
         <a class="site-title" href="/">
           Raging Scholar
-          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
         </a>
         <ul class="visible-links"></ul>
         
@@ -447,7 +447,7 @@ called <em>modeventhand_t</em></p>
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">FILE:</span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span>
 
 <span class="n">myBSD</span><span class="err">#</span> <span class="n">cat</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">module</span><span class="p">.</span><span class="n">h</span> <span class="o">|</span> <span class="n">grep</span> <span class="n">modeventhand_t</span>
-<span class="k">typedef</span> <span class="kt">int</span> <span class="p">(</span><span class="o">*</span><span class="n">modeventhand_t</span><span class="p">)(</span><span class="n">module_t</span><span class="p">,</span> <span class="kt">int</span> <span class="cm">/* modeventtype_t */</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
+<span class="k">typedef</span> <span class="nf">int</span> <span class="p">(</span><span class="o">*</span><span class="n">modeventhand_t</span><span class="p">)(</span><span class="n">module_t</span><span class="p">,</span> <span class="kt">int</span> <span class="cm">/* modeventtype_t */</span><span class="p">,</span> <span class="kt">void</span> <span class="o">*</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>And <em>module_t</em> is a pointer to the module’s struct as defined in the same file.</p>
@@ -489,8 +489,8 @@ unloaded.</p>
         <span class="k">break</span><span class="p">;</span>
 
     <span class="nl">default:</span>
-        <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//EOPNOTSUPP stands for Error: Operation not supported.
-</span>        <span class="k">break</span><span class="p">;</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//EOPNOTSUPP stands for Error: Operation not supported.</span>
+        <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="k">return</span><span class="p">(</span><span class="n">error</span><span class="p">);</span>
@@ -791,18 +791,18 @@ kernel loadable module compiled.</p>
             <span class="k">break</span><span class="p">;</span>
 
         <span class="nl">default:</span>
-            <span class="n">error</span><span class="o">=</span><span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//Operation not supported
-</span>            <span class="k">break</span><span class="p">;</span>
+            <span class="n">error</span><span class="o">=</span><span class="n">EOPNOTSUPP</span><span class="p">;</span> <span class="c1">//Operation not supported</span>
+            <span class="k">break</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">error</span><span class="p">);</span>
 <span class="p">}</span>
 
 <span class="cm">/* Define a module data structure */</span>
 <span class="k">static</span> <span class="n">moduledata_t</span> <span class="n">module_data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">"first_mlodule"</span><span class="p">,</span>    <span class="c1">// Module name
-</span>    <span class="n">module_loader</span><span class="p">,</span>      <span class="c1">// Event Handler
-</span>    <span class="nb">NULL</span>                <span class="c1">// Extra Data
-</span><span class="p">};</span>
+    <span class="s">"first_mlodule"</span><span class="p">,</span>    <span class="c1">// Module name</span>
+    <span class="n">module_loader</span><span class="p">,</span>      <span class="c1">// Event Handler</span>
+    <span class="nb">NULL</span>                <span class="c1">// Extra Data</span>
+<span class="p">};</span>
 
 <span class="cm">/* Declare the module */</span>
 <span class="n">DECLARE_MODULE</span><span class="p">(</span><span class="n">first_mlodule</span><span class="p">,</span> <span class="n">module_data</span><span class="p">,</span> <span class="n">SI_SUB_DRIVERS</span><span class="p">,</span> <span class="n">SI_ORDER_MIDDLE</span><span class="p">);</span>
@@ -817,7 +817,7 @@ and get yourself familiar with its basic syntax, just a little bit by now.</p>
 <div class="language-makefile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">KMOD</span><span class="o">=</span>   first_module
 <span class="nv">SRCS</span><span class="o">=</span>   first_module.c
 
-<span class="err">.include</span> <span class="err">&lt;bsd.kmod.mk&gt;</span>
+<span class="err">.</span><span class="k">include</span><span class="sx"> &lt;bsd.kmod.mk&gt;</span>
 </code></pre></div></div>
 
 <p>Save it as makefile in the same folder with first_module.c</p>
@@ -948,36 +948,6 @@ myBSD#
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Welcome
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
 </a>
       
@@ -1008,7 +978,7 @@ y...</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="permalink">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
 </a>
       
     </h2>
@@ -1018,12 +988,12 @@ y...</p>
 
 
 
-  24 minute read
+  23 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
-left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
 ...</p>
   </article>
 </div>
@@ -1038,7 +1008,36 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="permalink">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
 </a>
       
     </h2>
@@ -1052,9 +1051,9 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
-Tricks. As said at the end of the first one, we are going to
-talk about meth...</p>
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
   </article>
 </div>
 

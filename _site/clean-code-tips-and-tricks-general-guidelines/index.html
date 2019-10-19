@@ -1,0 +1,895 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: General Guidelines | Raging Scholar</title>
+<meta name="description" content="Welcome back fellow computer witches and wizards, let’s get back to where weleft on Clean Code Tips and Tricks. This will the be the last installment, we’lltalk about some general guidelines and tips to write better code.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: General Guidelines">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines/">
+
+
+  <meta property="og:description" content="Welcome back fellow computer witches and wizards, let’s get back to where weleft on Clean Code Tips and Tricks. This will the be the last installment, we’lltalk about some general guidelines and tips to write better code.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-17T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-general-guidelines/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: General Guidelines</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: General Guidelines">
+    <meta itemprop="description" content="Welcome back fellow computer witches and wizards, let’s get back to where weleft on Clean Code Tips and Tricks. This will the be the last installment, we’lltalk about some general guidelines and tips to write better code.">
+    <meta itemprop="datePublished" content="April 17, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: General Guidelines
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll
+talk about some general guidelines and tips to write better code.</p>
+
+<h2 id="one-arrowdot-per-line">One Arrow(Dot) Per Line</h2>
+
+<p>Use linebreaks to make your code easier to read. You may want to follow a
+different way to break your dots or arrows, it’s okay as long as it make your
+code easier to understand.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Not so good</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setupConfigs</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">registerProvider</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">loadViews</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">listenForLogout</span><span class="p">();</span>
+
+<span class="c1">// Looks better</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setupConfigs</span><span class="p">()</span>
+     <span class="o">-&gt;</span><span class="na">registerProvider</span><span class="p">()</span>
+     <span class="o">-&gt;</span><span class="na">loadViews</span><span class="p">()</span>
+     <span class="o">-&gt;</span><span class="na">listenForLogout</span><span class="p">();</span>
+
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">project</span><span class="o">-&gt;</span><span class="na">deployments</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">'status'</span><span class="p">,</span> <span class="s1">'Available'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">'updated_at'</span><span class="p">,</span> <span class="s1">'DESC'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+
+<span class="c1">// Different styles are okay, too</span>
+<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">project</span><span class="o">-&gt;</span><span class="na">deployments</span><span class="p">()</span>
+            <span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">'status'</span><span class="p">,</span> <span class="s1">'Available'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">'updated_at'</span><span class="p">,</span> <span class="s1">'DESC'</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">get</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>Don’t only make your dots or arrows neat and tidy, try to beautify everything
+you come across, the main idea is to make your codebase easier on the eyes and
+more pleasant to work with.</p>
+
+<h2 id="clean-up-if-statements">Clean Up IF Statements</h2>
+
+<p>Nobody likes nested-IF statements, they increase the number of indentations
+inside a function, which we discussed about in Clean Code Tips and Tricks:
+Functions. After extracting excessive code and put them into other functions, we
+sometimes still have nested-IF statements left. Let’s talk about how to get rid
+of them, and what are the benefits.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">runCommands</span><span class="p">(</span><span class="k">array</span> <span class="nv">$commands</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isEnabled</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$commands</span> <span class="k">as</span> <span class="nv">$command</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$command</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// We can reduce levels of indentation by returning early</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">runCommands</span><span class="p">(</span><span class="k">array</span> <span class="nv">$commands</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isEnabled</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$commands</span> <span class="k">as</span> <span class="nv">$command</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$command</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>The last example showed how to reduce levels of indentation by returning early,
+it’s a common method used to clean up if statements, we always want to do the
+most expected thing <strong><em>lastly</em></strong>.</p>
+
+<p>By doing this, we can eradicate <code class="highlighter-rouge">else</code> statements, the structure of the if block
+looks clearer and easier to read, and performing the most common or most
+expected behavior at the end of the code block matches how our mind works.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">getStatusAttribute</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isDeployed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$status</span> <span class="o">=</span> <span class="s1">'Undeployed'</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">elseif</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deployment</span><span class="o">-&gt;</span><span class="na">status</span> <span class="o">===</span> <span class="s1">'Active'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$status</span> <span class="o">=</span> <span class="s1">'Running'</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nv">$status</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deployment</span><span class="o">-&gt;</span><span class="na">status</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$status</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="cm">/*
+ * The above code is at best 'confusing'.
+ * When there are lots of ifs and elseifs,
+ * we are prone to make logic errors which lead to bugs,
+ * and it's hard to understand what this piece
+ * of code is actually trying to achieve.
+ *
+ * Let's try to eradicate elseif and else statements.
+ */</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">getStatusAttribute</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isDeployed</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Undeployed'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deployment</span><span class="o">-&gt;</span><span class="na">status</span> <span class="o">===</span> <span class="s1">'Active'</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'Running'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deployment</span><span class="o">-&gt;</span><span class="na">status</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Much better, right? Keep in mind that the  key is to identify what is the <em>most
+expected behavior</em>.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">uploadAvatar</span><span class="p">(</span><span class="nv">$avatar</span><span class="p">)</span>
+<span class="p">{</span>
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$avatar</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isDisabled</span><span class="p">()</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+             <span class="k">if</span> <span class="p">(</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$avatar</span><span class="o">-&gt;</span><span class="na">fileExtension</span><span class="p">,</span> <span class="nv">$allowedFileExtensions</span><span class="p">))</span> <span class="p">{</span>
+                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">avatar</span> <span class="o">=</span> <span class="nv">$avatar</span><span class="p">;</span>
+                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+                 <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                 <span class="k">throw</span> <span class="k">new</span> <span class="nx">FileExtensionNotAllowedException</span><span class="p">();</span>
+             <span class="p">}</span>
+         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+             <span class="k">throw</span> <span class="k">new</span> <span class="nx">UserIsDisabledException</span><span class="p">();</span>
+         <span class="p">}</span>
+     <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nx">UserAlreadyHasAvatar</span><span class="p">();</span>
+     <span class="p">}</span>
+    <span class="cm">/*
+     * As the name of the method suggests,
+     * We are setting user's avatar, so the
+     * most expected behavior is, well, set
+     * the avatar. Other branches may be
+     * file extension unmatch, or user already
+     * have an avatar, or the user is disabled.
+     *
+     * To refactor the above code, we just move
+     * the most expected behavior to the last.
+     */</span>
+
+     <span class="k">if</span> <span class="p">(</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$avatar</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="nx">UserAlreadyHasAvatar</span><span class="p">();</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isDisabled</span><span class="p">())</span> <span class="p">{</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="nx">UserIsDisabled</span><span class="p">();</span>
+     <span class="p">}</span>
+
+     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nv">$avatar</span><span class="o">-&gt;</span><span class="na">fileExtension</span><span class="p">,</span> <span class="nv">$allowedFileExtensions</span><span class="p">))</span> <span class="p">{</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="nx">FileExtensionNotAllowed</span><span class="p">();</span>
+     <span class="p">}</span>
+
+     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">avatar</span> <span class="o">=</span> <span class="nv">$avatar</span><span class="p">;</span>
+     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+
+     <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Doesn’t it look much more straightforward after we refactored it? Think about
+what is the <em>actual thing</em> or the <em>most expected behavior</em> of the function you
+are writing and put it at the end first, then think about what are the
+conditions or exceptions when this behavior should not be executed, write them
+down above and return early. This way you’ll always end up with much cleaner
+looking conditionals.</p>
+
+<h2 id="dont-comment">Don’t Comment</h2>
+
+<p>This is an exaggeration. Comments are sometimes necessary, but we are
+<strong><em>overdoing</em></strong> it.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * Dear fellow co-workers:
+ * I consulted with our marketing team, they said the client
+ * must have more than 100 orders in total, but Bob said there's
+ * a bug in the CouponService so we have to check if the user has
+ * too many coupons to handle. Then Joe talked with the boss and
+ * confirmed that this should not include inactive clients.
+ *
+ * Hope that clears it up. Feel free to ask me questions.
+ */</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getTotalOrders</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">100</span> <span class="o">&amp;&amp;</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">getCouponCount</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">inActive</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Oh, how nice of you to leave such a thoughtful comment to your co-workers, but
+unfortunately it’s not the best practice.</p>
+
+<blockquote>
+  <p>“Comments are often lies waiting to happen.”</p>
+</blockquote>
+
+<p>Think about this, what if the marketing team later changed their minds? What if
+Bob fixed the bug in CouponService? What if Joe got it all wrong and the boss
+meant something different?</p>
+
+<p>They are not lies when you write them down, yet. But they will eventually become
+lies if given time. That’s not the real problem yet, wait when someone comes back
+to reflect Bob’s bug fix here and forgot to change your comments and a new guy
+joins the team believing that the bug never got fixed by reading your comment.</p>
+
+<p>By writting comments like this, you are adding <em>extra</em> stuff to maintain, and
+you risk misleading yourself and your co-workers. Write comments only when it’s
+definitely necessary.</p>
+
+<h2 id="get-rid-of-zombie-code">Get Rid of Zombie Code</h2>
+
+<p>Zombie code are code blocks that are commented for some reason, and that reason
+may have been forgotten by the person who did it. They are normally useless, and
+often there for a very long time, thus not up to date with the newest codebase.
+They disturbs code reading, uglifies our codebase, and worst of all, they may
+accidentally come back to life.</p>
+
+<blockquote>
+  <p>“Wow, look what I found? I think this commented method is definitely going to
+work perfectly. I wonder who did this to such wonderful and elegant code.”</p>
+</blockquote>
+
+<p>Get rid of them by following these steps:</p>
+<ul>
+  <li>Comment out temporarily unwanted code block</li>
+  <li>Put a comment there stating the current date</li>
+  <li>If you find a commented code block without a date, add current date</li>
+  <li>If you find a commented code block that is more than 30 days old, delete it</li>
+</ul>
+
+<p>Don’t worry, I’ve never heard anyone complaining,</p>
+
+<blockquote>
+  <p>“Oh damnation! Who deleted my commented code? I knew it would one day become
+useful, and I was right! Now it fits perfectly with our codebase but I have to
+write it again!</p>
+</blockquote>
+
+<p>Says no one, ever.</p>
+
+<h2 id="no-god-classes">No God Classes</h2>
+
+<p>God classes have too many responsibilities, they are usually bloated and large
+in size, they are monolitic and knows too much about business logics that don’t
+belong to them, and they are usually tightly coupled with other classes.
+We’ll discuss about S.O.L.I.D principle in a later series, god classes can be
+identified and dealt with by following Single Responsibility Principle. I’ll
+leave that for later discussion, but let me first introduce you a way to
+identify a god class.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Look for name prefixes in function signatures</span>
+<span class="kd">class</span> <span class="nc">DataFileProcessor</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">splitFileByLineCount</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">splitFileByByte</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">splitFileByKeyword</span><span class="p">();</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">processSalesData</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">processProductsData</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">processImages</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>You may have guessed, even though these functions look like they all
+process the data files, thus should be in <code class="highlighter-rouge">DataFileProcessor</code>, but the fact
+they are grouped with name prefixes tells us a different story. If we were to
+name the class properly to reflect all it’s attributes, it should be called
+<code class="highlighter-rouge">DataFileSplitterAndProcessor</code>.</p>
+
+<p>Whenever you see a class with <em>AND</em> in it’s name, or it’s member functions are
+clearly categorize-able by looking at their prefixes, you know that the class is
+having multiple responsibilities and should be refactored. The above class
+should be divided into <code class="highlighter-rouge">DataFileSplitter</code> and <code class="highlighter-rouge">DataFileProcessor</code>.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Whew, what a journey. This is the end of our five-installment Clean Code Tips
+and Tricks, I hope you enjoyed it as much as I enjoyed preparing it.</p>
+
+<p>We talked about the importance of writing readable code that’ll make you and
+your co-workers understand better and enjoy working with. And we discussed many
+tips and tricks to achieve clean code.</p>
+
+<p>I have to admit that there are limitations such as some of the tips are purely
+from my personal experience thus biased with my personal preferences, some
+examples in PHP can’t represent all other OOP languages, and I couldn’t possibly
+cover everything there’s to know about clean code. Despite all these, the one
+take away I hope you get is that <strong><em>We need to spend more time writing good
+quality code, and less time reading bad ones.</em></strong></p>
+
+<p>I plan to write more about design patterns in the comming weeks, please stay
+tuned if you are interested, however be informed they won’t be introductions or
+tutorials as you can find better sources online and in books, it’ll be just me
+sharing my opinions and experiences with these that I’ve personal had
+experiences with.</p>
+
+<p>Have a nice day and see you soon.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming-guideline" class="page__taxonomy-item" rel="tag">Programming Guideline</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-17T00:00:00+08:00">April 17, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+General+Guidelines%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-general-guidelines%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-general-guidelines%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-general-guidelines%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/clean-code-tips-and-tricks-classes/" class="pagination--pager" title="Clean Code Tips and Tricks: Classes
+">Previous</a>
+    
+    
+      <a href="/software-design-principles-that-looks-solid/" class="pagination--pager" title="Software Design Principles - That Looks S.O.L.I.D
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  23 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-functions/" rel="permalink">Clean Code Tips and Tricks: Functions
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+Tricks.
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

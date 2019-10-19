@@ -1,6 +1,6 @@
 <!doctype html>
 <!--
-  Minimal Mistakes Jekyll Theme 4.17.0 by Michael Rose
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
   Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
@@ -126,7 +126,7 @@
         
         <a class="site-title" href="/">
           Raging Scholar
-          <span class="site-subtitle">uprintf("There is no place like ::1");</span>
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
         </a>
         <ul class="visible-links"></ul>
         
@@ -383,7 +383,7 @@ value of this function is <strong>NOT</strong> the system call module’s offset
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/param.h&gt;
 #include &lt;sys/module.h&gt;
 </span>
-<span class="kt">int</span> <span class="n">modfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">modname</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">modfind</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">modname</span><span class="p">);</span>
 </code></pre></div></div>
 
 <h2 id="the-modstat-function">The modstat Function</h2>
@@ -395,7 +395,7 @@ function</strong>.</p>
 <div class="language-c++ highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;sys/param.h&gt;
 #include &lt;sys/module.h&gt;
 </span>
-<span class="kt">int</span> <span class="n">modstat</span><span class="p">(</span><span class="kt">int</span> <span class="n">modid</span><span class="p">,</span> <span class="k">struct</span> <span class="n">module_stat</span> <span class="o">*</span><span class="n">stat</span><span class="p">);</span>
+<span class="kt">int</span> <span class="nf">modstat</span><span class="p">(</span><span class="kt">int</span> <span class="n">modid</span><span class="p">,</span> <span class="k">struct</span> <span class="n">module_stat</span> <span class="o">*</span><span class="n">stat</span><span class="p">);</span>
 </code></pre></div></div>
 
 <p>The <code class="highlighter-rouge">int modid</code> is where we should pass the result of modfind function, but we
@@ -477,27 +477,27 @@ additional comments to help you understand the code.</p>
 #include &lt;sys/types.h&gt;
 #include &lt;sys/module.h&gt;
 </span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
-</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,
-</span>                     <span class="c1">//print out usage help information
-</span>                     <span class="c1">//if we got wrong number of parameters.
-</span>        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,</span>
+                     <span class="c1">//print out usage help information</span>
+                     <span class="c1">//if we got wrong number of parameters.</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//This is the module_stat structure
-</span>    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.
-</span>
+    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//This is the module_stat structure</span>
+    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.</span>
+
 
     <span class="cm">/* Determine sc_example's offset value. */</span>
-    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)
-</span>    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span>
+    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)</span>
+    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span>
     <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
 
     <span class="cm">/* Call sc_example. */</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call
-</span><span class="p">}</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>Unlike kernel modules which we need a makefile to automate some extreme nasty
@@ -544,8 +544,8 @@ modfind is -1, which is obviously bad.</p>
 #include &lt;sys/types.h&gt;
 #include &lt;sys/module.h&gt;
 </span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
-</span><span class="p">{</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application</span>
+<span class="p">{</span>
 <span class="p">...</span>
     <span class="n">printf</span><span class="p">(</span><span class="s">"The return value of modfind is: %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">modfind</span><span class="p">(</span><span class="s">"sc_example"</span><span class="p">));</span>
 <span class="p">...</span>
@@ -592,27 +592,27 @@ their names.</p>
 #include &lt;sys/types.h&gt;
 #include &lt;sys/module.h&gt;
 </span>
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application
-</span><span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,
-</span>                     <span class="c1">//print out usage help information
-</span>                     <span class="c1">//if we got wrong number of parameters.
-</span>        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span> <span class="c1">//Main function of our client application</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//Check the parameter passed to the application,</span>
+                     <span class="c1">//print out usage help information</span>
+                     <span class="c1">//if we got wrong number of parameters.</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"Usage:</span><span class="se">\n</span><span class="s">%s &lt;string&gt;</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
 
-    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//We'll get the module statues and store it here.
-</span>    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.
-</span>
+    <span class="k">struct</span> <span class="n">module_stat</span> <span class="n">stat</span><span class="p">;</span> <span class="c1">//We'll get the module statues and store it here.</span>
+    <span class="kt">int</span> <span class="n">syscall_num</span><span class="p">;</span> <span class="c1">//We'll get the offset value and store it here.</span>
+
 
     <span class="cm">/* Determine sc_example's offset value. */</span>
-    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)
-</span>    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sys/sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//With prefix this time
-</span>    <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
+    <span class="n">stat</span><span class="p">.</span><span class="n">version</span> <span class="o">=</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//set version to sizeof(struct module_stat)</span>
+    <span class="n">modstat</span><span class="p">(</span><span class="n">modfind</span><span class="p">(</span><span class="s">"sys/sc_example"</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">stat</span><span class="p">);</span> <span class="c1">//With prefix this time</span>
+    <span class="n">syscall_num</span> <span class="o">=</span> <span class="n">stat</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">intval</span><span class="p">;</span>
 
     <span class="cm">/* Call sc_example. */</span>
-    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call
-</span><span class="p">}</span>
+    <span class="k">return</span><span class="p">(</span><span class="n">syscall</span><span class="p">(</span><span class="n">syscall_num</span><span class="p">,</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span> <span class="c1">//Return the statues of the system call</span>
+<span class="p">}</span>
 </code></pre></div></div>
 
 <p>Everything is the same except <code class="highlighter-rouge">modstat(modfind("sys/sc_example"), &amp;stat);</code>. Now
@@ -715,36 +715,6 @@ share it to support my work, and I’ll see you in the next tutorial!</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/what-is-wrong-with-microservice/" rel="permalink">What is wrong with microservice
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
-
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">Welcome
-
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
 </a>
       
@@ -775,7 +745,7 @@ y...</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-general-guidelines-and-solid-principle/" rel="permalink">Clean Code Tips and Tricks: General Guidelines and S.O.L.I.D Principle
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
 </a>
       
     </h2>
@@ -785,12 +755,12 @@ y...</p>
 
 
 
-  24 minute read
+  23 minute read
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
-left on Clean Code Tips and Tricks. This will the be the last instalment, we’ll
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
 ...</p>
   </article>
 </div>
@@ -805,7 +775,36 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/clean-code-tips-and-tricks-method-names-and-single-responsibility-principle/" rel="permalink">Clean Code Tips and Tricks: Method Names and Single Responsibility Principle
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
 </a>
       
     </h2>
@@ -819,9 +818,9 @@ left on Clean Code Tips and Tricks. This will the be the last instalment, we’l
 
 </p>
     
-    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
-Tricks. As said at the end of the first one, we are going to
-talk about meth...</p>
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
   </article>
 </div>
 

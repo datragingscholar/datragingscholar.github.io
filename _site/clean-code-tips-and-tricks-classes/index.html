@@ -1,0 +1,954 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Clean Code Tips and Tricks: Classes | Raging Scholar</title>
+<meta name="description" content="Welcome back to yet another post on Clean Code Tips and Tricks. We’ve coveredvariables and functions so far, be sure to check these posts out first if youhaven’t.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="Clean Code Tips and Tricks: Classes">
+<meta property="og:url" content="http://localhost:4000/clean-code-tips-and-tricks-classes/">
+
+
+  <meta property="og:description" content="Welcome back to yet another post on Clean Code Tips and Tricks. We’ve coveredvariables and functions so far, be sure to check these posts out first if youhaven’t.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2014-04-15T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/clean-code-tips-and-tricks-classes/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">Clean Code Tips and Tricks: Classes</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Clean Code Tips and Tricks: Classes">
+    <meta itemprop="description" content="Welcome back to yet another post on Clean Code Tips and Tricks. We’ve coveredvariables and functions so far, be sure to check these posts out first if youhaven’t.">
+    <meta itemprop="datePublished" content="April 15, 2014">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Clean Code Tips and Tricks: Classes
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+haven’t.</p>
+
+<h2 id="naming-classes">Naming Classes</h2>
+
+<p>We’ve covered tips and guidelines on naming variables and functions, many of the
+rules should apply to classes as well, keep in mind that naming things properly
+is like documenting our codebase and provide valuable information to your
+readers.</p>
+
+<h3 id="use-noun">Use Noun</h3>
+
+<p>A class is an abstraction of an entity with a collection of behaviors that can
+be instantiated into objects, thus class names should be nouns, not verbs, not
+any kind of statements.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// These are all silly class names that make no sense at all.</span>
+<span class="kd">class</span> <span class="nc">moveStudent</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">shouldSendEmail</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">LogShouldArchive</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Swim</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">Jump</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<h3 id="be-reflective">Be Reflective</h3>
+
+<p>Reflect the domain this class lives in or the architectural design your team
+adopts. Stick with some conventions instead of inventing your own terms to avoid
+confusions.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Reflect the terms when you use factory or repository pattern</span>
+<span class="kd">class</span> <span class="nc">UserFactory</span> <span class="p">{}</span>
+<span class="kd">class</span> <span class="nc">CouponRepository</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<h3 id="be-verbose">Be Verbose</h3>
+
+<p>Not quite like variables and functions, we verbosely name our classes for some
+other reasons. One being each class represents an abstraction of entity, and
+sometimes the same entity may evolve and become conceptually two entities and
+should be abstracted into two classes. Naming them verbosely and reflect their
+differences helps avoiding ambiguity.</p>
+
+<p>The length a class name should have follows the same rule as functions do. The
+more the class is used throughout the system, meaning the wider the scope it
+lives in, the shorter and more concise it’s name should be. And of course, the
+narrower the scope, the longer and more specific you should name them.</p>
+
+<h2 id="tell-dont-ask">Tell Don’t Ask</h2>
+
+<p>Tell don’t ask is a well known principle that helps us to bundle data and
+behaviors together rather than separating them. If we don’t combine data and
+actions together, we risk breaking encapsulation which is one of the core value
+of object oriented programming.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Wallet</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$customer</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$balance</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nx">Customer</span> <span class="nv">$customer</span><span class="p">,</span> <span class="nv">$balance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customer</span> <span class="o">=</span> <span class="nv">$customer</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="o">=</span> <span class="nv">$balance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">setBalance</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Take a look at this very simple Wallet class, it has some properties, a
+straightforward constructor and a setter and a getter. Let’s discuss what we
+can do to make it better.</p>
+
+<h3 id="dont-use-setters">Don’t Use Setters</h3>
+
+<p>A class consists of properties and behaviors, if we overlook it’s behaviors and
+instead changing it’s properties directly outside the class, we practically
+took the business logic away from the class.</p>
+
+<p>With a setter like <em>setBalance()</em>, the use case would contain too much business
+logic that actually belongs to Wallet class. Look at the example code below,</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Order</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">process</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Validate order...</span>
+        <span class="c1">// Calculate subtotal...</span>
+
+        <span class="c1">// Deduct balance</span>
+        <span class="nv">$wallet</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customer</span><span class="o">-&gt;</span><span class="na">wallet</span><span class="p">;</span>
+        <span class="nv">$balance</span> <span class="o">=</span> <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">getBalance</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$balance</span> <span class="o">&lt;</span> <span class="nv">$subtotal</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">insufficientBalanceException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="nv">$wallet</span><span class="o">-&gt;</span><span class="na">setBalance</span><span class="p">(</span><span class="nv">$balance</span> <span class="o">-</span> <span class="nv">$subtotal</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Checking if the wallet has sufficient balance and deduct from it should be a
+business logic belonging to Wallet class, and the order process function is
+clearly doing more than it should. Let’s revise it to properly encapsulate
+business logic.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Wallet</span> <span class="p">{</span>
+    <span class="o">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">deductBalance</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="o">&lt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">insufficientBalanceException</span><span class="p">();</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="o">-=</span> <span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">addBalance</span><span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span> <span class="o">+=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>We moved the sufficient balance checking and exception throwing back to Wallet
+class and named the function <em>deductBalance</em> to reflect it’s business logic. We
+also added a new function called <em>addBalance</em> for use cases that adds fund to a
+customer’s wallet. Their names can be further improved according to the domain
+language of this project, for example, <em>deductFee($amount)</em> and
+<em>refund($amount)</em>. It is even advisable to have another setter function exactly
+same as <em>refund($amount)</em> but named as <em>deposit($amount)</em> to separate two
+different use cases if that’s what the business process requires.</p>
+
+<p>By doing this, we made sure that a state of an object should never be changed
+without business logic, now there’s no way of changing the wallet balance
+without invoking strictly defined business logics.</p>
+
+<p>Even a simple setter such as <em>setLastActivity($datetime)</em> that only receives the
+value and changes the state, should not be named as a setter but also to reflect
+the business logic it implies.</p>
+
+<h3 id="try-to-avoid-getters">Try to Avoid Getters</h3>
+
+<p>Not all getters are evil. We should try to write less getters because we often
+abuse them by providing a way to leak data outside the class and perform
+business logics with them. And again, those logics should be bond to the states
+and stay inside the class to achieve encapsulation.</p>
+
+<p>Let’s say we are celebrating 10-year anniversary of our ecommerce system, and
+anyone with a floor-rounded balance of 2003 – our founding year, will get a 50%
+off coupon. The code is shown below,</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*
+ * The marketing team said this would encourage them
+ * to topup, or spend more depending on how thick their
+ * wallets are.
+ */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">grantAnniversaryCoupon</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$customers</span> <span class="k">as</span> <span class="nv">$customer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$balance</span> <span class="o">=</span> <span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">wallet</span><span class="o">-&gt;</span><span class="na">getBanlance</span><span class="p">();</span>
+        <span class="nv">$floor_balance</span> <span class="o">=</span> <span class="nb">floor</span><span class="p">(</span><span class="nv">$balance</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$floor_balance</span> <span class="o">===</span> <span class="mi">2003</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Grant coupon.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now the problem is that checking if the floor-rounded value of a customer’s
+wallet equals to 2003 and perform business logics accordingly is
+grantAnniversaryCoupon() function’s logic, but getting the actual <em>floor-rounded
+value of your wallet balance</em> is strictly a wallet’s own business, no one else’s.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Wallet</span> <span class="p">{</span>
+    <span class="o">...</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getBalance</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getFloorRoundedBalance</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">floor</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">balance</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">grantAnniversaryCoupon</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$customers</span> <span class="k">as</span> <span class="nv">$customer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">wallet</span><span class="o">-&gt;</span><span class="na">getFloorRoundedBalance</span><span class="p">()</span> <span class="o">===</span> <span class="mi">2003</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Grant coupon.</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Eradicating getters is not the point here, but rather to guard against leaking a
+class’s own logic to the outside by blindly giving out getters.</p>
+
+<h2 id="handle-static-methods-with-care">Handle Static Methods With Care</h2>
+
+<p>Static methods are available in many object oriented languages, they come in
+handy when we want to invoke a function call without instantiating the class
+that contains the behavior. However, misusing static methods can lead to bugs
+that are tricky to track down.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// This should work perfectly</span>
+<span class="nx">Calculator</span><span class="o">::</span><span class="na">sum</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="c1">// This is bad.</span>
+<span class="nx">Counter</span><span class="o">::</span><span class="na">increase</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>The main difference between the two static methods is that the first one is
+stateless and the second is stateful. Stateless means that the Calculator does
+not remember anything, it simply performs the calculation and returns the
+result. You can run it for as many times as you like, and in as many context as
+you like, the results remain the same.</p>
+
+<p>On the other hand, a stateful static function is bad because it stores
+information from each execution, and the results differs according to how many
+times you run it, or where you run it. It is equivalent to sharing the same
+global variable, now two pieces of code using the counter simultaneously would
+get unreasonable results from their point of view.</p>
+
+<h2 id="a-little-help-for-value-objects">A Little Help For Value Objects</h2>
+
+<p>Value objects, unlike entities, their equity depends on if all their states are
+of the same value. It is quite a common requirement to determine equity of two
+value objects.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">StreetAddress</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$street</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$city</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$street</span><span class="p">,</span> <span class="nv">$city</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">street</span> <span class="o">=</span> <span class="nv">$street</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">city</span> <span class="o">=</span> <span class="nv">$city</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">equals</span><span class="p">(</span><span class="nx">StreetAddress</span> <span class="nv">$streetAddress</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">street</span> <span class="o">===</span> <span class="nv">$streetAddress</span><span class="o">-&gt;</span><span class="na">street</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">city</span> <span class="o">===</span> <span class="nv">$streetAddress</span><span class="o">-&gt;</span><span class="na">city</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nv">$streetAddress1</span><span class="o">-&gt;</span><span class="na">equals</span><span class="p">(</span><span class="nv">$streetAddress2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>By adding this help function to our value object class, we now have a convenient way
+of examining the equity of two instances of it. We also ensured encapsulation here
+by locking the logic of comparison inside the class itself other than calling
+getters and do it manually outside the class. If StreetAddress ever gets a new
+property, we only have one line of code to update without breaking any other
+existing code.</p>
+
+<h2 id="replace-conditional-switches-with-inheritance">Replace Conditional Switches With Inheritance</h2>
+
+<p>We talked about why and how we should get rid of parameter switches from
+function signatures, they serve as a conditional switch to alter the behavior of
+the function. Having parameter switches suggests that there are multiple
+variants of the function, and they should be extracted out into specialized ones.</p>
+
+<p>The same thing applies to classes. When you observe a class performing actions
+according to a conditional switch, it is a good sign that the class should be
+broken into sub classes extending the original one.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Faculty</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$fullname</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$title</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$fullname</span><span class="p">,</span> <span class="nv">$title</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fullname</span> <span class="o">=</span> <span class="nv">$fullname</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$title</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">markAssignment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// All faculty members can mark assignments.</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">printJobDescription</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="s1">'Professor'</span><span class="o">:</span>
+                <span class="k">echo</span> <span class="s1">'I teach classes'</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s1">'Associate Professor'</span><span class="o">:</span>
+                <span class="k">echo</span> <span class="s1">'I teach classes and invigilate exams'</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="s1">'Teaching Assistant'</span><span class="o">:</span>
+                <span class="k">echo</span> <span class="s1">'I conduct tutorials and invigilate exams'</span><span class="p">;</span>
+                <span class="k">break</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nx">InvalidTitleException</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Take a look at the example above. It is clear that the business logic requires
+professors and associate professors but teaching assistant to teach classes,
+associate professors and teaching assistant but professors to invigilate exams,
+and finally only teaching assistant can conduct tutorials.</p>
+
+<p>The reason someone abstracted these faculty roles into a single class might be
+that they share lots of properties and behaviors, for example, <em>getSalary()</em>,
+<em>getYearlyBonus()</em>, <em>calculatePerformanceIndex()</em> and so on. However it is also
+true that each of them have their own specializations. Having to use switch
+conditionals to differentiate objects is a clear sign that the class is not
+following the Single Responsibility Principle, more on that in a later series.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">abstract</span> <span class="kd">class</span> <span class="nc">Faculty</span> <span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$fullname</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$title</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">markAssignment</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// Mark the assignment.</span>
+    <span class="p">}</span>
+
+    <span class="k">abstract</span> <span class="k">public</span> <span class="k">function</span> <span class="nf">printJobDescription</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">Professor</span> <span class="k">extends</span> <span class="nx">Faculty</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">printJobDescription</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'I teach classes'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">AssociateProfessor</span> <span class="k">extends</span> <span class="nx">Faculty</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">printJobDescription</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'I teach classes and invigilate exams'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="nc">TeachingAssistant</span> <span class="k">extends</span> <span class="nx">Faculty</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">printJobDescritption</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="s1">'I conduct tutorials and invigilate exams'</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Now we have three clearly defined subclasses each has their own specializations,
+we won’t have trouble extending these subclasses, or even add a new faculty role
+in the future. Polymorphism and inheritance are for specialization, and we
+should always favor them over conditionals.</p>
+
+<p>This is the end of our discussion on Clean Code Tips and Tricks: Classes. I hope
+you like it and see you in the final installment.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#clean-code" class="page__taxonomy-item" rel="tag">Clean Code</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#php" class="page__taxonomy-item" rel="tag">PHP</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#programming-guideline" class="page__taxonomy-item" rel="tag">Programming Guideline</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2014-04-15T00:00:00+08:00">April 15, 2014</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Clean+Code+Tips+and+Tricks%3A+Classes%20http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-classes%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-classes%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fclean-code-tips-and-tricks-classes%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/clean-code-tips-and-tricks-functions/" class="pagination--pager" title="Clean Code Tips and Tricks: Functions
+">Previous</a>
+    
+    
+      <a href="/clean-code-tips-and-tricks-general-guidelines/" class="pagination--pager" title="Clean Code Tips and Tricks: General Guidelines
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/how-i-switched-from-vim-to-emacs/" rel="permalink">How I Switched From Vim to Emacs
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  19 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+y...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  23 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-functions/" rel="permalink">Clean Code Tips and Tricks: Functions
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+Tricks.
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>

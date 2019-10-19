@@ -1,0 +1,1651 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.17.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="UT" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>How I Switched From Vim to Emacs | Raging Scholar</title>
+<meta name="description" content="I’ve been using vim as my preferred choice of editor for a little more thanfive years by the time I decided to leave for emacs for good. During these fiveyears, I’ve tried other text editors and IDEs, sometimes in search of a betterediting tool, sometimes to fit the development evironment of the projects Iworked on, but vim was trumphant as I kept installing vim emulators even when Iwas using other editors, and I always went back to it eventually.">
+
+
+  <meta name="author" content="Hai Lang">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="UTF_8">
+<meta property="og:site_name" content="Raging Scholar">
+<meta property="og:title" content="How I Switched From Vim to Emacs">
+<meta property="og:url" content="http://localhost:4000/how-i-switched-from-vim-to-emacs/">
+
+
+  <meta property="og:description" content="I’ve been using vim as my preferred choice of editor for a little more thanfive years by the time I decided to leave for emacs for good. During these fiveyears, I’ve tried other text editors and IDEs, sometimes in search of a betterediting tool, sometimes to fit the development evironment of the projects Iworked on, but vim was trumphant as I kept installing vim emulators even when Iwas using other editors, and I always went back to it eventually.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2015-03-19T00:00:00+08:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/how-i-switched-from-vim-to-emacs/">
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "Person",
+      "name": "Hai Lang",
+      "url": "http://localhost:4000/"
+    
+  }
+</script>
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Raging Scholar Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+    <nav class="skip-links">
+  <h2 class="screen-reader-text">Skip links</h2>
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Raging Scholar
+          <span class="site-subtitle">uprintf("There is no place like ::1\n");</span>
+        </a>
+        <ul class="visible-links"></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+  
+    
+
+
+
+<nav class="breadcrumbs">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList">
+    
+    
+    
+      
+        <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <a href="http://localhost:4000/" itemprop="item"><span itemprop="name">Home</span></a>
+          <meta itemprop="position" content="1" />
+        </li>
+        <span class="sep">/</span>
+      
+      
+        <li class="current">How I Switched From Vim to Emacs</li>
+      
+    
+  </ol>
+</nav>
+
+  
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+
+      
+        <img src="/assets/images/bio-photo.jpg" alt="Hai Lang" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">Hai Lang</h3>
+    
+    
+      <div class="author__bio" itemprop="description">
+        <p>An OCD Source Code Hygienist who has way too many hobbies, and way too keen to share his ideas.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="https://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">Xi'an, China</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:send@hailang.email">
+            <meta itemprop="email" content="send@hailang.email" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="How I Switched From Vim to Emacs">
+    <meta itemprop="description" content="I’ve been using vim as my preferred choice of editor for a little more thanfive years by the time I decided to leave for emacs for good. During these fiveyears, I’ve tried other text editors and IDEs, sometimes in search of a betterediting tool, sometimes to fit the development evironment of the projects Iworked on, but vim was trumphant as I kept installing vim emulators even when Iwas using other editors, and I always went back to it eventually.">
+    <meta itemprop="datePublished" content="March 19, 2015">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">How I Switched From Vim to Emacs
+</h1>
+          
+            <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  17 minute read
+
+</p>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>I’ve been using vim as my preferred choice of editor for a little more than
+five years by the time I decided to leave for emacs for good. During these five
+years, I’ve tried other text editors and IDEs, sometimes in search of a better
+editing tool, sometimes to fit the development evironment of the projects I
+worked on, but vim was trumphant as I kept installing vim emulators even when I
+was using other editors, and I always went back to it eventually.</p>
+
+<p>One may have many different kinds of reasons for switching to another text
+editor, and many feel obliged to justify their reasonings as editors mean more
+than just tools to program in, they’ve become faith, even religions.</p>
+
+<p>Jokingly or seriously, switching from vim to emacs can already be considered
+<strong>sacriligous</strong>, let alone the fact that I actually use evil-mode to emulate vim
+key mappings to ease the learning curve. Though I have personnally gone through
+lots of thinkings and justifications to make the final decision, I figure it
+would mean little to those who doesn’t care about editor wars, and even less
+to editor apologists, my reasonings may just offend them more.</p>
+
+<p>So to completely avoid the fruitless effort of blogging my justifications, and
+as the title of this post intended, this is about <strong>how</strong> I made the switch, not
+<strong>why</strong> I did it. If you are new to emacs, and have used vim before, my config and
+comments below can be a good boilerplate to get you started.</p>
+
+<h1 id="summary">Summary</h1>
+
+<p>This setup was tailored specifically to meet my requirements and use cases,
+I’ll however be more than happy if you find it useful out-of-the-box, though I
+deem this better as a starter config to get things going and to showcase what
+emacs and some popular plugins can do.</p>
+
+<p>This config is heavily inspired (and copied from) <a href="https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org">Harry R. Schwartz’s</a>,
+it’s his talk that got me switching to emacs in the first place.</p>
+
+<h2 id="general-structure">General Structure</h2>
+
+<p>Save <a href="https://github.com/datragingscholar/dotfiles/blob/master/.emacs.d/init.el"><code class="highlighter-rouge">init.el</code></a> as <code class="highlighter-rouge">~/.emacs.d/init.el</code>, it installs <a href="https://github.com/jwiegley/use-package"><em>use-package</em></a> and
+configures it with some popular repos.</p>
+
+<p>Save <a href="https://github.com/datragingscholar/dotfiles/blob/master/.emacs.d/conf.org"><code class="highlighter-rouge">conf.org</code></a> as <code class="highlighter-rouge">~/.emacs.d/conf.org</code>, <code class="highlighter-rouge">init.el</code> would compile this org
+document into <code class="highlighter-rouge">conf.el</code> and then load it with <em>org-babel-load-file</em>.</p>
+
+<p>This allows <em>literature programming</em>, which helps keeping this configuration
+readable and maintainable.</p>
+
+<h1 id="package-configuration">Package Configuration</h1>
+
+<p>Make sure <a href="https://github.com/jwiegley/use-package"><em>use-package</em></a> auto compiles and always uses the newest version.</p>
+
+<p>This is the package or plugin control system if you will for emacs.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">use-package-always-ensure</span> <span class="no">t</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">load-prefer-newer</span> <span class="no">t</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">auto-compile</span>
+      <span class="ss">:config</span> <span class="p">(</span><span class="nv">auto-compile-on-load-mode</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h1 id="default-configuration">Default Configuration</h1>
+
+<p>Use <a href="https://github.com/hrs/dotfiles/blob/master/emacs/.emacs.d/configuration.org"><em>sensible-defaults.el</em></a> for some recommended default setups.</p>
+
+<p>Unfortunately this can’t be installed as a package. Though the repo hasn’t
+been updated for two years, makes sense to just copy-paste it into emacs.d folder.</p>
+
+<p>You need to manually checkout the file into your emacs config folder for this
+to work properly.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">load-file</span> <span class="s">"~/.emacs.d/sensible-defaults.el"</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">sensible-defaults/use-all-settings</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">sensible-defaults/use-all-keybindings</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">sensible-defaults/backup-to-temp-directory</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Bind the M-o key to switch between windows. This does not work on my Macbook
+though, need to find out why. The good old <em>C-x o</em> works perfectly still.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-o"</span><span class="p">)</span> <span class="ss">'other-window</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="evil-mode">Evil Mode</h1>
+
+<p><a href="https://github.com/Somelauw/evil-org-mode"><em>evil-mode</em></a> enables vim keymappings for emacs, it makes my life much easier.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">evil</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">evil-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Enable org-mode agenda keymaps with <a href="https://github.com/Somelauw/evil-org-mode"><em>evil-org-mode</em></a>. Now you can use vim key bindings in org-mode.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">evil-org</span>
+      <span class="ss">:diminish</span> <span class="nv">evil-org-mode</span>
+      <span class="ss">:after</span> <span class="nv">org</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="ss">'evil-org-mode</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'evil-org-mode-hook</span>
+                <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">evil-org-set-key-theme</span><span class="p">)))</span>
+      <span class="p">(</span><span class="nb">require</span> <span class="ss">'evil-org-agenda</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">evil-org-agenda-set-keys</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Here comes <a href="https://github.com/emacs-evil/evil-surround"><em>evil-surround</em></a>, a ported version of <a href="https://github.com/tpope/vim-surround"><em>surround.vim</em></a>, good stuff.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">evil-surround</span>
+      <span class="ss">:ensure</span> <span class="no">t</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">global-evil-surround-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><a href="https://github.com/milkypostman/powerline"><em>Powerline</em></a> for emacs, to make you feel right at home.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">powerline-evil</span>
+      <span class="ss">:ensure</span> <span class="no">t</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">powerline-evil-center-color-theme</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h1 id="ui-preferences">UI Preferences</h1>
+
+<h2 id="tweak-window-chrome">Tweak window chrome</h2>
+
+<p>Disables tool-bar and menu-bar, they take spaces but I rarely use them.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">tool-bar-mode</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">menu-bar-mode</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>There’s a tiny scroll bar that appears in the minibuffer window. This
+disables that:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">set-window-scroll-bars</span> <span class="p">(</span><span class="nv">minibuffer-window</span><span class="p">)</span> <span class="no">nil</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The default frame title isn’t useful. This binds it to the name of the
+current projectile project:</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">frame-title-format</span> <span class="o">'</span><span class="p">((</span><span class="ss">:eval</span> <span class="p">(</span><span class="nv">projectile-project-name</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<h2 id="use-fancy-lambdas">Use Fancy Lambdas</h2>
+
+<p>Yea, why not.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">global-prettify-symbols-mode</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="theme">Theme</h2>
+
+<p>I like <code class="highlighter-rouge">wilson theme</code> from <a href="https://github.com/owainlewis/emacs-color-themes"><em>sublime themes</em></a>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">sublime-themes</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nv">load-theme</span> <span class="ss">'wilson</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="scroll-conservatively">Scroll conservatively</h2>
+
+<p>This prevents the screen from jumping when your cursor moves out of the window.</p>
+
+<p>I actually find the default <em>center at the cursor location</em> fun and useful. Uncomment this line and try if it works for you.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">;; (setq scroll-conservatively 100)</span>
+</code></pre></div></div>
+
+<h2 id="highlight-the-current-line">Highlight the current line</h2>
+
+<p><em>global-hl-line-mode</em> softly highlights the background color of the line containing point.
+It makes it a bit easier to find point, and it’s useful when pairing or presenting code.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">global-hl-line-mode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="diminish-unnecessary-modes">Diminish unnecessary modes</h2>
+
+<p>Use <a href="https://github.com/myrjola/diminish.el"><em>diminish</em></a> to hide or abbreviates minor modes from the mode line. They continue to work, though.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">diminish</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="project-management">Project management</h1>
+
+<h2 id="dired">dired</h2>
+
+<p>Use <a href="https://github.com/mattiasb/dired-hide-dotfiles"><em>dired-hide-dotfiles</em></a> to hide dot files and toggle visibility with <code class="highlighter-rouge">.</code>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">dired-hide-dotfiles</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">my-dired-mode-hook</span> <span class="p">()</span>
+      <span class="s">"My `dired' mode hook."</span>
+      <span class="c1">;; To hide dot-files by default</span>
+      <span class="p">(</span><span class="nv">dired-hide-dotfiles-mode</span><span class="p">)</span>
+
+       <span class="c1">;; To toggle hiding</span>
+       <span class="p">(</span><span class="nv">define-key</span> <span class="nv">dired-mode-map</span> <span class="s">"."</span> <span class="nf">#'</span><span class="nv">dired-hide-dotfiles-mode</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'dired-mode-hook</span> <span class="nf">#'</span><span class="nv">my-dired-mode-hook</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>These are the switches that get passed to <code class="highlighter-rouge">ls</code> when <code class="highlighter-rouge">dired</code> gets a list of files. We’re using:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">l</code>: Use the long listing format.</li>
+  <li><code class="highlighter-rouge">h</code>: Use human-readable sizes.</li>
+  <li><code class="highlighter-rouge">v</code>: Sort numbers naturally.</li>
+  <li><code class="highlighter-rouge">a</code>: Include all files.</li>
+</ul>
+
+<p>Change this if you want your folder listing in a different flavor.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">setq-default</span> <span class="nv">dired-listing-switches</span> <span class="s">"-lhva"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Kill buffers of files/directories that are deleted in <code class="highlighter-rouge">dired</code>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-clean-up-buffers-too</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Always copy directories recursively instead of asking every time.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-recursive-copies</span> <span class="ss">'always</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Ask before recursively <em>deleting</em> a directory, though.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">dired-recursive-deletes</span> <span class="ss">'top</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Open a file with an external program (I use a Mac, so it’s <code class="highlighter-rouge">open</code>) by hitting
+<code class="highlighter-rouge">C-c C-o</code>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">defun</span> <span class="nv">dired-xdg-open</span> <span class="p">()</span>
+      <span class="s">"In dired, open the file named on this line."</span>
+      <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nv">file</span> <span class="p">(</span><span class="nv">dired-get-filename</span> <span class="no">nil</span> <span class="no">t</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nv">call-process</span> <span class="s">"open"</span> <span class="no">nil</span> <span class="mi">0</span> <span class="no">nil</span> <span class="nv">file</span><span class="p">)))</span>
+
+    <span class="p">(</span><span class="nv">define-key</span> <span class="nv">dired-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c C-o"</span><span class="p">)</span> <span class="ss">'dired-xdg-open</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="ag">ag</h2>
+
+<p>Set up <a href="https://agel.readthedocs.io/en/latest/installation.html"><em>ag</em></a> for displaying search results. You need to install <code class="highlighter-rouge">ag</code> binary for this to work properly.</p>
+
+<p>Run <em>brew install ag</em> manually if you are a Mac user.</p>
+
+<p>Hit <code class="highlighter-rouge">M-x</code>, then type <code class="highlighter-rouge">ag</code> or <code class="highlighter-rouge">ag-project</code> and press enter to search
+recursively.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">ag</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="company">company</h2>
+
+<p>Use <a href="http://company-mode.github.io"><em>company-mode</em></a> everywhere.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">company</span>
+      <span class="ss">:diminish</span> <span class="nv">company-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'after-init-hook</span> <span class="ss">'global-company-mode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>I use <em>ac-php</em> for auto completion. Still useful to bind a <em>company-mode</em> completion key.</p>
+
+<p>You can hit <code class="highlighter-rouge">M-/</code> for auto completion no matter what language you use.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-/"</span><span class="p">)</span> <span class="ss">'company-complete-common</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="dumb-jump">dumb-jump</h2>
+
+<p><a href="https://github.com/jacktasia/dumb-jump"><em>dumb-jump</em></a> is the “jump to definition” package for emacs.</p>
+
+<p>I bind <code class="highlighter-rouge">M-v</code> and <code class="highlighter-rouge">M-w</code> to ‘go’ and ‘back’ respectively since I use Dvorak
+keyboard.</p>
+
+<p>They are equivalent to <code class="highlighter-rouge">M-&gt;</code> and <code class="highlighter-rouge">M-&lt;</code> if you use QWERT keyboard, so change
+the following keybindings if you do.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">dumb-jump</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">define-key</span> <span class="nv">evil-normal-state-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-v"</span><span class="p">)</span> <span class="ss">'dumb-jump-go</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">define-key</span> <span class="nv">evil-normal-state-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-w"</span><span class="p">)</span> <span class="ss">'dumb-jump-back</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">dumb-jump-selector</span> <span class="ss">'ivy</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="flycheck">flycheck</h2>
+
+<p><a href="https://www.flycheck.org/en/latest/"><em>flycheck</em></a> is a on the fly syntax checking extension. It supports many
+programming languages out of the box.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">flycheck</span>
+      <span class="ss">:ensure</span> <span class="no">t</span>
+      <span class="ss">:init</span> <span class="p">(</span><span class="nv">global-flycheck-mode</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="magit">magit</h2>
+
+<p><a href="https://magit.vc"><em>magit</em></a> is a fantastic version control extension for emacs.</p>
+
+<p>There are some tweaks here:</p>
+
+<ul>
+  <li>Bind magit status menu to <code class="highlighter-rouge">C-x g</code>.
+    <ul>
+      <li>
+        <p>After that, bring up help menu with <code class="highlighter-rouge">h</code> and select actions you want to perform.</p>
+      </li>
+      <li>
+        <p>It’ll tell you the key binding combination for that action, you can memerize it for next time.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Use <a href="https://github.com/emacs-evil/evil-magit">evil-magit</a> for evil key bindings.</p>
+  </li>
+  <li>
+    <p>Per <a href="http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html">tpope’s suggestions</a>, highlight commit text in the summary line that goes beyond 50 characters.</p>
+  </li>
+  <li>I’d like to start in the insert state when writing a commit message.</li>
+</ul>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">magit</span>
+      <span class="ss">:bind</span>
+      <span class="p">(</span><span class="s">"C-x g"</span> <span class="o">.</span> <span class="nv">magit-status</span><span class="p">)</span>
+
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nb">use-package</span> <span class="nv">evil-magit</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">use-package</span> <span class="nv">with-editor</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">git-commit-summary-max-length</span> <span class="mi">50</span><span class="p">)</span>
+
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'with-editor-mode-hook</span> <span class="ss">'evil-insert-state</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="projectile">Projectile</h2>
+
+<p><a href="https://github.com/bbatsov/projectile"><em>projectile</em></a> is a project interaction library for emacs which enables
+functionalities like switching between projects, search for file in a
+project, replace in project and so on.</p>
+
+<p>The following enables projectile globally, customizes some key chords and
+sets the default directory to look for projects. You can find a more detailed
+customization guide in its documentation.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">projectile</span>
+      <span class="ss">:bind</span>
+      <span class="p">(</span><span class="s">"C-c v"</span> <span class="o">.</span> <span class="ss">'projectile-ag</span><span class="p">)</span>
+
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">define-key</span> <span class="nv">projectile-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c p"</span><span class="p">)</span> <span class="ss">'projectile-command-map</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">define-key</span> <span class="nv">evil-normal-state-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-p"</span><span class="p">)</span> <span class="ss">'projectile-find-file</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">evil-define-key</span> <span class="ss">'motion</span> <span class="nv">ag-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-p"</span><span class="p">)</span> <span class="ss">'projectile-find-file</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">evil-define-key</span> <span class="ss">'motion</span> <span class="nv">rspec-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-p"</span><span class="p">)</span> <span class="ss">'projectile-find-file</span><span class="p">)</span>
+
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">projectile-completion-system</span> <span class="ss">'ivy</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">projectile-switch-project-action</span> <span class="ss">'projectile-dired</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">projectile-require-project-root</span> <span class="no">nil</span><span class="p">))</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">projectile-project-search-path</span> <span class="o">'</span><span class="p">(</span><span class="s">"~/Projects/"</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nv">projectile-global-mode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="programming-language-specifics">Programming Language Specifics</h1>
+
+<h2 id="general-programming">General Programming</h2>
+
+<p>Some adjustments and tweaks for general text editing.</p>
+
+<h3 id="tabs">Tabs</h3>
+
+<p>Change tab width to 2.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">setq-default</span> <span class="nv">tab-width</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="superword">superword</h3>
+
+<p>I’d like to treat camelCasedWord as a whole and don’t often have to navigate inside them.
+If treating camelCasedWord as three different words is what you want, uncomment the following code.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">;; (use-package subword-mode</span>
+    <span class="c1">;;  :diminish subword-mode</span>
+    <span class="c1">;;  :config (global-subword-mode 1))</span>
+</code></pre></div></div>
+
+<p>I enabled <em>superword-mode</em> as a hook for /php-mode/(see PHP section) since that’s what I desire mostly when working on PHP projects.</p>
+
+<h3 id="ya-snippet">Ya-snippet</h3>
+
+<p><a href="https://github.com/joaotavora/yasnippet"><em>yasnippet</em></a> is a templating system for emacs. I’m not very crazy about
+snippets, but it’s good to know it’s available.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">yasnippet</span>
+      <span class="ss">:diminish</span> <span class="nv">yasnippet-mode</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">yas-global-mode</span> <span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>I keep my non-existent snippets in <code class="highlighter-rouge">~/.emacs/snippets/text-mode</code></p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">yas-snippet-dirs</span> <span class="o">'</span><span class="p">(</span><span class="s">"~/.emacs.d/snippets/text-mode"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>I <em>don’t</em> want <code class="highlighter-rouge">yas</code> to automatically indent the snippets it inserts.
+Sometimes this looks pretty bad (when indenting org-mode, for example, or
+trying to guess at the correct indentation for Python).</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">yas/indent-line</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="spell-checking">Spell-checking</h3>
+
+<p>Endable <a href="https://www.emacswiki.org/emacs/FlySpell"><em>flyspell</em></a> when editing text, markdown, org-mode and git commit message.</p>
+
+<p>Hit <code class="highlighter-rouge">Ctrl-xs</code> to auto correct previous word from cursor.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">flyspell</span>
+      <span class="ss">:diminish</span> <span class="nv">flyspell-mode</span>
+
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'text-mode-hook</span> <span class="ss">'turn-on-auto-fill</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'gfm-mode-hook</span> <span class="ss">'flyspell-mode</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="ss">'flyspell-mode</span><span class="p">)</span>
+
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'git-commit-mode-hook</span> <span class="ss">'flyspell-mode</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"\C-xs"</span><span class="p">)</span> <span class="ss">'flyspell-auto-correct-previous-word</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="wrap-paragraphs-automatically">Wrap paragraphs automatically</h3>
+
+<p>Automatically trigger <a href="https://www.emacswiki.org/emacs/AutoFillMode"><em>autofillmode</em></a> when edition text, markdown or in org-mode.
+Same as hitting <code class="highlighter-rouge">M-q</code></p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'text-mode-hook</span> <span class="ss">'auto-fill-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'gfm-mode-hook</span> <span class="ss">'auto-fill-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="ss">'auto-fill-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">diminish</span> <span class="ss">'auto-fill-function</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="set-up-helpful">Set up helpful</h3>
+
+<p><a href="https://github.com/Wilfred/helpful"><em>helpful</em></a> is an alternative emacs help extension that provides much more
+contextual information.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">helpful</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-h f"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-callable</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-h v"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-variable</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-h k"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-key</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">evil-define-key</span> <span class="ss">'normal</span> <span class="nv">helpful-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"q"</span><span class="p">)</span> <span class="ss">'quit-window</span><span class="p">)</span>
+
+    <span class="c1">;; Lookup the current symbol at point. C-c C-d is a common keybinding</span>
+    <span class="c1">;; for this in lisp modes.</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c C-d"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-at-point</span><span class="p">)</span>
+
+    <span class="c1">;; Look up *F*unctions (excludes macros).</span>
+    <span class="c1">;;</span>
+    <span class="c1">;; By default, C-h F is bound to `Info-goto-emacs-command-node'. Helpful</span>
+    <span class="c1">;; already links to the manual, if a function is referenced there.</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-h F"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-function</span><span class="p">)</span>
+
+    <span class="c1">;; Look up *C*ommands.</span>
+    <span class="c1">;;</span>
+    <span class="c1">;; By default, C-h C is bound to describe `describe-coding-system'. I</span>
+    <span class="c1">;; don't find this very useful, but it's frequently useful to only</span>
+    <span class="c1">;; look at interactive functions.</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-h C"</span><span class="p">)</span> <span class="nf">#'</span><span class="nv">helpful-command</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="save-my-location-within-a-file">Save my location within a file</h3>
+
+<p>Using <code class="highlighter-rouge">save-place-mode</code> saves the location of point for every file I visit.
+If I close the file or close the editor, then later re-open it, point will
+be at the last place I visited.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">save-place-mode</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="always-indent-with-spaces">Always indent with spaces</h3>
+
+<p>Never use tabs. Tabs are the devil’s whitespace.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">setq-default</span> <span class="nv">indent-tabs-mode</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="install-and-configure-which-key">Install and configure <code class="highlighter-rouge">which-key</code></h3>
+
+<p><a href="https://github.com/justbur/emacs-which-key"><em>which-key</em></a> displays the possible completions for a long keybinding. Which
+is really helpful for some modes (like <code class="highlighter-rouge">projectile</code>, for example).</p>
+
+<p>Handy when you forget a keybinding, try hitting something like <code class="highlighter-rouge">Ctrl-x</code> and
+wait for the magic to happen.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">which-key</span>
+      <span class="ss">:diminish</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nv">which-key-mode</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="configure-swiper">Configure Swiper</h3>
+
+<p><a href="https://github.com/abo-abo/swiper"><em>swiper</em></a> repo contains <em>ivy</em> for completion, <em>counsel</em> for a collection of
+emacs commands and <em>swiper</em> as an alternative to isearch.</p>
+
+<p>This configuration:</p>
+
+<ul>
+  <li>Uses <code class="highlighter-rouge">counsel-M-x</code> for command completion,</li>
+  <li>Replaces <em>isearch</em> with <em>swiper</em>,</li>
+  <li>Uses <a href="https://github.com/nonsequitur/smex/"><em>smex</em></a> to maintain <code class="highlighter-rouge">M-x</code> history,</li>
+  <li>Enables fuzzy matching everywhere except swiper (where it’s thoroughly unhelpful), and</li>
+  <li>Includes recent files in the switch buffer.</li>
+</ul>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">counsel</span>
+      <span class="ss">:diminish</span> <span class="nv">ivy-mode</span>
+      <span class="ss">:bind</span>
+      <span class="p">(</span><span class="s">"M-x"</span> <span class="o">.</span> <span class="ss">'counsel-M-x</span><span class="p">)</span>
+      <span class="p">(</span><span class="s">"C-s"</span> <span class="o">.</span> <span class="ss">'swiper</span><span class="p">)</span>
+
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="nb">use-package</span> <span class="nv">flx</span><span class="p">)</span>
+      <span class="p">(</span><span class="nb">use-package</span> <span class="nv">smex</span><span class="p">)</span>
+
+      <span class="p">(</span><span class="nv">ivy-mode</span> <span class="mi">1</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">ivy-use-virtual-buffers</span> <span class="no">t</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">ivy-count-format</span> <span class="s">"(%d/%d) "</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">ivy-initial-inputs-alist</span> <span class="no">nil</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">ivy-re-builders-alist</span>
+        <span class="o">'</span><span class="p">((</span><span class="nv">swiper</span> <span class="o">.</span> <span class="nv">ivy--regex-plus</span><span class="p">)</span>
+          <span class="p">(</span><span class="no">t</span> <span class="o">.</span> <span class="nv">ivy--regex-fuzzy</span><span class="p">))))</span>
+</code></pre></div></div>
+
+<h3 id="switch-and-rebalance-windows-when-splitting">Switch and rebalance windows when splitting</h3>
+
+<p>When splitting a window, I invariably want to switch to the new window. This
+makes that automatic.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/split-window-below-and-switch</span> <span class="p">()</span>
+      <span class="s">"Split the window horizontally, then switch to the new pane."</span>
+      <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">split-window-below</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">balance-windows</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">other-window</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/split-window-right-and-switch</span> <span class="p">()</span>
+      <span class="s">"Split the window vertically, then switch to the new pane."</span>
+      <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">split-window-right</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">balance-windows</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">other-window</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-x 2"</span><span class="p">)</span> <span class="ss">'hrs/split-window-below-and-switch</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-x 3"</span><span class="p">)</span> <span class="ss">'hrs/split-window-right-and-switch</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="markdown">Markdown</h2>
+
+<p>Use <a href="https://github.com/jrblevin/markdown-mode"><em>markdown-mode</em></a> to handle .md files and <a href="http://pandoc.org"><em>pandoc</em></a> for generating result.</p>
+
+<ul>
+  <li>Associate <code class="highlighter-rouge">.md</code> files with GitHub-flavored Markdown.</li>
+  <li>Use <code class="highlighter-rouge">pandoc</code> to render the results.</li>
+  <li>Leave the code block font unchanged.</li>
+</ul>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">markdown-mode</span>
+      <span class="ss">:commands</span> <span class="nv">gfm-mode</span>
+
+      <span class="ss">:mode</span> <span class="p">((</span><span class="s">"\\.md$"</span> <span class="o">.</span> <span class="nv">gfm-mode</span><span class="p">))</span>
+
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">markdown-command</span> <span class="s">"pandoc --standalone --mathjax --from=markdown"</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">custom-set-faces</span>
+       <span class="o">'</span><span class="p">(</span><span class="nv">markdown-code-face</span> <span class="p">((</span><span class="no">t</span> <span class="no">nil</span><span class="p">)))))</span>
+</code></pre></div></div>
+
+<h2 id="php">PHP</h2>
+
+<p>There are other PHP extensions such as <em>phpunit</em> and <em>composer</em>,
+but I feel they don’t contribute too much to my emacs experience and I still prefer to run these manually.</p>
+
+<h3 id="ac-php-and-php-mode">ac-php and php-mode</h3>
+
+<p><a href="https://github.com/emacs-php/php-mode"><em>php-mode</em></a> for PHP support and <a href="https://github.com/xcwen/ac-php"><em>ac-php</em></a> for auto completion.</p>
+
+<p>Things to note:</p>
+
+<ul>
+  <li>Enabled <em>superword-mode</em> when editing PHP files.</li>
+  <li>Common lisp library <em>cl</em> as suggested by <em>ac-php</em>’s documentation was
+replaced by <em>cl-lib</em> as the latter is newer and recommended.</li>
+  <li>You can choose to use <em>auto-complet-mode</em> or <em>company-mode</em>.</li>
+  <li>I believe if you want <em>jump-to-definition</em> to work, <a href="https://packagist.org/packages/techlivezheng/phpctags"><em>phpctags</em></a> is required
+to generate ctags, though I haven’t been able to make it work properly.</li>
+  <li>I’m using <em>company-mode</em>, <code class="highlighter-rouge">M-v</code> and <code class="highlighter-rouge">M-w</code> from <em>dumb-jump</em> work good enough for now.</li>
+  <li>Need to <code class="highlighter-rouge">touch .ac-php-conf-json</code> in root directory of the project to have <em>ac-php</em> work properly.</li>
+  <li>Need to manually run <code class="highlighter-rouge">ac-php-remake-tags-all</code> to regenerate tags when source code changes.</li>
+</ul>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">cl-lib</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">php-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">ac-php</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">company-php</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'php-mode-hook</span>
+      <span class="o">'</span><span class="p">(</span><span class="k">lambda</span> <span class="p">()</span>
+        <span class="p">(</span><span class="nv">superword-mode</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">ac-php-core-eldoc-setup</span><span class="p">)</span> <span class="c1">;; enable eldoc</span>
+        <span class="p">(</span><span class="nv">make-local-variable</span> <span class="ss">'company-backends</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'company-backends</span> <span class="ss">'company-ac-php-backend</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<h2 id="web">WEB</h2>
+
+<p>I don’t work much on front-end development, I only have some minimal configuration here.</p>
+
+<h3 id="web-mode">web-mode</h3>
+
+<p>As suggested by <a href="http://web-mode.org"><em>web-mode</em></a> documentation, both <em>add-to-list</em> and <em>web-mode-engines-alist</em> are recommened.
+This enables web-mode for most web templates as well as blade template for Laravel framework.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">web-mode</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.phtml\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.tpl\\.php\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.[agj]sp\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.as[cp]x\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.erb\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.mustache\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'auto-mode-alist</span> <span class="o">'</span><span class="p">(</span><span class="s">"\\.djhtml\\'"</span> <span class="o">.</span> <span class="nv">web-mode</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">web-mode-engines-alist</span>
+          <span class="o">'</span><span class="p">((</span><span class="s">"php"</span>    <span class="o">.</span> <span class="s">"\\.phtml\\'"</span><span class="p">)</span>
+            <span class="p">(</span><span class="s">"blade"</span>  <span class="o">.</span> <span class="s">"\\.blade\\."</span><span class="p">))</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="css-sass-and-less">CSS, Sass, and Less</h3>
+
+<p>Indent by 2 spaces when working with css files.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">css-mode</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">css-indent-offset</span> <span class="mi">2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Don’t compile the current SCSS file every time I save.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">scss-mode</span>
+      <span class="ss">:config</span>
+      <span class="p">(</span><span class="k">setq</span> <span class="nv">scss-compile-at-save</span> <span class="no">nil</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Install Less</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">less-css-mode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="javascript">Javascript</h3>
+
+<p>Indent javascripts by 2 spaces</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">js-indent-level</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="terminal">Terminal</h1>
+
+<p>Use <a href="https://www.emacswiki.org/emacs/MultiTerm"><em>multi-term</em></a> for terminals and bind it to <code class="highlighter-rouge">C-c t</code>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">multi-term</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c t"</span><span class="p">)</span> <span class="ss">'multi-term</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Set the default shell, I use zsh.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">multi-term-program</span> <span class="s">"/bin/zsh"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Don’t use evil mode in terminal buffers.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">evil-set-initial-state</span> <span class="ss">'term-mode</span> <span class="ss">'emacs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="org-mode">Org Mode</h1>
+
+<p><a href="https://orgmode.org"><em>org-mode</em></a> is luuuuuuuuuv. If you haven’t made your mind switching to emacs
+yet, click on the link and read about org-mode.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">org</span>
+      <span class="ss">:diminish</span> <span class="nv">org-indent-mode</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="display-preferences">Display preferences</h2>
+
+<p>I like to see an outline of pretty bullets instead of a list of asterisks.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">org-bullets</span>
+      <span class="ss">:init</span>
+      <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="ss">'org-bullets-mode</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>I like seeing a little downward-pointing arrow instead of the usual ellipsis
+(<code class="highlighter-rouge">...</code>) that org displays when there’s stuff under a header.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-ellipsis</span> <span class="s">"⤵"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Use syntax highlighting in source blocks while editing.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-src-fontify-natively</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Make TAB act as if it were issued in a buffer of the language’s major mode.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-src-tab-acts-natively</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>When editing a code snippet, use the current window rather than popping open a
+new one (which shows the same information).</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-src-window-setup</span> <span class="ss">'current-window</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="task-and-org-capture-management">Task and org-capture management</h2>
+
+<p>Store my org files in <code class="highlighter-rouge">~/Projects/org</code>, the location of an index file (my main todo list), and archive finished tasks in <code class="highlighter-rouge">~/Projects/org/archive.org</code>.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-directory</span> <span class="s">"~/Projects/org"</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">org-file-path</span> <span class="p">(</span><span class="nv">filename</span><span class="p">)</span>
+      <span class="s">"Return the absolute address of an org file, given its relative name."</span>
+      <span class="p">(</span><span class="nv">concat</span> <span class="p">(</span><span class="nv">file-name-as-directory</span> <span class="nv">org-directory</span><span class="p">)</span> <span class="nv">filename</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-index-file</span> <span class="p">(</span><span class="nv">org-file-path</span> <span class="s">"index.org"</span><span class="p">))</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-archive-location</span>
+          <span class="p">(</span><span class="nv">concat</span> <span class="p">(</span><span class="nv">org-file-path</span> <span class="s">"archive.org"</span><span class="p">)</span> <span class="s">"::* From %s"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Set the master todo file <code class="highlighter-rouge">~/Projects/org/index.org</code> as the agenda file</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-agenda-files</span> <span class="p">(</span><span class="nb">list</span> <span class="nv">org-index-file</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Hitting <code class="highlighter-rouge">C-c C-x C-s</code> will mark a todo as done and move it to an appropriate
+place in the archive.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/mark-done-and-archive</span> <span class="p">()</span>
+      <span class="s">"Mark the state of an org-mode item as DONE and archive it."</span>
+      <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">org-todo</span> <span class="ss">'done</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">org-archive-subtree</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nv">define-key</span> <span class="nv">org-mode-map</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c C-x C-s"</span><span class="p">)</span> <span class="ss">'hrs/mark-done-and-archive</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Record the time that a todo was archived.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-log-done</span> <span class="ss">'time</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>Capturing tasks</p>
+
+    <p>Define a few common tasks as capture templates.</p>
+  </li>
+</ul>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="k">setq</span> <span class="nv">org-capture-templates</span>
+          <span class="o">'</span><span class="p">((</span><span class="s">"n"</span> <span class="s">"Notes"</span>
+            <span class="nv">entry</span> <span class="p">(</span><span class="nv">file</span> <span class="s">"~/Projects/org/notes.org"</span><span class="p">)</span>
+            <span class="s">"* %?\n"</span><span class="p">)</span>
+
+            <span class="p">(</span><span class="s">"t"</span> <span class="s">"Todo"</span>
+             <span class="nv">entry</span>
+             <span class="p">(</span><span class="nv">file+headline</span> <span class="nv">org-index-file</span> <span class="s">"New Tasks"</span><span class="p">)</span>
+             <span class="s">"* TODO %?\n"</span><span class="p">)))</span>
+</code></pre></div></div>
+
+<p>When I’m starting an Org capture template I’d like to begin in insert mode.
+   I’m opening it up in order to start typing something, so this skips a step.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-capture-mode-hook</span> <span class="ss">'evil-insert-state</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Refiling according to the document’s hierarchy.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="k">setq</span> <span class="nv">org-refile-use-outline-path</span> <span class="no">t</span><span class="p">)</span>
+        <span class="p">(</span><span class="k">setq</span> <span class="nv">org-outline-path-complete-in-steps</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>Keybindings</li>
+</ul>
+
+<p>Bind a few handy keys.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="s">"\C-cl"</span> <span class="ss">'org-store-link</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="s">"\C-ca"</span> <span class="ss">'org-agenda</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="s">"\C-cs"</span> <span class="ss">'org-agenda-show</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">define-key</span> <span class="nv">global-map</span> <span class="s">"\C-cc"</span> <span class="ss">'org-capture</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Hit <code class="highlighter-rouge">C-c i</code> to quickly open up my todo list.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="nb">defun</span> <span class="nv">open-index-file</span> <span class="p">()</span>
+          <span class="s">"Open the master org TODO list."</span>
+          <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">find-file</span> <span class="nv">org-index-file</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">flycheck-mode</span> <span class="mi">-1</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">end-of-buffer</span><span class="p">))</span>
+
+        <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c i"</span><span class="p">)</span> <span class="ss">'open-index-file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Bind <code class="highlighter-rouge">C-c n</code> to quickly open up notes.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="nb">defun</span> <span class="nv">open-note-file</span> <span class="p">()</span>
+          <span class="s">"Open the notes."</span>
+          <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">find-file</span> <span class="s">"~/Projects/org/notes.org"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">flycheck-mode</span> <span class="mi">-1</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">end-of-buffer</span><span class="p">))</span>
+
+        <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c n"</span><span class="p">)</span> <span class="ss">'open-note-file</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Hit <code class="highlighter-rouge">M-n</code> to quickly open up a capture template for a new todo.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="p">(</span><span class="nb">defun</span> <span class="nv">org-capture-todo</span> <span class="p">()</span>
+          <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">org-capture</span> <span class="ss">:keys</span> <span class="s">"t"</span><span class="p">))</span>
+
+        <span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-n"</span><span class="p">)</span> <span class="ss">'org-capture-todo</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="export">Export</h2>
+
+<p>Use <a href="https://github.com/hniksic/emacs-htmlize"><em>htmlize</em></a> for exporting html file. Disable footer.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">htmlize</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-html-postamble</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="blogging">Blogging</h1>
+
+<p>Copied these from hrs’s config as I also blog with jekyll. You may need to
+modify some paths to have it working correctly for you.</p>
+
+<p>I don’t yet want to introduce more key chords for blogging functionalities,
+use <em>M-x</em> to invoke these functions or bind your customized key chords as you
+like.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">defvar</span> <span class="nv">hrs/jekyll-posts-directory</span> <span class="s">"~/Projects/ragingscholar/_posts/"</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">defvar</span> <span class="nv">hrs/jekyll-post-extension</span> <span class="s">".md"</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/replace-whitespace-with-hyphens</span> <span class="p">(</span><span class="nv">s</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">replace-regexp-in-string</span> <span class="s">" "</span> <span class="s">"-"</span> <span class="nv">s</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/replace-nonalphanumeric-with-whitespace</span> <span class="p">(</span><span class="nv">s</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">replace-regexp-in-string</span> <span class="s">"[^A-Za-z0-9 ]"</span> <span class="s">" "</span> <span class="nv">s</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/remove-quotes</span> <span class="p">(</span><span class="nv">s</span><span class="p">)</span>
+      <span class="p">(</span><span class="nv">replace-regexp-in-string</span> <span class="s">"[\'\"]"</span> <span class="s">""</span> <span class="nv">s</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/replace-unusual-characters</span> <span class="p">(</span><span class="nv">title</span><span class="p">)</span>
+      <span class="s">"Remove quotes, downcase everything, and replace characters
+    that aren't alphanumeric with hyphens."</span>
+      <span class="p">(</span><span class="nv">hrs/replace-whitespace-with-hyphens</span>
+       <span class="p">(</span><span class="nv">s-trim</span>
+        <span class="p">(</span><span class="nv">downcase</span>
+         <span class="p">(</span><span class="nv">hrs/replace-nonalphanumeric-with-whitespace</span>
+          <span class="p">(</span><span class="nv">hrs/remove-quotes</span> <span class="nv">title</span><span class="p">))))))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/slug-for</span> <span class="p">(</span><span class="nv">title</span><span class="p">)</span>
+      <span class="s">"Given a blog post title, return a convenient URL slug.
+       Downcase letters and remove special characters."</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">slug</span> <span class="p">(</span><span class="nv">hrs/replace-unusual-characters</span> <span class="nv">title</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nv">while</span> <span class="p">(</span><span class="nv">string-match</span> <span class="s">"--"</span> <span class="nv">slug</span><span class="p">)</span>
+          <span class="p">(</span><span class="k">setq</span> <span class="nv">slug</span> <span class="p">(</span><span class="nv">replace-regexp-in-string</span> <span class="s">"--"</span> <span class="s">"-"</span> <span class="nv">slug</span><span class="p">)))</span>
+        <span class="nv">slug</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/timestamped-slug-for</span> <span class="p">(</span><span class="nv">title</span><span class="p">)</span>
+      <span class="s">"Turn a string into a slug with a timestamp and title."</span>
+      <span class="p">(</span><span class="nv">concat</span> <span class="p">(</span><span class="nv">format-time-string</span> <span class="s">"%Y-%m-%d"</span><span class="p">)</span>
+              <span class="s">"-"</span>
+              <span class="p">(</span><span class="nv">hrs/slug-for</span> <span class="nv">title</span><span class="p">)))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/jekyll-yaml-template</span> <span class="p">(</span><span class="nv">title</span><span class="p">)</span>
+      <span class="s">"Return the YAML header information appropriate for a blog
+       post. Include the title, the current date, the post layout,
+       and an empty list of tags."</span>
+      <span class="p">(</span><span class="nv">concat</span>
+       <span class="s">"---\n"</span>
+       <span class="s">"title: "</span> <span class="nv">title</span> <span class="s">"\n"</span>
+       <span class="s">"date: "</span> <span class="p">(</span><span class="nv">format-time-string</span> <span class="s">"%Y-%m-%d %H:%M:%S"</span><span class="p">)</span> <span class="s">"\n"</span>
+       <span class="s">"tags: []\n"</span>
+       <span class="s">"---\n\n"</span><span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">hrs/new-blog-post</span> <span class="p">(</span><span class="nv">title</span><span class="p">)</span>
+      <span class="s">"Create a new blog post in Jekyll."</span>
+      <span class="p">(</span><span class="nv">interactive</span> <span class="s">"sPost title: "</span><span class="p">)</span>
+      <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">post</span> <span class="p">(</span><span class="nv">concat</span> <span class="nv">hrs/jekyll-posts-directory</span>
+                          <span class="p">(</span><span class="nv">hrs/timestamped-slug-for</span> <span class="nv">title</span><span class="p">)</span>
+                          <span class="nv">hrs/jekyll-post-extension</span><span class="p">)))</span>
+        <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nv">file-exists-p</span> <span class="nv">post</span><span class="p">)</span>
+            <span class="p">(</span><span class="nv">find-file</span> <span class="nv">post</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">find-file</span> <span class="nv">post</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">insert</span> <span class="p">(</span><span class="nv">hrs/jekyll-yaml-template</span> <span class="nv">title</span><span class="p">)))))</span>
+</code></pre></div></div>
+
+<h1 id="email">Email</h1>
+
+<p>I use <em>mu4e</em> to send and receive emails. To have the following configuration
+work correctly, you have to install <a href="https://www.djcbsoftware.nl/code/mu/mu4e/index.html#SEC_Contents"><em>mu</em></a> with emacs support, then
+<a href="http://www.offlineimap.org"><em>offlineimap</em></a> as a service to receive and send emails. You can click on their
+names to refer to their documentation respectively, or you can checkout <a href="http://cachestocaches.com/2017/3/complete-guide-email-emacs-using-mu-and-/">A
+COMPLETE GUIDE TO EMAIL IN EMACS USING MU AND MU4E</a> for a specific
+walkthrough.</p>
+
+<p>I use <a href="https://github.com/JorisE/evil-mu4e"><em>evil-mu4e</em></a> to have a consistent vim keymapping experience when working
+with emails. You should change the path to the mail directory you set up with mu.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">use-package</span> <span class="nv">evil-mu4e</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">require</span> <span class="ss">'evil-mu4e</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-maildir</span> <span class="s">"~/Mail"</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-confirm-quit</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Setting mu4e contexts, this is good when you have more than one email
+addresses.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-contexts</span>
+    <span class="o">`</span><span class="p">(</span> <span class="o">,</span><span class="p">(</span><span class="nv">make-mu4e-context</span>
+        <span class="ss">:name</span> <span class="s">"Yandex"</span>
+        <span class="ss">:match-func</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">msg</span><span class="p">)</span> <span class="p">(</span><span class="nb">when</span> <span class="nv">msg</span>
+          <span class="p">(</span><span class="nv">string-prefix-p</span> <span class="s">"/Yandex"</span> <span class="p">(</span><span class="nv">mu4e-message-field</span> <span class="nv">msg</span> <span class="ss">:maildir</span><span class="p">))))</span>
+        <span class="ss">:vars</span> <span class="o">'</span><span class="p">(</span>
+          <span class="p">(</span><span class="nv">user-mail-address</span> <span class="o">.</span> <span class="s">"send@hailang.email"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">mu4e-trash-folder</span> <span class="o">.</span> <span class="s">"/Yandex/Trash"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">mu4e-refile-folder</span> <span class="o">.</span> <span class="s">"/Yandex/Archive"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">mu4e-sent-folder</span> <span class="o">.</span> <span class="s">"/Yandex/Sent"</span><span class="p">)</span>
+          <span class="p">(</span><span class="nv">mu4e-drafts-folder</span> <span class="o">.</span> <span class="s">"/Yandex/Drafts"</span><span class="p">)</span>
+          <span class="p">))</span>
+    <span class="p">))</span>
+</code></pre></div></div>
+
+<h2 id="reading-emails">Reading Emails</h2>
+
+<p>Display sender’s email address along with their names.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-view-show-addresses</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Save attachments in my ~/Downloads directory, not my home directory. This
+works better on a Mac.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-attachment-dir</span> <span class="s">"~/Downloads"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Some html emails are hideous to read in emacs, this binds <em>a h</em> to open the
+email in your default browser.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'mu4e-view-actions</span>
+      <span class="o">'</span><span class="p">(</span><span class="s">"html in browser"</span> <span class="o">.</span> <span class="nv">mu4e-action-view-in-browser</span><span class="p">)</span>
+      <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="composing-emails">Composing Emails</h2>
+
+<p>Enable Org-style tables and list manipulation.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'message-mode-hook</span> <span class="ss">'turn-on-orgtbl</span><span class="p">)</span>
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'message-mode-hook</span> <span class="ss">'turn-on-orgstruct++</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Once I’ve sent an email, kill the associated buffer instead of just burying it.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">message-kill-buffer-on-exit</span> <span class="no">t</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="sending-emails">Sending Emails</h2>
+
+<p>Send email with sendmail.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="k">setq</span> <span class="nv">message-send-mail-function</span> <span class="ss">'message-send-mail-with-sendmail</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">message-sendmail-f-is-evil</span> <span class="ss">'t</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">mu4e-sent-folder</span> <span class="s">"~/Mail/Yandex/Sent"</span>
+      <span class="nv">mu4e-drafts-folder</span> <span class="s">"~/Mail/Yandex/Drafts"</span>
+      <span class="nv">user-mail-address</span> <span class="s">"send@hailang.email"</span>
+      <span class="nv">smtpmail-default-smtp-server</span> <span class="s">"smtp.yandex.com"</span>
+      <span class="nv">smtpmail-smtp-server</span> <span class="s">"smtp.yandex.com"</span>
+      <span class="nv">smtpmail-smtp-service</span> <span class="mi">587</span><span class="p">)</span>
+
+    <span class="p">(</span><span class="nb">defvar</span> <span class="nv">my-mu4e-account-alist</span>
+      <span class="o">'</span><span class="p">((</span><span class="s">"Yandex"</span>
+        <span class="p">(</span><span class="nv">mu4e-sent-folder</span> <span class="s">"/Yandex/Sent"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">user-mail-address</span> <span class="s">"send@hailang.email"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">smtpmail-smtp-user</span> <span class="s">"send@hailang.email"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">smtpmail-local-domain</span> <span class="s">"yandex.com"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">smtpmail-default-smtp-server</span> <span class="s">"smtp.yandex.com"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">smtpmail-smtp-server</span> <span class="s">"smtp.yandex.com"</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">smtpmail-smtp-service</span> <span class="mi">587</span><span class="p">)</span>
+        <span class="p">)</span>
+      <span class="c1">;; Include any other accounts here ...</span>
+      <span class="p">))</span>
+
+    <span class="p">(</span><span class="nb">defun</span> <span class="nv">my-mu4e-set-account</span> <span class="p">()</span>
+      <span class="s">"Set the account for composing a message.
+       This function is taken from:
+         https://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html"</span>
+      <span class="p">(</span><span class="k">let*</span> <span class="p">((</span><span class="nv">account</span>
+        <span class="p">(</span><span class="k">if</span> <span class="nv">mu4e-compose-parent-message</span>
+            <span class="p">(</span><span class="k">let</span> <span class="p">((</span><span class="nv">maildir</span> <span class="p">(</span><span class="nv">mu4e-message-field</span> <span class="nv">mu4e-compose-parent-message</span> <span class="ss">:maildir</span><span class="p">)))</span>
+        <span class="p">(</span><span class="nv">string-match</span> <span class="s">"/\\(.*?\\)/"</span> <span class="nv">maildir</span><span class="p">)</span>
+        <span class="p">(</span><span class="nv">match-string</span> <span class="mi">1</span> <span class="nv">maildir</span><span class="p">))</span>
+          <span class="p">(</span><span class="nv">completing-read</span> <span class="p">(</span><span class="nb">format</span> <span class="s">"Compose with account: (%s) "</span>
+                 <span class="p">(</span><span class="nv">mapconcat</span> <span class="nf">#'</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">var</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">var</span><span class="p">))</span>
+                <span class="nv">my-mu4e-account-alist</span> <span class="s">"/"</span><span class="p">))</span>
+               <span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#'</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">var</span><span class="p">)</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">var</span><span class="p">))</span> <span class="nv">my-mu4e-account-alist</span><span class="p">)</span>
+               <span class="no">nil</span> <span class="no">t</span> <span class="no">nil</span> <span class="no">nil</span> <span class="p">(</span><span class="nb">caar</span> <span class="nv">my-mu4e-account-alist</span><span class="p">))))</span>
+       <span class="p">(</span><span class="nv">account-vars</span> <span class="p">(</span><span class="nb">cdr</span> <span class="p">(</span><span class="nb">assoc</span> <span class="nv">account</span> <span class="nv">my-mu4e-account-alist</span><span class="p">))))</span>
+        <span class="p">(</span><span class="k">if</span> <span class="nv">account-vars</span>
+      <span class="p">(</span><span class="nb">mapc</span> <span class="nf">#'</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">var</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">set</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">var</span><span class="p">)</span> <span class="p">(</span><span class="nb">cadr</span> <span class="nv">var</span><span class="p">)))</span>
+            <span class="nv">account-vars</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">error</span> <span class="s">"No email account found"</span><span class="p">))))</span>
+    <span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'mu4e-compose-pre-hook</span> <span class="ss">'my-mu4e-set-account</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="org-integration">Org Integration</h2>
+
+<p>I use <em>org-mu4e</em> to store emails or search queries as links (org-store-link),
+insert links in any org document such as my todo list (org-store-link) and
+follow the link when I need to (evil-org-open-links).</p>
+
+<p>Refer to <a href="https://www.djcbsoftware.nl/code/mu/mu4e/Org_002dmode-links.html"><em>this link</em></a> for more customizations.</p>
+
+<div class="language-emacs-lisp highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="p">(</span><span class="nb">require</span> <span class="ss">'org-mu4e</span><span class="p">)</span>
+    <span class="p">(</span><span class="k">setq</span> <span class="nv">org-mu4e-link-query-in-headers-mode</span> <span class="no">nil</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="further-on">Further On</h1>
+
+<p>I’ll keep tweaking this configuration as I continue to use this wonderful
+text editing system. Many of the functions and configs that I copied from the
+Internet need more experimenting before I can feel comfortable hacking, and
+I’ll need much more experience to have my own customizations and hacks.</p>
+
+<p>If you are thinking about switching to emacs from vim yourself and like what
+you read, consider giving it a try for a few days to see if it works for you.</p>
+
+<p>You can certainly try my configuration out even if you’ve never used vim
+before, though that would make <em>evil-mode</em> and its related keybinding settings
+less sensible. I would highly recommend learning the <em>original</em> emacs
+keybindings in this case.</p>
+
+<p>Check back to this repository for updates if you liked it, have fun hacking
+around!</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#emacs" class="page__taxonomy-item" rel="tag">Emacs</a>
+    
+    </span>
+  </p>
+
+
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time datetime="2015-03-19T00:00:00+08:00">March 19, 2015</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=How+I+Switched+From+Vim+to+Emacs%20http%3A%2F%2Flocalhost%3A4000%2Fhow-i-switched-from-vim-to-emacs%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2Fhow-i-switched-from-vim-to-emacs%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2Fhow-i-switched-from-vim-to-emacs%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/software-design-principles-that-looks-solid/" class="pagination--pager" title="Software Design Principles - That Looks S.O.L.I.D
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/software-design-principles-that-looks-solid/" rel="permalink">Software Design Principles - That Looks S.O.L.I.D
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  22 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">This is the first post on Software Design Principles, I plan to cover all the
+Design Principles that I’ve had personal experiences with, so that this series
+...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-general-guidelines/" rel="permalink">Clean Code Tips and Tricks: General Guidelines
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  7 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back fellow computer witches and wizards, let’s get back to where we
+left on Clean Code Tips and Tricks. This will the be the last installment, we’ll...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-classes/" rel="permalink">Clean Code Tips and Tricks: Classes
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  8 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Welcome back to yet another post on Clean Code Tips and Tricks. We’ve covered
+variables and functions so far, be sure to check these posts out first if you
+h...</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/clean-code-tips-and-tricks-functions/" rel="permalink">Clean Code Tips and Tricks: Functions
+</a>
+      
+    </h2>
+    
+      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
+
+
+
+
+  13 minute read
+
+</p>
+    
+    <p class="archive__item-excerpt" itemprop="description">Hello fellow geeks, welcome back to the second instalment of Clean Code Tips and
+Tricks.
+
+</p>
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Hai Lang. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+
+  </body>
+</html>
